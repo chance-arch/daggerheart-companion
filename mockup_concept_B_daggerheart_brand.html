@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Concept B — Daggerheart-Branded</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Marcellus&family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600;700&display=swap');
+:root{
+  --paper:#efe3c4; --paper2:#e7d8b4; --panel:#fbf5e6; --panelEdge:#d8c39a;
+  --ink:#2c2114; --ink2:#4d3d27; --mut:#8a7551; --gold:#a9781f; --golddeep:#7c5512;
+  --teal:#1d6b60; --tealdeep:#124b43; --plum:#6a3fb0; --sage:#3f7d3a; --fear:#c0531d; --hope:#bb8c24;
+  --hp:#b23a2e; --stress:#c8821f; --armor:#1d8a78;
+  --disp:'Marcellus',Georgia,serif; --flav:'EB Garamond',Georgia,serif; --ui:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--ui);color:var(--ink);min-height:100vh;padding:20px 14px 60px;
+  background:
+   radial-gradient(900px 480px at 50% -8%,rgba(29,107,96,.18),transparent 60%),
+   radial-gradient(700px 500px at 100% 10%,rgba(169,120,31,.12),transparent 55%),
+   #e9dcbb url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='6'><rect width='6' height='6' fill='%23e9dcbb'/><circle cx='1' cy='1' r='.5' fill='%23dccba0'/></svg>")}
+.wrap{max-width:1080px;margin:0 auto}
+.note{font-size:12.5px;color:var(--ink2);text-align:center;margin-bottom:16px}
+.note b{color:var(--golddeep)}
+.banner{position:relative;border-radius:14px;padding:16px 20px;display:flex;gap:18px;align-items:center;flex-wrap:wrap;
+  background:linear-gradient(120deg,var(--tealdeep),#1d6b60 70%);border:2px solid var(--gold);
+  box-shadow:0 8px 26px rgba(40,30,12,.3)}
+.banner::after{content:"";position:absolute;inset:4px;border:1px solid rgba(233,220,187,.45);border-radius:10px;pointer-events:none}
+.avatar{width:92px;height:92px;border-radius:50%;flex:0 0 auto;background:radial-gradient(circle at 50% 35%,#2f8275,#10433b);
+  display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 4px #e9dcbb,0 0 0 6px var(--gold)}
+.avatar span{font-family:var(--disp);font-size:32px;color:#f3e7c6}
+.idblock{flex:1;min-width:200px}
+.idblock h1{font-family:var(--disp);font-size:31px;color:#f6ecd2;letter-spacing:.5px}
+.idblock .sub{font-family:var(--flav);font-style:italic;color:#ecdca f;color:#e9d4a3;font-size:15px;margin-top:2px}
+.idblock .meta{color:#d8e8e2;font-size:12.5px;margin-top:7px}
+.idblock .pill{display:inline-block;background:#e9dcbb;border-radius:20px;padding:1px 10px;color:var(--tealdeep);font-weight:600;font-size:11px}
+.lvl{flex:0 0 auto;width:70px;height:70px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:#e9dcbb;border:3px solid var(--gold)}
+.lvl b{font-family:var(--disp);font-size:28px;color:var(--tealdeep);line-height:1}
+.lvl span{font-size:8px;color:var(--golddeep);letter-spacing:1px;font-weight:700}
+.grid{display:grid;gap:12px;margin-top:12px}.cols2{grid-template-columns:1fr 1fr}
+@media(max-width:720px){.cols2{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1.5px solid var(--panelEdge);border-radius:12px;padding:13px 15px;box-shadow:0 4px 14px rgba(40,30,12,.12)}
+.h3{font-family:var(--disp);font-size:14px;color:var(--golddeep);letter-spacing:.5px;border-bottom:1.5px solid var(--panelEdge);padding-bottom:7px;margin-bottom:11px;display:flex;align-items:center;gap:8px}
+.h3::before{content:"◆";color:var(--gold);font-size:10px}
+.tiles{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}@media(max-width:560px){.tiles{grid-template-columns:repeat(3,1fr)}}
+.tile{background:#fdf9ee;border:1px solid var(--panelEdge);border-radius:10px;text-align:center;padding:10px 4px}
+.tile b{display:block;font-family:var(--ui);font-weight:700;font-size:23px;color:var(--ink)}
+.tile span{font-family:var(--disp);font-size:9px;color:var(--golddeep);letter-spacing:.6px;text-transform:uppercase}
+.tile small{font-size:8.5px;color:var(--mut)}
+.traits{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}@media(max-width:560px){.traits{grid-template-columns:repeat(3,1fr)}}
+.trait{background:#fdf9ee;border:1.5px solid var(--panelEdge);border-radius:11px;text-align:center;padding:9px 4px 7px}
+.trait.spell{border-color:var(--gold);box-shadow:0 0 0 2px rgba(169,120,31,.2)}
+.trait .lab{font-family:var(--disp);font-size:9.5px;color:var(--golddeep);text-transform:uppercase;letter-spacing:.5px}
+.trait .val{font-family:var(--ui);font-weight:700;font-size:24px;color:var(--ink)}
+.trait .uses{font-size:8px;color:var(--mut);margin-top:2px}
+.track{margin:10px 0}.track .lab{display:flex;justify-content:space-between;font-size:11.5px;color:var(--mut);margin-bottom:5px}.track .lab b{color:var(--ink2);font-weight:600}
+.pips{display:flex;flex-wrap:wrap;gap:5px}.pip{width:25px;height:25px}.pip svg{width:100%;height:100%;display:block}
+.roll{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.die{width:52px;height:52px;border-radius:11px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--ui);font-weight:700;border:2px solid}
+.die.hope{background:#fbf0d2;border-color:var(--gold);color:var(--golddeep)}.die.fear{background:#f6ddcb;border-color:var(--fear);color:var(--fear)}
+.die b{font-size:19px;line-height:1}.die span{font-size:8px;letter-spacing:.5px;text-transform:uppercase;margin-top:2px}
+.rollbtn{margin-left:auto;background:var(--teal);color:#f3e7c6;border:0;border-radius:9px;padding:11px 18px;font-weight:700;font-size:14px}
+.rollout{margin-top:9px;background:#fdf9ee;border:1px solid var(--panelEdge);border-radius:9px;padding:9px 11px;font-size:12.5px;color:var(--ink2)}
+.rollout b{color:var(--golddeep)}
+.cardgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:12px}
+.dcard{--dc:var(--plum);border-radius:13px;overflow:hidden;display:flex;flex-direction:column;min-height:226px;background:#fdf9ee;border:1.5px solid var(--dc)}
+.dc-top{background:var(--dc);padding:9px 12px 20px;position:relative}
+.dc-badges{display:flex;justify-content:space-between}
+.dc-lvl{width:27px;height:27px;border-radius:50%;background:#fdf9ee;color:var(--dc);font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center}
+.dc-recall{background:rgba(255,255,255,.25);border:1px solid rgba(255,255,255,.6);border-radius:20px;padding:2px 9px;color:#fff;font-size:10px;font-weight:600}
+.dc-name{position:absolute;left:0;right:0;bottom:5px;text-align:center;color:#fff;font-family:var(--disp);font-size:15px;letter-spacing:.4px;text-shadow:0 1px 4px rgba(0,0,0,.4)}
+.dc-type{text-align:center;font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--dc);font-weight:700;padding:6px;border-bottom:1px solid var(--panelEdge)}
+.dc-body{padding:9px 12px;font-family:var(--flav);font-size:13.5px;line-height:1.4;color:var(--ink2);flex:1}
+.dc-foot{display:flex;justify-content:space-between;align-items:center;padding:7px 11px;border-top:1px solid var(--panelEdge)}
+.dc-cast{background:var(--teal);color:#f3e7c6;border:0;border-radius:7px;padding:5px 12px;font-weight:700;font-size:11.5px}
+.dc-tag{font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut)}
+.foot{text-align:center;color:var(--mut);font-size:11px;margin-top:22px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="note">Concept B — <b>Daggerheart-branded</b> · warm parchment, gold + deep teal, art-forward (official book / Demiplane feel)</div>
+  <div class="banner">
+    <div class="avatar"><span>⚔</span></div>
+    <div class="idblock"><h1>Theron</h1>
+      <div class="sub">Wanderborne Orcow Druid · Warden of the Elements</div>
+      <div class="meta">Domains: <span class="pill">Sage</span> <span class="pill">Arcana</span> &nbsp;·&nbsp; Spellcast: Instinct</div>
+    </div>
+    <div class="lvl"><b>4</b><span>LVL · T2</span></div>
+  </div>
+  <div class="card" style="margin-top:12px"><div class="h3">Core Stats</div>
+    <div class="tiles">
+      <div class="tile"><b>11</b><span>Evasion</span></div><div class="tile"><b>6</b><span>Armor</span><small>6 open</small></div>
+      <div class="tile"><b>2</b><span>Prof</span><small>dmg dice</small></div><div class="tile"><b>13</b><span>Major</span></div>
+      <div class="tile"><b>24</b><span>Severe</span></div><div class="tile"><b>2/6</b><span>Hope</span></div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:12px"><div class="h3">Traits</div>
+    <div class="traits">
+      <div class="trait"><div class="lab">Agility</div><div class="val">+2</div><div class="uses">Sprint·Leap</div></div>
+      <div class="trait"><div class="lab">Strength</div><div class="val">+1</div><div class="uses">Lift·Smash</div></div>
+      <div class="trait"><div class="lab">Finesse</div><div class="val">+2</div><div class="uses">Control·Hide</div></div>
+      <div class="trait spell"><div class="lab">Instinct ✦</div><div class="val">+3</div><div class="uses">Spellcast</div></div>
+      <div class="trait"><div class="lab">Presence</div><div class="val">−1</div><div class="uses">Charm</div></div>
+      <div class="trait"><div class="lab">Knowledge</div><div class="val">+0</div><div class="uses">Recall</div></div>
+    </div>
+  </div>
+  <div class="grid cols2">
+    <div class="card"><div class="h3">Hit Points · Stress · Hope · Armor</div>
+      <div class="track"><div class="lab"><b>Hit Points</b><span>8 / 8</span></div><div class="pips" id="hp"></div></div>
+      <div class="track"><div class="lab"><b>Stress</b><span>2 / 6</span></div><div class="pips" id="st"></div></div>
+      <div class="track"><div class="lab"><b>Hope</b><span>2 / 6</span></div><div class="pips" id="ho"></div></div>
+      <div class="track"><div class="lab"><b>Armor</b><span>6 / 6</span></div><div class="pips" id="ar"></div></div>
+    </div>
+    <div class="card"><div class="h3">Duality Roll — Instinct (Spellcast)</div>
+      <div class="roll"><div class="die hope"><b>9</b><span>Hope</span></div><div class="die fear"><b>4</b><span>Fear</span></div><button class="rollbtn">Resolve ⚄</button></div>
+      <div class="rollout"><b>16</b> · with <b>HOPE</b> — you gain a Hope. <span style="color:var(--mut)">9+4 +3 Instinct · vs Difficulty 14: SUCCESS</span></div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:12px"><div class="h3">Domain Loadout</div>
+    <div class="cardgrid">
+      <div class="dcard" style="--dc:var(--plum)"><div class="dc-top"><div class="dc-badges"><span class="dc-lvl">1</span><span class="dc-recall">RECALL 1</span></div><div class="dc-name">Unleash Chaos</div></div><div class="dc-type">Arcana · Spell</div><div class="dc-body">Spend tokens (= Spellcast) to channel raw energy at a target in Far. On success, roll that many d10s as magic damage.</div><div class="dc-foot"><button class="dc-cast">Cast ✦</button><span class="dc-tag">3 tokens</span></div></div>
+      <div class="dcard" style="--dc:var(--plum)"><div class="dc-top"><div class="dc-badges"><span class="dc-lvl">2</span><span class="dc-recall">RECALL 1</span></div><div class="dc-name">Cinder Grasp</div></div><div class="dc-type">Arcana · Spell</div><div class="dc-body">Spellcast vs a target in Melee. On success: 1d20+3 magic and the target is lit On Fire.</div><div class="dc-foot"><button class="dc-cast">Cast ✦</button><span class="dc-tag">Melee</span></div></div>
+      <div class="dcard" style="--dc:var(--sage)"><div class="dc-top"><div class="dc-badges"><span class="dc-lvl">2</span><span class="dc-recall">RECALL 1</span></div><div class="dc-name">Natural Familiar</div></div><div class="dc-type">Sage · Spell</div><div class="dc-body">Spend a Hope to summon a nature spirit. Deal damage to an adversary in Melee of it to add a d6 to your damage.</div><div class="dc-foot"><button class="dc-cast">Summon ✦</button><span class="dc-tag">1 Hope</span></div></div>
+    </div>
+  </div>
+  <div class="foot">Concept B · Daggerheart-branded — warm cream, gold + teal, Marcellus display over Inter data, EB Garamond flavor.<br>Static look-and-feel mockup.</div>
+</div>
+<script>
+function pip(k,on){
+ if(k==='hp')return `<svg viewBox="0 0 24 24"><path d="M12 21C12 21 3.5 14.6 3.5 8.6 3.5 6 5.4 4.3 7.6 4.3 9.2 4.3 10.8 5.2 12 7 13.2 5.2 14.8 4.3 16.4 4.3 18.6 4.3 20.5 6 20.5 8.6 20.5 14.6 12 21 12 21Z" fill="${on?'#b23a2e':'#e7d8b4'}" stroke="${on?'#7c241b':'#c2ab7e'}" stroke-width="1.2"/></svg>`;
+ if(k==='st')return `<svg viewBox="0 0 24 24"><path d="M12 3.6 21.6 20.4 2.4 20.4Z" fill="${on?'#c8821f':'#e7d8b4'}" stroke="${on?'#8a560f':'#c2ab7e'}" stroke-width="1.2"/></svg>`;
+ if(k==='ar')return `<svg viewBox="0 0 24 24"><path d="M12 2.4 20 5.2V11C20 16 16.4 19.8 12 21.6 7.6 19.8 4 16 4 11V5.2Z" fill="${on?'#1d8a78':'#e7d8b4'}" stroke="${on?'#11564a':'#c2ab7e'}" stroke-width="1.2"/></svg>`;
+ return `<svg viewBox="0 0 24 24"><path d="M12 2.2 21.8 12 12 21.8 2.2 12Z" fill="${on?'#bb8c24':'#e7d8b4'}" stroke="${on?'#7c5512':'#c2ab7e'}" stroke-width="1.2"/></svg>`;
+}
+function fill(id,k,n,on){let h='';for(let i=0;i<n;i++)h+=`<div class="pip">${pip(k,i<on)}</div>`;document.getElementById(id).innerHTML=h;}
+fill('hp','hp',8,8);fill('st','st',6,2);fill('ho','hope',6,2);fill('ar','ar',6,6);
+</script>
+</body>
+</html>

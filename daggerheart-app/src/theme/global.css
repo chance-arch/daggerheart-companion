@@ -1,0 +1,10 @@
+*{box-sizing:border-box}
+html,body,#root{margin:0;min-height:100%}
+body{
+  background:var(--dh-bg);
+  background-image:radial-gradient(120% 90% at 50% -10%, #1a1430 0%, var(--dh-bg) 55%);
+  color:var(--dh-ink); font-family:var(--dh-font-data);
+  font-size:var(--dh-fs-body); -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{font-family:var(--dh-font-heading);color:var(--dh-ink-strong);letter-spacing:.04em}
+a{color:var(--dh-gold)}

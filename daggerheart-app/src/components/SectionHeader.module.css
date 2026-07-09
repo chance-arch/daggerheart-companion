@@ -1,0 +1,19 @@
+.header{
+  display:flex; align-items:center; justify-content:center; position:relative;
+  gap:10px; padding-bottom:6px; border-bottom:1px solid var(--dh-gold-dim);
+}
+.center{
+  display:inline-flex; align-items:center; gap:10px;
+}
+.ornament{
+  color:var(--dh-gold-2); font-size:var(--dh-fs-small);
+}
+.title{
+  font-family:var(--dh-font-heading); text-transform:uppercase;
+  letter-spacing:.16em; color:var(--dh-gold); font-size:14px;
+}
+.hint{
+  position:absolute; right:0; font-family:var(--dh-font-heading);
+  font-size:var(--dh-fs-small); letter-spacing:.08em; text-transform:uppercase;
+  color:var(--dh-mut);
+}

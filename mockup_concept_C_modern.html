@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Concept C — Clean Modern</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+:root{
+  --bg:#0e1116; --card:#161a21; --card2:#1d222c; --line:#272d39; --line2:#343c4b;
+  --ink:#e9ebf1; --mut:#8b93a3; --dim:#5d6575;
+  --accent:#e3a93a; --hope:#e3b341; --fear:#e0633a; --hp:#e2504b; --stress:#e0973a; --armor:#36b3a0;
+  --arcana:#9a6cff; --sage:#5bc06a;
+  --ui:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--ui);color:var(--ink);background:var(--bg);min-height:100vh;padding:20px 14px 60px}
+.wrap{max-width:1080px;margin:0 auto}
+.note{font-size:12.5px;color:var(--mut);text-align:center;margin-bottom:16px}.note b{color:var(--accent)}
+.banner{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.avatar{width:72px;height:72px;border-radius:18px;flex:0 0 auto;background:linear-gradient(135deg,#2a3142,#171b23);display:flex;align-items:center;justify-content:center;border:1px solid var(--line2)}
+.avatar span{font-size:28px;color:var(--accent)}
+.idblock{flex:1;min-width:200px}
+.idblock h1{font-size:25px;font-weight:800;letter-spacing:-.3px}
+.idblock .sub{color:var(--mut);font-size:13px;margin-top:3px}
+.idblock .meta{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.chip{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;border:1px solid var(--line2);color:var(--mut)}
+.chip.dot::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px;vertical-align:1px}
+.chip.sage::before{background:var(--sage)}.chip.arcana::before{background:var(--arcana)}
+.lvl{flex:0 0 auto;text-align:center;background:var(--card2);border:1px solid var(--line2);border-radius:14px;padding:8px 14px}
+.lvl b{display:block;font-size:24px;font-weight:800;line-height:1}.lvl span{font-size:9px;color:var(--mut);letter-spacing:.5px;text-transform:uppercase}
+.grid{display:grid;gap:12px;margin-top:12px}.cols2{grid-template-columns:1fr 1fr}@media(max-width:720px){.cols2{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px}
+.h3{font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:.8px;font-weight:600;margin-bottom:12px}
+.tiles{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}@media(max-width:560px){.tiles{grid-template-columns:repeat(3,1fr)}}
+.tile{background:var(--card2);border-radius:12px;text-align:center;padding:11px 4px}
+.tile b{display:block;font-size:23px;font-weight:700}.tile span{font-size:9.5px;color:var(--mut);text-transform:uppercase;letter-spacing:.4px}.tile small{font-size:8.5px;color:var(--dim)}
+.traits{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}@media(max-width:560px){.traits{grid-template-columns:repeat(3,1fr)}}
+.trait{background:var(--card2);border-radius:12px;text-align:center;padding:10px 4px;border:1px solid transparent}
+.trait.spell{border-color:var(--accent)}
+.trait .lab{font-size:9.5px;color:var(--mut);text-transform:uppercase;letter-spacing:.4px}
+.trait .val{font-size:24px;font-weight:700;margin-top:1px}.trait .uses{font-size:8px;color:var(--dim);margin-top:1px}
+.track{margin:11px 0}.track .lab{display:flex;justify-content:space-between;font-size:12px;color:var(--mut);margin-bottom:6px}.track .lab b{color:var(--ink);font-weight:600}
+.bar{height:12px;border-radius:7px;background:var(--card2);overflow:hidden;display:flex;gap:2px;padding:2px}
+.seg{flex:1;border-radius:3px;background:#2b313d}
+.seg.hp.on{background:var(--hp)}.seg.st.on{background:var(--stress)}.seg.ho.on{background:var(--hope)}.seg.ar.on{background:var(--armor)}
+.roll{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.die{width:50px;height:50px;border-radius:13px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:700;background:var(--card2);border:1px solid var(--line2)}
+.die.hope{color:var(--hope)}.die.fear{color:var(--fear)}
+.die b{font-size:19px;line-height:1}.die span{font-size:8px;color:var(--mut);text-transform:uppercase;margin-top:2px}
+.rollbtn{margin-left:auto;background:var(--accent);color:#1a1306;border:0;border-radius:11px;padding:12px 20px;font-weight:700;font-size:14px}
+.rollout{margin-top:10px;background:var(--card2);border-radius:11px;padding:10px 12px;font-size:12.5px;color:var(--ink)}.rollout b{color:var(--hope)}
+.cardgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(228px,1fr));gap:12px}
+.dcard{--dc:var(--arcana);background:var(--card2);border:1px solid var(--line2);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;min-height:200px;border-top:3px solid var(--dc)}
+.dc-head{padding:11px 13px 8px;display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.dc-name{font-size:15px;font-weight:700}
+.dc-meta{font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:.4px;margin-top:2px}
+.dc-meta i{font-style:normal;color:var(--dc);filter:brightness(1.15)}
+.dc-recall{font-size:10px;font-weight:600;color:var(--mut);background:var(--card);border:1px solid var(--line2);border-radius:20px;padding:2px 8px;white-space:nowrap}
+.dc-body{padding:0 13px 10px;font-size:12px;line-height:1.45;color:var(--mut);flex:1}
+.dc-foot{display:flex;justify-content:space-between;align-items:center;padding:9px 13px;border-top:1px solid var(--line)}
+.dc-cast{background:transparent;color:var(--accent);border:1px solid var(--accent);border-radius:9px;padding:6px 14px;font-weight:600;font-size:12px}
+.dc-tag{font-size:10px;color:var(--dim)}
+.foot{text-align:center;color:var(--dim);font-size:11px;margin-top:22px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="note">Concept C — <b>clean modern</b> · dark, minimal, utility-first (D&amp;D Beyond / Demiplane-clean). Theme via small touches; built for speed.</div>
+  <div class="banner">
+    <div class="avatar"><span>⚔</span></div>
+    <div class="idblock"><h1>Theron</h1>
+      <div class="sub">Wanderborne Orcow Druid · Warden of the Elements</div>
+      <div class="meta"><span class="chip dot sage">Sage</span><span class="chip dot arcana">Arcana</span><span class="chip">Spellcast: Instinct</span></div>
+    </div>
+    <div class="lvl"><b>4</b><span>Level · T2</span></div>
+  </div>
+  <div class="card" style="margin-top:12px"><div class="h3">Core stats</div>
+    <div class="tiles">
+      <div class="tile"><b>11</b><span>Evasion</span></div><div class="tile"><b>6</b><span>Armor</span><small>6 open</small></div>
+      <div class="tile"><b>2</b><span>Prof</span><small>dmg dice</small></div><div class="tile"><b>13</b><span>Major</span></div>
+      <div class="tile"><b>24</b><span>Severe</span></div><div class="tile"><b>2/6</b><span>Hope</span></div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:12px"><div class="h3">Traits</div>
+    <div class="traits">
+      <div class="trait"><div class="lab">Agility</div><div class="val">+2</div><div class="uses">Sprint·Leap</div></div>
+      <div class="trait"><div class="lab">Strength</div><div class="val">+1</div><div class="uses">Lift·Smash</div></div>
+      <div class="trait"><div class="lab">Finesse</div><div class="val">+2</div><div class="uses">Control·Hide</div></div>
+      <div class="trait spell"><div class="lab">Instinct ✦</div><div class="val">+3</div><div class="uses">Spellcast</div></div>
+      <div class="trait"><div class="lab">Presence</div><div class="val">−1</div><div class="uses">Charm</div></div>
+      <div class="trait"><div class="lab">Knowledge</div><div class="val">+0</div><div class="uses">Recall</div></div>
+    </div>
+  </div>
+  <div class="grid cols2">
+    <div class="card"><div class="h3">Resources</div>
+      <div class="track"><div class="lab"><b>Hit Points</b><span>8 / 8</span></div><div class="bar" id="hp"></div></div>
+      <div class="track"><div class="lab"><b>Stress</b><span>2 / 6</span></div><div class="bar" id="st"></div></div>
+      <div class="track"><div class="lab"><b>Hope</b><span>2 / 6</span></div><div class="bar" id="ho"></div></div>
+      <div class="track"><div class="lab"><b>Armor</b><span>6 / 6</span></div><div class="bar" id="ar"></div></div>
+    </div>
+    <div class="card"><div class="h3">Duality roll — Instinct (spellcast)</div>
+      <div class="roll"><div class="die hope"><b>9</b><span>Hope</span></div><div class="die fear"><b>4</b><span>Fear</span></div><button class="rollbtn">Resolve</button></div>
+      <div class="rollout"><b>16</b> · with <b>Hope</b> — you gain a Hope. <span style="color:var(--mut)">9+4 +3 Instinct · vs DC 14: success</span></div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:12px"><div class="h3">Domain loadout</div>
+    <div class="cardgrid">
+      <div class="dcard" style="--dc:var(--arcana)"><div class="dc-head"><div><div class="dc-name">Unleash Chaos</div><div class="dc-meta"><i>Arcana</i> · Spell · Lv 1</div></div><span class="dc-recall">Recall 1</span></div><div class="dc-body">Spend tokens (= Spellcast) to channel raw energy at a target in Far. On success, roll that many d10s as magic damage.</div><div class="dc-foot"><button class="dc-cast">Cast</button><span class="dc-tag">3 tokens</span></div></div>
+      <div class="dcard" style="--dc:var(--arcana)"><div class="dc-head"><div><div class="dc-name">Cinder Grasp</div><div class="dc-meta"><i>Arcana</i> · Spell · Lv 2</div></div><span class="dc-recall">Recall 1</span></div><div class="dc-body">Spellcast vs a target in Melee. On success: 1d20+3 magic and the target is lit On Fire.</div><div class="dc-foot"><button class="dc-cast">Cast</button><span class="dc-tag">Melee</span></div></div>
+      <div class="dcard" style="--dc:var(--sage)"><div class="dc-head"><div><div class="dc-name">Natural Familiar</div><div class="dc-meta"><i>Sage</i> · Spell · Lv 2</div></div><span class="dc-recall">Recall 1</span></div><div class="dc-body">Spend a Hope to summon a nature spirit. Deal damage to an adversary in Melee of it to add a d6 to your damage.</div><div class="dc-foot"><button class="dc-cast">Summon</button><span class="dc-tag">1 Hope</span></div></div>
+    </div>
+  </div>
+  <div class="foot">Concept C · clean modern — dark slate, single amber accent, Inter throughout, segmented resource bars.<br>Static look-and-feel mockup.</div>
+</div>
+<script>
+function bar(id,n,on,cls){let h='';for(let i=0;i<n;i++)h+=`<div class="seg ${cls} ${i<on?'on':''}"></div>`;document.getElementById(id).innerHTML=h;}
+bar('hp',8,8,'hp');bar('st',6,2,'st');bar('ho',6,2,'ho');bar('ar',6,6,'ar');
+</script>
+</body>
+</html>

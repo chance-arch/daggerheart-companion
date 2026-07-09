@@ -1,0 +1,10 @@
+# Firebase deploy cache (parked hosting setup)
+hosting/.firebase/
+
+# Node
+node_modules/
+
+# OneDrive / Windows noise
+desktop.ini
+~$*
+Thumbs.db

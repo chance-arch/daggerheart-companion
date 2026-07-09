@@ -1,0 +1,14 @@
+.tag{
+  display:inline-block; font-family:var(--dh-font-heading); font-weight:700;
+  font-size:11px; letter-spacing:.09em; text-transform:uppercase;
+  padding:3px 9px; border-radius:var(--dh-radius-pill); line-height:1.5;
+  white-space:nowrap; vertical-align:middle;
+}
+/* soft: light-tinted domain text on a dark, clearly-tinted chip — readable for every hue */
+.soft{
+  color:color-mix(in srgb, var(--dc,var(--dh-gold)) 40%, #ffffff);
+  background:color-mix(in srgb, var(--dc,var(--dh-gold)) 30%, #14101e);
+  border:1px solid color-mix(in srgb, var(--dc,var(--dh-gold)) 60%, transparent);
+}
+/* solid: dark text on full domain color */
+.solid{ color:#160f22; background:var(--dc,var(--dh-gold)); border:1px solid transparent }

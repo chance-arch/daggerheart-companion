@@ -1,0 +1,9 @@
+.wrap{ display:inline-flex; flex-direction:column; align-items:center; gap:10px }
+.pair{ display:flex; gap:18px }
+.col{ display:flex; flex-direction:column; align-items:center; gap:4px }
+.capHope{ font-family:var(--dh-font-heading); font-size:var(--dh-fs-small); letter-spacing:.12em; text-transform:uppercase; color:var(--dh-hope) }
+.capFear{ font-family:var(--dh-font-heading); font-size:var(--dh-fs-small); letter-spacing:.12em; text-transform:uppercase; color:var(--dh-ember) }
+.outcome{ font-family:var(--dh-font-data); font-size:14px; padding:5px 14px; border-radius:var(--dh-radius-pill); border:1px solid }
+.hope{ color:#f1d98f; border-color:var(--dh-hope-edge); background:color-mix(in srgb, var(--dh-hope) 12%, transparent) }
+.fear{ color:#f4a166; border-color:#9c560f; background:color-mix(in srgb, var(--dh-ember) 12%, transparent) }
+.crit{ color:#7fe0a0; border-color:#216b60; background:color-mix(in srgb, var(--dh-crit) 14%, transparent) }

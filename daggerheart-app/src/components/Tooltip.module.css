@@ -1,0 +1,12 @@
+.wrap{ position:relative; display:inline-block; outline:none }
+.bubble{
+  position:absolute; left:50%; transform:translateX(-50%); z-index:1100;
+  max-width:220px; width:max-content;
+  background:var(--dh-panel-2); border:1px solid var(--dh-line);
+  border-radius:var(--dh-radius-ctrl); padding:6px 9px;
+  font-family:var(--dh-font-flavor); font-size:var(--dh-fs-small); line-height:1.4;
+  color:var(--dh-ink); box-shadow:var(--dh-shadow-card);
+  pointer-events:none;
+}
+.top{ bottom:calc(100% + 6px) }
+.bottom{ top:calc(100% + 6px) }

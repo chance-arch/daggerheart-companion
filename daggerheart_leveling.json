@@ -1,0 +1,40 @@
+{
+  "meta": {
+    "title": "Daggerheart Leveling / Advancement Rules",
+    "source": "Daggerheart SRD 1.0 — Leveling Up (via daggerheartsrd.com/rules/leveling-up)",
+    "license": "Darrington Press Community Gaming License (DPCGL). SRD content (c) Critical Role, LLC.",
+    "sourceTier": "Official SRD (precedence rank 4)",
+    "generated": "2026-06-26",
+    "summary": "10 PC levels in 4 tiers. Each level-up: take tier achievements (if any), choose 2 advancements (from your tier or below), increase all damage thresholds by 1, and acquire a new domain card.",
+    "note": "Per-option advancement slot counts live on the official per-tier level-up sheet and are not fully enumerated in the SRD text; the choose-2 rule, double-cost options, and tier achievements below are authoritative. The level-up tool tracks 2 advancements/level with double-cost for Proficiency and Multiclass."
+  },
+  "tiers": [
+    {"tier": 1, "levels": [1]},
+    {"tier": 2, "levels": [2, 3, 4]},
+    {"tier": 3, "levels": [5, 6, 7]},
+    {"tier": 4, "levels": [8, 9, 10]}
+  ],
+  "tierEffects": "Your tier affects your damage thresholds, tier achievements, and access to advancements.",
+  "levelUpSteps": [
+    {"step": 1, "name": "Tier Achievements", "text": "Take any applicable tier achievements (levels 2, 5, 8)."},
+    {"step": 2, "name": "Advancements", "text": "Choose any two advancements with at least one unmarked slot from your tier or below. Options with multiple slots can be chosen more than once. When you choose an advancement, mark one of its slots."},
+    {"step": 3, "name": "Damage Thresholds", "text": "Increase all damage thresholds by 1."},
+    {"step": 4, "name": "Domain Cards", "text": "Acquire a new domain card at your level or lower from one of your class's domains and add it to your loadout or vault (loadout cap applies). You may also exchange one previously acquired card for a different one of the same level or lower."}
+  ],
+  "tierAchievements": {
+    "2": {"experience": "+2", "proficiency": "+1", "clearMarkedTraits": false, "text": "Gain a new Experience at +2 and permanently increase your Proficiency by 1."},
+    "5": {"experience": "+2", "proficiency": "+1", "clearMarkedTraits": true, "text": "Gain a new Experience at +2, permanently increase your Proficiency by 1, and clear any marked traits."},
+    "8": {"experience": "+2", "proficiency": "+1", "clearMarkedTraits": true, "text": "Gain a new Experience at +2, permanently increase your Proficiency by 1, and clear any marked traits."}
+  },
+  "advancements": [
+    {"id": "traits", "name": "Increase two unmarked character traits", "cost": 1, "repeatable": true, "effect": {"trait": "+1", "count": 2}, "text": "Choose two unmarked character traits and gain a permanent +1 bonus to them. You can't increase these again until the next tier (when a tier achievement clears the marks)."},
+    {"id": "hp", "name": "Add Hit Point slot(s)", "cost": 1, "repeatable": true, "effect": {"hpMax": "+1"}, "text": "Permanently add 1 or more Hit Point slots."},
+    {"id": "stress", "name": "Add Stress slot(s)", "cost": 1, "repeatable": true, "effect": {"stMax": "+1"}, "text": "Permanently add 1 or more Stress slots."},
+    {"id": "experience", "name": "Increase your Experiences", "cost": 1, "repeatable": true, "effect": {"experience": "+1", "count": 2}, "text": "Choose two Experiences and gain a permanent +1 bonus to both."},
+    {"id": "domainCard", "name": "Additional domain card", "cost": 1, "repeatable": true, "effect": {"domainCard": 1}, "text": "Take an additional domain card at or below your level from your class's domains (multiclass: at or below half your level from your chosen multiclass domain)."},
+    {"id": "evasion", "name": "Increase your Evasion", "cost": 1, "repeatable": true, "effect": {"evasion": "+1"}, "text": "Gain a permanent +1 bonus to your Evasion."},
+    {"id": "subclass", "name": "Upgraded subclass card", "cost": 1, "repeatable": true, "effect": {"subclassUpgrade": 1}, "text": "Take the next card for your subclass (foundation → specialization → mastery). Then cross out this tier's multiclass option."},
+    {"id": "proficiency", "name": "Increase your Proficiency", "cost": 2, "doubleCost": true, "repeatable": true, "effect": {"proficiency": "+1", "weaponDamageDice": "+1"}, "text": "Fill in one open Proficiency circle and increase your weapon's number of damage dice by 1. Costs TWO advancements (mark both slots)."},
+    {"id": "multiclass", "name": "Multiclass", "cost": 2, "doubleCost": true, "repeatable": false, "effect": {"multiclass": 1}, "text": "Choose an additional class, select one of its domains, gain its class feature, add the multiclass module, and take a subclass foundation card. Then cross out the upgraded-subclass option this tier and all other multiclass options. Costs TWO advancements (mark both slots)."}
+  ]
+}

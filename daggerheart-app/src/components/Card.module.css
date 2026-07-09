@@ -1,0 +1,19 @@
+.card{
+  position:relative; border-radius:var(--dh-radius-card);
+  background:linear-gradient(180deg,var(--dh-panel-2),var(--dh-panel));
+  border:1px solid var(--dh-line); border-left:5px solid var(--dc,var(--dh-gold-dim));
+  box-shadow:var(--dh-shadow-card); padding:12px 14px; color:var(--dh-ink);
+}
+.head{ display:flex; align-items:flex-start; gap:10px }
+.titleWrap{ flex:1; min-width:0 }
+.title{ margin:0; font-size:15px; color:var(--dh-ink-strong) }
+.metaRow{ display:flex; align-items:center; gap:8px; margin-top:4px; flex-wrap:wrap }
+.meta{ font-family:var(--dh-font-heading); font-size:var(--dh-fs-small); letter-spacing:.08em; color:var(--dh-mut); text-transform:uppercase }
+.recall{
+  flex:0 0 auto; width:26px; height:26px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--dh-font-data); font-weight:700; font-size:13px; color:var(--dh-ink-strong);
+  background:radial-gradient(circle at 50% 35%, var(--dh-panel-2), #100c1c);
+  border:1px solid var(--dc,var(--dh-gold-dim));
+}
+.body{ margin-top:9px; font-family:var(--dh-font-flavor); font-size:15px; line-height:1.55; color:var(--dh-ink) }

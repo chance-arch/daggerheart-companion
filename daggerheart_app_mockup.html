@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daggerheart App — Aesthetic Mockup</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cinzel+Decorative:wght@700;900&family=Inter:wght@400;500;600;700&display=swap');
+:root{
+  --bg:#0b0913; --bg2:#120f1d; --panel:#191426; --panel2:#221b34; --line:#332b4d; --line2:#473c6b;
+  --gold:#d8b059; --gold2:#b88f3c; --golddim:#7c6733; --ink:#ece2cd; --mut:#9a90ad;
+  --ember:#e0732c; --teal:#3fb0a0; --hp:#e23b3e; --stress:#f0a52e; --armor:#46c0ae; --hope:#e9c772;
+  --arcana:#7b46c9; --sage:#3f9b54;
+  --disp:'Cinzel',Georgia,serif; --deco:'Cinzel Decorative',serif; --ui:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--ui);color:var(--ink);min-height:100vh;padding:20px 14px 60px;
+  background:radial-gradient(1100px 500px at 50% -10%,#2a2046 0%,rgba(42,32,70,0) 55%),
+   radial-gradient(800px 600px at 100% 0,rgba(224,115,44,.08),transparent 45%),
+   radial-gradient(800px 600px at 0 100%,rgba(63,176,160,.06),transparent 45%),
+   linear-gradient(180deg,#0c0a16,#070610 75%);background-attachment:fixed}
+.wrap{max-width:1080px;margin:0 auto}
+.note{font-family:var(--ui);font-size:12.5px;color:var(--mut);text-align:center;margin-bottom:16px;letter-spacing:.3px}
+.note b{color:var(--gold)}
+/* ---- BANNER (lean-back, atmospheric) ---- */
+.banner{position:relative;border-radius:16px;padding:18px 20px;display:flex;gap:18px;align-items:center;flex-wrap:wrap;
+  background:radial-gradient(420px 200px at 16% 20%,rgba(123,70,201,.22),transparent 70%),linear-gradient(125deg,#251d3e,#171326 60%,#120f1d);
+  border:1px solid var(--gold2);box-shadow:0 12px 40px rgba(0,0,0,.5),0 0 0 4px rgba(10,8,16,.55) inset}
+.banner::before,.banner::after{content:"";position:absolute;width:24px;height:24px;border:2px solid var(--gold);opacity:.65}
+.banner::before{left:9px;top:9px;border-right:0;border-bottom:0;border-radius:6px 0 0 0}
+.banner::after{right:9px;bottom:9px;border-left:0;border-top:0;border-radius:0 0 6px 0}
+.avatar{width:96px;height:96px;border-radius:50%;flex:0 0 auto;background:
+  radial-gradient(circle at 50% 35%,#3a2f5e,#140f22);display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 0 3px #0a0812,0 0 0 6px var(--gold),0 0 0 8px #5a4a1f,0 0 24px rgba(216,176,89,.25)}
+.avatar span{font-family:var(--deco);font-size:34px;color:var(--gold)}
+.idblock{flex:1;min-width:200px}
+.idblock h1{font-family:var(--deco);font-size:30px;color:#fff;letter-spacing:.5px;text-shadow:0 2px 12px #000,0 0 22px rgba(216,176,89,.2)}
+.idblock .sub{font-family:var(--disp);color:var(--gold);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:2px;margin-top:4px}
+.idblock .meta{color:var(--mut);font-size:12.5px;margin-top:6px}
+.idblock .meta .pill{display:inline-block;border:1px solid var(--line2);border-radius:20px;padding:1px 9px;color:var(--gold);font-weight:600;font-size:11px}
+.lvl{flex:0 0 auto;width:74px;height:82px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 50% 30%,#241d3c,#100d1c);border:2px solid var(--gold);
+  clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.lvl b{font-family:var(--deco);font-size:30px;color:#fff;line-height:1}
+.lvl span{font-family:var(--disp);font-size:8px;color:var(--gold);letter-spacing:1.5px;margin-top:2px}
+/* ---- section + cards ---- */
+.grid{display:grid;gap:12px;margin-top:12px}
+.cols2{grid-template-columns:1fr 1fr}
+@media(max-width:720px){.cols2{grid-template-columns:1fr}}
+.card{background:linear-gradient(180deg,rgba(34,27,52,.92),rgba(20,16,32,.96));border:1px solid var(--line2);
+  border-radius:13px;padding:13px 15px;position:relative;box-shadow:0 6px 22px rgba(0,0,0,.35)}
+.card::before{content:"";position:absolute;left:14px;right:14px;top:0;height:2px;border-radius:2px;
+  background:linear-gradient(90deg,transparent,var(--gold2),var(--gold),var(--gold2),transparent);opacity:.5}
+.h3{font-family:var(--disp);font-size:12px;color:var(--gold);text-transform:uppercase;letter-spacing:2px;font-weight:700;
+  border-bottom:1px solid var(--line2);padding-bottom:7px;margin-bottom:11px}
+/* ---- DATA register: clean Inter, high legibility ---- */
+.tiles{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+@media(max-width:560px){.tiles{grid-template-columns:repeat(3,1fr)}}
+.tile{background:linear-gradient(180deg,#241e3a,#15111f);border:1px solid var(--line2);border-radius:10px;text-align:center;padding:10px 4px}
+.tile b{display:block;font-family:var(--ui);font-weight:700;font-size:23px;color:#fff;line-height:1.1}
+.tile span{font-family:var(--disp);font-size:8.5px;color:var(--gold);letter-spacing:1.3px;text-transform:uppercase;font-weight:600}
+.tile small{font-size:8.5px;color:var(--mut)}
+.traits{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+@media(max-width:560px){.traits{grid-template-columns:repeat(3,1fr)}}
+.trait{background:radial-gradient(circle at 50% 20%,#241d3c,#0d0a17 75%);border:1.5px solid var(--line2);border-radius:12px;text-align:center;padding:10px 4px 8px}
+.trait.spell{border-color:var(--gold);box-shadow:0 0 14px rgba(216,176,89,.3)}
+.trait .lab{font-family:var(--disp);font-size:9.5px;color:var(--gold);text-transform:uppercase;letter-spacing:1px;font-weight:700}
+.trait .val{font-family:var(--ui);font-weight:700;font-size:24px;color:#fff;line-height:1.15}
+.trait .uses{font-size:8px;color:var(--mut);margin-top:2px;line-height:1.2}
+/* tracks */
+.track{margin:10px 0}
+.track .lab{display:flex;justify-content:space-between;font-size:11.5px;color:var(--mut);margin-bottom:5px}
+.track .lab b{color:var(--ink);font-weight:600}
+.pips{display:flex;flex-wrap:wrap;gap:5px}
+.pip{width:26px;height:26px}
+.pip svg{width:100%;height:100%;display:block}
+.legend{font-size:11px;color:var(--mut);margin-top:4px}
+/* roll strip — the lean-in action surface */
+.roll{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:4px}
+.die{width:54px;height:54px;border-radius:11px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--ui);font-weight:700;border:1.5px solid}
+.die.hope{background:#1c1733;border-color:var(--gold);color:var(--gold)}
+.die.fear{background:#241019;border-color:var(--ember);color:var(--ember)}
+.die b{font-size:20px;line-height:1}.die span{font-size:8px;letter-spacing:1px;text-transform:uppercase;opacity:.85;margin-top:2px}
+.rollbtn{margin-left:auto;background:linear-gradient(180deg,#e6c878,#c39a44);color:#241a0a;border:0;border-radius:9px;
+  padding:11px 18px;font-family:var(--ui);font-weight:700;font-size:14px;letter-spacing:.3px}
+.rollout{margin-top:9px;background:#0f0d1a;border:1px solid var(--line);border-radius:9px;padding:9px 11px;font-size:12.5px;color:var(--ink)}
+.rollout b{color:var(--gold)}
+/* domain cards as physical cards */
+.cardgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:12px}
+.dcard{--dc:var(--arcana);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;min-height:230px;
+  background:linear-gradient(180deg,#16131f,#0d0b14);border:1px solid var(--dc);box-shadow:0 6px 18px #0009}
+.dc-top{background:linear-gradient(180deg,var(--dc),#0d0b14);padding:9px 12px 20px;position:relative}
+.dc-badges{display:flex;justify-content:space-between}
+.dc-lvl{width:28px;height:28px;border-radius:50%;background:#0d0b14;border:2px solid #ffffffaa;color:#fff;font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center}
+.dc-recall{background:#0d0b14cc;border:1px solid #fff6;border-radius:20px;padding:2px 9px;color:#fff;font-size:10px;font-weight:600;letter-spacing:.3px}
+.dc-name{position:absolute;left:0;right:0;bottom:5px;text-align:center;color:#fff;font-family:var(--disp);font-weight:700;font-size:15px;letter-spacing:.5px;text-shadow:0 2px 6px #000;padding:0 8px}
+.dc-type{text-align:center;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--dc);filter:brightness(1.55);font-weight:700;padding:6px 6px 4px;border-bottom:1px solid var(--line)}
+.dc-body{padding:9px 12px;font-size:11.5px;line-height:1.45;color:var(--ink);flex:1}
+.dc-foot{display:flex;justify-content:space-between;align-items:center;padding:7px 11px;border-top:1px solid var(--line);background:#0c0a12}
+.dc-cast{background:linear-gradient(180deg,#e6c878,#c39a44);color:#241a0a;border:0;border-radius:7px;padding:5px 12px;font-weight:700;font-size:11.5px;font-family:var(--ui)}
+.dc-tag{font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut)}
+.foot{text-align:center;color:var(--mut);font-size:11px;margin-top:22px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="note">Aesthetic mockup — <b>dark-fantasy grimoire</b> · live character sheet (phone &amp; desktop). Atmospheric identity up top; clean, glanceable data for play.</div>
+
+  <!-- BANNER -->
+  <div class="banner">
+    <div class="avatar"><span>⚔</span></div>
+    <div class="idblock">
+      <h1>Theron</h1>
+      <div class="sub">Wanderborne Orcow Druid · Warden of the Elements</div>
+      <div class="meta">Domains: <span class="pill">Sage</span> <span class="pill">Arcana</span> &nbsp;·&nbsp; Spellcast: Instinct</div>
+    </div>
+    <div class="lvl"><b>4</b><span>LVL · T2</span></div>
+  </div>
+
+  <!-- CORE STATS (data register) -->
+  <div class="card" style="margin-top:12px">
+    <div class="h3">Core Stats</div>
+    <div class="tiles">
+      <div class="tile"><b>11</b><span>Evasion</span></div>
+      <div class="tile"><b>6</b><span>Armor</span><small>6 open</small></div>
+      <div class="tile"><b>2</b><span>Prof</span><small>dmg dice</small></div>
+      <div class="tile"><b>13</b><span>Major</span><small>thr</small></div>
+      <div class="tile"><b>24</b><span>Severe</span><small>thr</small></div>
+      <div class="tile"><b>2/6</b><span>Hope</span></div>
+    </div>
+  </div>
+
+  <!-- TRAITS -->
+  <div class="card" style="margin-top:12px">
+    <div class="h3">Traits</div>
+    <div class="traits">
+      <div class="trait"><div class="lab">Agility</div><div class="val">+2</div><div class="uses">Sprint·Leap</div></div>
+      <div class="trait"><div class="lab">Strength</div><div class="val">+1</div><div class="uses">Lift·Smash</div></div>
+      <div class="trait"><div class="lab">Finesse</div><div class="val">+2</div><div class="uses">Control·Hide</div></div>
+      <div class="trait spell"><div class="lab">Instinct ✦</div><div class="val">+3</div><div class="uses">Spellcast</div></div>
+      <div class="trait"><div class="lab">Presence</div><div class="val">−1</div><div class="uses">Charm</div></div>
+      <div class="trait"><div class="lab">Knowledge</div><div class="val">+0</div><div class="uses">Recall</div></div>
+    </div>
+  </div>
+
+  <div class="grid cols2">
+    <!-- RESOURCES -->
+    <div class="card">
+      <div class="h3">Hit Points · Stress · Hope · Armor</div>
+      <div class="track"><div class="lab"><b>Hit Points</b><span>8 / 8</span></div><div class="pips" id="hp"></div></div>
+      <div class="track"><div class="lab"><b>Stress</b><span>2 / 6</span></div><div class="pips" id="st"></div></div>
+      <div class="track"><div class="lab"><b>Hope</b><span>2 / 6</span></div><div class="pips" id="ho"></div></div>
+      <div class="track"><div class="lab"><b>Armor</b><span>6 / 6</span></div><div class="pips" id="ar"></div></div>
+    </div>
+
+    <!-- ROLL STRIP (lean-in) -->
+    <div class="card">
+      <div class="h3">Duality Roll — Instinct (Spellcast)</div>
+      <div class="roll">
+        <div class="die hope"><b>9</b><span>Hope</span></div>
+        <div class="die fear"><b>4</b><span>Fear</span></div>
+        <button class="rollbtn">Resolve ⚄</button>
+      </div>
+      <div class="rollout"><b>16</b> · with <b style="color:var(--gold)">HOPE</b> — you gain a Hope. <span style="color:var(--mut)">9+4 +3 Instinct · vs Difficulty 14: SUCCESS</span></div>
+      <div class="legend" style="margin-top:9px">Big tap targets, two-tap resolve, outcome called automatically — the at-the-table surface stays uncluttered.</div>
+    </div>
+  </div>
+
+  <!-- DOMAIN CARDS -->
+  <div class="card" style="margin-top:12px">
+    <div class="h3">Domain Loadout — color-coded by domain</div>
+    <div class="cardgrid">
+      <div class="dcard" style="--dc:var(--arcana)">
+        <div class="dc-top"><div class="dc-badges"><span class="dc-lvl">1</span><span class="dc-recall">RECALL 1</span></div><div class="dc-name">Unleash Chaos</div></div>
+        <div class="dc-type">Arcana · Spell</div>
+        <div class="dc-body">Spend tokens (= Spellcast) to channel raw energy at a target in Far. On success, roll that many d10s as magic damage.</div>
+        <div class="dc-foot"><button class="dc-cast">Cast ✦</button><span class="dc-tag">3 tokens</span></div>
+      </div>
+      <div class="dcard" style="--dc:var(--arcana)">
+        <div class="dc-top"><div class="dc-badges"><span class="dc-lvl">2</span><span class="dc-recall">RECALL 1</span></div><div class="dc-name">Cinder Grasp</div></div>
+        <div class="dc-type">Arcana · Spell</div>
+        <div class="dc-body">Spellcast vs a target in Melee. On success: 1d20+3 magic and the target is lit <span style="color:var(--ember)">On Fire</span>.</div>
+        <div class="dc-foot"><button class="dc-cast">Cast ✦</button><span class="dc-tag">Melee</span></div>
+      </div>
+      <div class="dcard" style="--dc:var(--sage)">
+        <div class="dc-top"><div class="dc-badges"><span class="dc-lvl">2</span><span class="dc-recall">RECALL 1</span></div><div class="dc-name">Natural Familiar</div></div>
+        <div class="dc-type">Sage · Spell</div>
+        <div class="dc-body">Spend a Hope to summon a nature spirit. Deal damage to an adversary in Melee of it to add a d6 to your damage.</div>
+        <div class="dc-foot"><button class="dc-cast">Summon ✦</button><span class="dc-tag">1 Hope</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">Dark-fantasy grimoire · navy + gold with domain accents · Cinzel display over Inter for data legibility.<br>Resizes to one column on a phone. This is a static look-and-feel mockup, not the working app.</div>
+</div>
+<script>
+function pip(kind,on){
+  if(kind==='hp')return `<svg viewBox="0 0 24 24"><path d="M12 21C12 21 3.5 14.6 3.5 8.6 3.5 6 5.4 4.3 7.6 4.3 9.2 4.3 10.8 5.2 12 7 13.2 5.2 14.8 4.3 16.4 4.3 18.6 4.3 20.5 6 20.5 8.6 20.5 14.6 12 21 12 21Z" fill="${on?'#e23b3e':'#171327'}" stroke="${on?'#7c1c1f':'#4a4368'}" stroke-width="1.3"/></svg>`;
+  if(kind==='st')return `<svg viewBox="0 0 24 24"><path d="M12 3.6 21.6 20.4 2.4 20.4Z" fill="${on?'#f0a52e':'#171327'}" stroke="${on?'#9c560f':'#4a4368'}" stroke-width="1.3"/></svg>`;
+  if(kind==='ar')return `<svg viewBox="0 0 24 24"><path d="M12 2.4 20 5.2V11C20 16 16.4 19.8 12 21.6 7.6 19.8 4 16 4 11V5.2Z" fill="${on?'#46c0ae':'#171327'}" stroke="${on?'#216b60':'#4a4368'}" stroke-width="1.3"/></svg>`;
+  return `<svg viewBox="0 0 24 24"><path d="M12 2.2 21.8 12 12 21.8 2.2 12Z" fill="${on?'#e9c772':'#100d1c'}" stroke="${on?'#a8832f':'#7c6733'}" stroke-width="1.3"/></svg>`;
+}
+function fill(id,kind,n,on){let h='';for(let i=0;i<n;i++)h+=`<div class="pip">${pip(kind,i<on)}</div>`;document.getElementById(id).innerHTML=h;}
+fill('hp','hp',8,8);      // 8 hearts, all full
+fill('st','st',6,2);      // 6 stress, 2 marked
+fill('ho','hope',6,2);    // 6 hope, 2 available
+fill('ar','ar',6,6);      // 6 armor, all open
+</script>
+</body>
+</html>

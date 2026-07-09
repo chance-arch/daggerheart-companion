@@ -1,0 +1,28 @@
+.tile{
+  display:flex; flex-direction:column; align-items:center; gap:3px;
+  background:var(--dh-panel-2); border:1px solid var(--dh-line);
+  border-radius:var(--dh-radius-ctrl); padding:9px 12px; color:var(--dh-ink);
+  text-align:center;
+}
+.label{
+  font-family:var(--dh-font-heading); font-size:var(--dh-fs-small);
+  letter-spacing:.08em; text-transform:uppercase; color:var(--dh-mut);
+}
+.value{
+  font-family:var(--dh-font-data); font-size:23px; line-height:1.1;
+  color:var(--dh-ink-strong);
+}
+.sub{
+  font-family:var(--dh-font-flavor); font-size:10px; line-height:1.3;
+  color:var(--dh-mut);
+}
+.active{
+  border-color:var(--dh-gold); box-shadow:var(--dh-glow-gold);
+}
+.button{
+  cursor:pointer; min-height:var(--dh-tap-min); width:100%;
+  font:inherit; appearance:none; transition:border-color .12s ease, background .12s ease;
+}
+.button:hover{
+  border-color:var(--dh-gold-2); background:var(--dh-panel);
+}

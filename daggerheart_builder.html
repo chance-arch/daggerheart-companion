@@ -1,0 +1,337 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Daggerheart — Character Builder</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Cinzel+Decorative:wght@700&family=EB+Garamond&family=Inter:wght@400;600;700;800&display=swap');
+:root{--line:#332b4d;--line2:#473c6b;--gold:#d8b059;--gold2:#b88f3c;--ink:#ece2cd;--mut:#9a90ad;--ember:#e0732c;--arcana:#7b46c9;--sage:#3f9b54;--good:#46b06a;--ui:'Inter',system-ui,sans-serif;--disp:'Cinzel Decorative',serif;--head:'Cinzel',serif;--flav:'EB Garamond',serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--ui);color:var(--ink);min-height:100vh;padding:16px 12px 110px;font-size:14px;background:radial-gradient(1100px 500px at 50% -10%,#2a2046,transparent 55%),linear-gradient(180deg,#0c0a16,#070610 75%);background-attachment:fixed}
+.wrap{max-width:1000px;margin:0 auto}
+h1{font-family:var(--disp);font-size:24px;color:#fff;text-align:center;text-shadow:0 0 22px rgba(216,176,89,.25)}
+.sub{font-family:var(--head);color:var(--gold);text-align:center;font-size:11px;letter-spacing:2px;text-transform:uppercase;margin:6px 0 16px}
+.layout{display:grid;grid-template-columns:200px 1fr;gap:14px}@media(max-width:760px){.layout{grid-template-columns:1fr}}
+.rail{display:flex;flex-direction:column;gap:6px}
+.rail button{text-align:left;background:linear-gradient(180deg,#1f1a30,#171225);border:1px solid var(--line2);border-radius:10px;padding:10px 12px;color:var(--ink);font:600 12.5px var(--ui);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.rail button.active{border-color:var(--gold);box-shadow:0 0 12px rgba(216,176,89,.25);color:#fff}
+.rail button .n{width:20px;height:20px;border-radius:50%;border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;font-size:11px;flex:0 0 auto}
+.rail button.done .n{background:var(--good);border-color:var(--good);color:#06210f}
+@media(max-width:760px){.rail{flex-direction:row;flex-wrap:wrap}.rail button{flex:1;min-width:120px}}
+.panel{background:linear-gradient(180deg,rgba(34,27,52,.92),rgba(20,16,32,.96));border:1px solid var(--line2);border-radius:13px;padding:16px 18px;position:relative;min-height:340px}
+.panel::before{content:"";position:absolute;left:14px;right:14px;top:0;height:2px;border-radius:2px;background:linear-gradient(90deg,transparent,var(--gold2),var(--gold),var(--gold2),transparent);opacity:.5}
+.step-h{font-family:var(--disp);font-size:19px;color:#fff;margin-bottom:4px}
+.step-d{color:var(--mut);font-size:12.5px;margin-bottom:14px}
+.opt{border:1.5px solid var(--line2);border-radius:11px;padding:11px 13px;cursor:pointer;margin-bottom:9px;transition:.12s}
+.opt:hover{border-color:var(--gold)}.opt.sel{border-color:var(--gold);background:rgba(216,176,89,.08);box-shadow:0 0 12px rgba(216,176,89,.2)}
+.opt .t{font-family:var(--head);font-weight:700;color:#fff;font-size:14px;letter-spacing:.5px}
+.opt .m{color:var(--mut);font-size:12px;margin-top:2px}.opt .x{font-family:var(--flav);font-size:13px;color:var(--ink);margin-top:5px;line-height:1.4}
+.optgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.optgrid .opt{margin:0}
+.feat{border-left:3px solid var(--gold2);background:#0f0d1a;border-radius:0 8px 8px 0;padding:7px 11px;margin:6px 0;font-size:12.5px}.feat b{color:var(--gold)}.feat .ft{font-family:var(--flav);color:var(--ink);display:block;margin-top:2px;line-height:1.4}
+label.fl{display:block;font-family:var(--head);font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin:10px 0 3px}
+input,select,textarea{background:#0e0c18;border:1px solid var(--line);color:var(--ink);border-radius:7px;padding:8px 10px;font:14px var(--ui);width:100%}
+input:focus,select:focus{outline:none;border-color:var(--gold)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:560px){.twocol{grid-template-columns:1fr}}
+.traitrow{display:flex;align-items:center;gap:8px;margin:6px 0}.traitrow .lab{font-family:var(--head);width:90px;color:var(--gold);font-size:12px;text-transform:uppercase;letter-spacing:.5px}
+.chip{display:inline-block;border:1px solid var(--line2);border-radius:20px;padding:2px 10px;font-size:12px;margin:3px 4px 0 0;cursor:pointer}
+.chip.used{opacity:.3;text-decoration:line-through}.chip.pick{border-color:var(--gold);color:var(--gold)}
+.pillrow{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.foot{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(180deg,rgba(12,10,22,.4),#0a0812);border-top:1px solid var(--line2);padding:10px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px;z-index:40}
+.foot .sum{font-size:12px;color:var(--mut)}.foot .sum b{color:var(--ink)}
+.btn{background:linear-gradient(180deg,#2a2440,#211c34);color:var(--ink);border:1px solid var(--line2);border-radius:9px;padding:9px 16px;font:700 13px var(--ui);cursor:pointer}.btn:hover{border-color:var(--gold)}
+.btn.gold{background:linear-gradient(180deg,#e6c878,#c39a44);color:#241a0a;border-color:#f0d792}
+.note{font-size:11px;color:var(--mut);text-align:center;margin-top:14px;line-height:1.6}
+.exportbox{width:100%;min-height:180px;font-family:ui-monospace,monospace;font-size:11px}
+.toast{position:fixed;bottom:64px;left:50%;transform:translateX(-50%);background:#0e0c18;border:1px solid var(--gold);color:var(--ink);padding:9px 16px;border-radius:8px;opacity:0;transition:.25s;pointer-events:none;z-index:60;font-size:13px}.toast.show{opacity:1}
+.warn{color:var(--ember);font-size:12px;margin-top:6px}
+</style></head><body><div class="wrap">
+<h1>Daggerheart Character Builder</h1>
+<div class="sub">Concept A · Druid-first prototype · exports to the character sheet</div>
+<div class="layout"><div class="rail" id="rail"></div><div class="panel" id="panel"></div></div>
+<div class="note">Prototype builds a Druid (all subclasses, all heritage, traits, tier-1 gear, Sage/Arcana cards) and exports a character JSON you load into the sheet. Other classes come when we port to a hosted build.</div>
+</div>
+<div class="foot"><div class="sum" id="sum"></div><div style="display:flex;gap:8px"><button class="btn" id="backBtn">‹ Back</button><button class="btn gold" id="nextBtn">Next ›</button></div></div>
+<div class="toast" id="toast"></div>
+<script>
+/* parts p2 (data) + p3 (engine) are concatenated below */
+const TRAITS=["Agility","Strength","Finesse","Instinct","Presence","Knowledge"];
+const ARRAY=[2,1,1,0,0,-1];
+const DRUID={name:"Druid",domains:["Sage","Arcana"],evasion:10,hp:6,spellcast:"Instinct",
+ classItems:"A small bag of rocks and bones, or a strange pendant found in the dirt",
+ hopeFeature:{name:"Evolution",text:"Spend 3 Hope to enter a Beastform without marking Stress; raise one trait +1 until you drop out."},
+ classFeatures:[{name:"Beastform",text:"Mark a Stress to transform into a Beastform of your tier or lower."},{name:"Wildtouch",text:"Create minor, harmless nature effects at will."}],
+ subclasses:[
+  {name:"Warden of the Elements",spellcast:"Instinct",foundation:[{name:"Elemental Incarnation",text:"Mark a Stress to channel Fire, Earth, Water, or Air until you take Severe damage or your next rest."}]},
+  {name:"Warden of Renewal",spellcast:"Instinct",foundation:[{name:"Clarity of Nature",text:"Once per long rest, create a space of natural serenity; resting there clears Stress equal to your Instinct, split among allies."},{name:"Regeneration",text:"Touch a creature and spend 3 Hope; they clear 1d4 Hit Points."}]}
+ ]};
+const ANCESTRIES=[
+ ["Clank","Purposeful Design","At creation, choose an Experience aligned with your purpose; gain a permanent +1 to it.","Efficient","On a short rest, you can choose a long rest move instead."],
+ ["Drakona","Scales","When you would take Severe damage, mark a Stress to mark 1 fewer Hit Points.","Elemental Breath","Choose an element; use it as an Instinct weapon vs targets in Very Close for d8 magic (Prof)."],
+ ["Dwarf","Thick Skin","When you take Minor damage, mark 2 Stress instead of a Hit Point.","Increased Fortitude","Spend 3 Hope to halve incoming physical damage."],
+ ["Elf","Quick Reactions","Mark a Stress to gain advantage on a reaction roll.","Celestial Trance","During a rest, drop into a trance to choose an additional downtime move."],
+ ["Faerie","Luckbender","Once per session, after an action roll within Close range, spend 3 Hope to reroll the Duality Dice.","Wings","You can fly; while flying, mark a Stress after an attack to gain +2 Evasion against it."],
+ ["Faun","Caprine Leap","Leap anywhere within Close range as normal movement.","Kick","On a successful Melee attack, mark a Stress to deal +2d6 and knock back self or target to Very Close."],
+ ["Firbolg","Charge","Succeed on an Agility roll from Far/Very Far into Melee: mark a Stress to deal 1d12 physical to all in Melee.","Unshakable","When you would mark a Stress, roll a d6; on a 6, don't."],
+ ["Fungril","Fungril Network","Instinct Roll (12) to speak with others of your ancestry across any distance.","Death Connection","Touch a recently dead corpse, mark a Stress to extract one memory."],
+ ["Galapa","Shell","Gain a bonus to your damage thresholds equal to your Proficiency.","Retract","Mark a Stress to retract into your shell: resistance to physical, but disadvantage on actions and can't move."],
+ ["Giant","Endurance","Gain an additional Hit Point slot at character creation.","Reach","Treat Melee-range weapons/abilities as Very Close range."],
+ ["Goblin","Surefooted","You ignore disadvantage on Agility Rolls.","Danger Sense","Once per rest, mark a Stress to force an adversary to reroll an attack against you or an ally in Very Close."],
+ ["Halfling","Luckbringer","At the start of each session, everyone in your party gains a Hope.","Internal Compass","When you roll a 1 on your Hope Die, you can reroll it."],
+ ["Human","High Stamina","Gain an additional Stress slot at character creation.","Adaptability","When you fail a roll using an Experience, mark a Stress to reroll."],
+ ["Infernis","Fearless","When you roll with Fear, mark 2 Stress to change it into a roll with Hope.","Dread Visage","You have advantage on rolls to intimidate hostile creatures."],
+ ["Katari","Feline Instincts","On an Agility Roll, spend 2 Hope to reroll your Hope Die.","Retracting Claws","Agility Roll to scratch a target in Melee; on success they become temporarily Vulnerable."],
+ ["Orc","Sturdy","When you have 1 Hit Point remaining, attacks against you have disadvantage.","Tusks","On a successful Melee attack, spend a Hope to gore for +1d6 damage."],
+ ["Ribbet","Amphibious","You can breathe and move naturally underwater.","Long Tongue","Mark a Stress to use your tongue as a Finesse Close weapon for d12 physical (Prof)."],
+ ["Simiah","Natural Climber","Advantage on Agility Rolls involving balancing and climbing.","Nimble","Gain a permanent +1 to Evasion at character creation."]
+];
+const COMMUNITIES=[
+ ["Highborne","Privilege","Advantage on rolls to consort with nobles, negotiate prices, or leverage your reputation."],
+ ["Loreborne","Well-Read","Advantage on rolls involving the history, culture, or politics of a prominent person or place."],
+ ["Orderborne","Dedicated","Record three principles; once per rest, when embodying one through your action, roll a d20 as your Hope Die."],
+ ["Ridgeborne","Steady","Advantage on rolls to traverse dangerous cliffs/ledges, navigate harsh environments, and use survival knowledge."],
+ ["Seaborne","Know the Tide","On a roll with Fear, place a token (cap = level); spend before a roll for +1 each. Clear at session end."],
+ ["Slyborne","Scoundrel","Advantage on rolls to negotiate with criminals, detect lies, or find a safe place to hide."],
+ ["Underborne","Low-Light Living","In low light/shadow, advantage on rolls to hide, investigate, or perceive within the area."],
+ ["Wanderborne","Nomadic Pack","Add a Nomadic Pack; once per session spend a Hope to pull out a useful mundane item."],
+ ["Wildborne","Lightfoot","Your movement is naturally silent; advantage on rolls to move without being heard."]
+];
+const WEAPONS=[
+ {n:"Arcane Gauntlets",t:"Strength",r:"Melee",d:10,b:3,dt:"magic",bd:"Two-Handed"},
+ {n:"Battleaxe",t:"Strength",r:"Melee",d:10,b:3,dt:"physical",bd:"Two-Handed"},
+ {n:"Broadsword",t:"Agility",r:"Melee",d:8,b:0,dt:"physical",bd:"One-Handed",f:"Reliable: +1 to attack"},
+ {n:"Crossbow",t:"Finesse",r:"Far",d:6,b:1,dt:"physical",bd:"One-Handed"},
+ {n:"Cutlass",t:"Presence",r:"Melee",d:8,b:1,dt:"physical",bd:"One-Handed"},
+ {n:"Dagger",t:"Finesse",r:"Melee",d:8,b:1,dt:"physical",bd:"One-Handed"},
+ {n:"Dualstaff",t:"Instinct",r:"Far",d:6,b:3,dt:"magic",bd:"Two-Handed"},
+ {n:"Glowing Rings",t:"Agility",r:"Very Close",d:10,b:2,dt:"magic",bd:"Two-Handed"},
+ {n:"Greatstaff",t:"Knowledge",r:"Very Far",d:6,b:0,dt:"magic",bd:"Two-Handed",f:"Powerful"},
+ {n:"Greatsword",t:"Strength",r:"Melee",d:10,b:3,dt:"physical",bd:"Two-Handed",f:"Massive: -1 Evasion"},
+ {n:"Halberd",t:"Strength",r:"Very Close",d:10,b:2,dt:"physical",bd:"Two-Handed",f:"Cumbersome: -1 Finesse"},
+ {n:"Hallowed Axe",t:"Strength",r:"Melee",d:8,b:1,dt:"magic",bd:"One-Handed"},
+ {n:"Hand Runes",t:"Instinct",r:"Very Close",d:10,b:0,dt:"magic",bd:"One-Handed"},
+ {n:"Longbow",t:"Agility",r:"Very Far",d:8,b:3,dt:"physical",bd:"Two-Handed",f:"Cumbersome: -1 Finesse"},
+ {n:"Longsword",t:"Agility",r:"Melee",d:10,b:3,dt:"physical",bd:"Two-Handed"},
+ {n:"Mace",t:"Strength",r:"Melee",d:8,b:1,dt:"physical",bd:"One-Handed"},
+ {n:"Quarterstaff",t:"Instinct",r:"Melee",d:10,b:3,dt:"physical",bd:"Two-Handed"},
+ {n:"Rapier",t:"Presence",r:"Melee",d:8,b:0,dt:"physical",bd:"One-Handed",f:"Quick"},
+ {n:"Returning Blade",t:"Finesse",r:"Close",d:8,b:0,dt:"magic",bd:"One-Handed",f:"Returning"},
+ {n:"Scepter",t:"Presence",r:"Far",d:6,b:0,dt:"magic",bd:"Two-Handed",f:"Versatile"},
+ {n:"Shortbow",t:"Agility",r:"Far",d:6,b:3,dt:"physical",bd:"Two-Handed"},
+ {n:"Shortstaff",t:"Instinct",r:"Close",d:8,b:1,dt:"magic",bd:"One-Handed"},
+ {n:"Spear",t:"Finesse",r:"Very Close",d:8,b:3,dt:"physical",bd:"Two-Handed"},
+ {n:"Wand",t:"Knowledge",r:"Far",d:6,b:1,dt:"magic",bd:"One-Handed"},
+ {n:"Warhammer",t:"Strength",r:"Melee",d:12,b:3,dt:"physical",bd:"Two-Handed",f:"Heavy: -1 Evasion"}];
+const SECONDARY=[
+ {n:"Round Shield",t:"Strength",r:"Melee",d:4,b:0,dt:"physical",bd:"One-Handed",f:"Protective: +1 Armor Score"},
+ {n:"Tower Shield",t:"Strength",r:"Melee",d:6,b:0,dt:"physical",bd:"One-Handed",f:"Barrier: +2 Armor; -1 Evasion"},
+ {n:"Shortsword",t:"Agility",r:"Melee",d:8,b:0,dt:"physical",bd:"One-Handed",f:"Paired: +2 primary dmg in Melee"},
+ {n:"Small Dagger",t:"Finesse",r:"Melee",d:8,b:0,dt:"physical",bd:"One-Handed",f:"Paired: +2 primary dmg in Melee"},
+ {n:"Whip",t:"Presence",r:"Very Close",d:6,b:0,dt:"physical",bd:"One-Handed",f:"Startling"},
+ {n:"Hand Crossbow",t:"Finesse",r:"Far",d:6,b:1,dt:"physical",bd:"One-Handed"},
+ {n:"Grappler",t:"Finesse",r:"Close",d:6,b:0,dt:"physical",bd:"One-Handed",f:"Hooked"},
+ {n:"(none)",t:"Strength",r:"Melee",d:4,b:0,dt:"physical",bd:"One-Handed",none:true}];
+const ARMORS=[
+ {n:"Leather Armor",maj:6,sev:13,score:3,f:"",eva:0,agi:0},
+ {n:"Gambeson Armor",maj:5,sev:11,score:3,f:"Flexible: +1 Evasion",eva:1,agi:0},
+ {n:"Chainmail Armor",maj:7,sev:15,score:4,f:"Heavy: -1 Evasion",eva:-1,agi:0},
+ {n:"Full Plate Armor",maj:8,sev:17,score:4,f:"Very Heavy: -2 Evasion; -1 Agility",eva:-2,agi:-1}];
+const CARDS=[{"name": "Rune Ward", "domain": "Arcana", "lvl": 1, "recall": 0, "dc": "var(--arcana)", "text": "You have a deeply personal trinket that can be infused with protective magic and held as a ward by you or an ally. Describe what it is and why it's important to you. The ward's holder can spend a Hope to reduce incoming damage by 1d8.\n\nIf the Ward Die result is 8, the ward's power ends after it reduces damage this turn. It can be recharged for free on your next rest.", "mode": "ward"}, {"name": "Unleash Chaos", "domain": "Arcana", "lvl": 1, "recall": 1, "dc": "var(--arcana)", "text": "At the beginning of a session, place a number of tokens equal to your Spellcast trait on this card.\n\nMake a Spellcast Roll against a target within Far range and spend any number of tokens to channel raw energy from within yourself to unleash against them. On a success, roll a number of d10s equal to the tokens you spent and deal that much magic damage to the target. Mark a Stress to replenish this card with tokens (up to your Spellcast trait).\n\nAt the end of each session, clear all unspent tokens.", "mode": "tokens"}, {"name": "Wall Walk", "domain": "Arcana", "lvl": 1, "recall": 1, "dc": "var(--arcana)", "text": "Spend a Hope to allow a creature you can touch to climb on walls and ceilings as easily as walking on the ground. This lasts until the end of the scene or you cast Wall Walk again.", "mode": "note"}, {"name": "Cinder Grasp", "domain": "Arcana", "lvl": 2, "recall": 1, "dc": "var(--arcana)", "text": "Make a Spellcast Roll against a target within Melee range. On a success, the target instantly bursts into flames, takes 1d20+3 magic damage, and is temporarily lit On Fire.\n\nWhen a creature acts while On Fire, they must take an extra 2d6 magic damage if they are still On Fire at the end of their action.", "mode": "note"}, {"name": "Floating Eye", "domain": "Arcana", "lvl": 2, "recall": 0, "dc": "var(--arcana)", "text": "Spend a Hope to create a single, small floating orb that you can move anywhere within Very Far range. While this spell is active, you can see through the orb as though you're looking out from its position. You can transition between using your own senses and seeing through the orb freely. If the orb takes damage or moves out of range, the spell ends.", "mode": "note"}, {"name": "Counterspell", "domain": "Arcana", "lvl": 3, "recall": 2, "dc": "var(--arcana)", "text": "You can interrupt a magical effect taking place by making a reaction roll using your Spellcast trait. On a success, the effect stops and any consequences are avoided, and this card is placed in your vault.", "mode": "note"}, {"name": "Flight", "domain": "Arcana", "lvl": 3, "recall": 1, "dc": "var(--arcana)", "text": "Make a Spellcast Roll (15). On a success, place a number of tokens equal to your Agility on this card (minimum 1). When you make an action roll while flying, spend a token from this card. After the action that spends the last token is resolved, you descend to the ground directly below you.", "mode": "note"}, {"name": "Blink Out", "domain": "Arcana", "lvl": 4, "recall": 1, "dc": "var(--arcana)", "text": "Make a Spellcast Roll (12). On a success, spend a Hope to teleport to another point you can see within Far range. If any willing creatures are within Very Close range, spend an additional Hope for each creature to bring them with you.", "mode": "note"}, {"name": "Preservation Blast", "domain": "Arcana", "lvl": 4, "recall": 2, "dc": "var(--arcana)", "text": "Make a Spellcast Roll against all targets within Melee range. Targets you succeed against are forced back to Far range and take 8d8+3 magic damage using your Spellcast trait.", "mode": "note"}, {"name": "Chain Lightning", "domain": "Arcana", "lvl": 5, "recall": 1, "dc": "var(--arcana)", "text": "Mark 2 Stress to make a Spellcast Roll, unleashing lightning on all targets within Close range. Targets you succeed against must make a reaction roll with a Difficulty equal to the result of your Spellcast Roll. Targets who fail take 2d8+4 magic damage. Additional adversaries not already targeted by Chain Lightning and within Close range of previous targets who took damage must also make the reaction roll. Targets who fail take 2d8+4 magic damage. This chain continues until there are no more adversaries within range.", "mode": "note"}, {"name": "Premonition", "domain": "Arcana", "lvl": 5, "recall": 2, "dc": "var(--arcana)", "text": "You can channel arcane energy to have visions of the future. Once per long rest, immediately after the GM conveys the consequences of a roll you made, you can rescind the move and consequences like they never happened and make another move instead.", "mode": "note"}, {"name": "Rift Walker", "domain": "Arcana", "lvl": 6, "recall": 2, "dc": "var(--arcana)", "text": "Make a Spellcast Roll (15). On a success, you place an arcane marking on the ground where you currently stand. The next time you successfully cast Rift Walker, a rift in space opens up, providing safe passage back to the exact spot where the marking was placed. This rift stays open until you choose to close it or you cast another spell.\n\nYou can drop the spell at any time to cast Rift Walker again and place the marking somewhere new.", "mode": "note"}, {"name": "Telekinesis", "domain": "Arcana", "lvl": 6, "recall": 0, "dc": "var(--arcana)", "text": "Make a Spellcast Roll against a target within Far range. On a success, you can use your mind to move them anywhere within Far range of their original position. You can throw the lifted target as an attack by making an additional Spellcast Roll against the second target you're trying to attack. On a success, deal 12d4 physical damage to the second target using your Proficiency Die.", "mode": "note"}, {"name": "Arcana-Touched", "domain": "Arcana", "lvl": 7, "recall": 2, "dc": "var(--arcana)", "text": "When 4 or more of the domain cards in your loadout are from the Arcana domain, gain the following benefits:\n\n- +1 bonus to your Spellcast Rolls\n- Once per rest, you can switch the results of your Hope and Fear Dice.", "mode": "note"}, {"name": "Cloaking Blast", "domain": "Arcana", "lvl": 7, "recall": 2, "dc": "var(--arcana)", "text": "When you make a successful Spellcast Roll to cast a different spell, you can spend a Hope to become Cloaked. While Cloaked, you remain unseen if you are stationary when an adversary moves to where they would normally see you. When you move into or within an adversary's line of sight or make an attack, you are no longer Cloaked.", "mode": "note"}, {"name": "Arcane Reflection", "domain": "Arcana", "lvl": 8, "recall": 1, "dc": "var(--arcana)", "text": "When you would take magic damage, you can spend any number of Hope to roll that many d6s. If any roll a 6, the attack is reflected back to the caster, dealing the damage to them instead.", "mode": "note"}, {"name": "Confusing Aura", "domain": "Arcana", "lvl": 8, "recall": 2, "dc": "var(--arcana)", "text": "Make a Spellcast Roll (14). Once per long rest on a success, you create a layer of illusion over your body that makes it hard to tell exactly where you are. Mark any number of Stress to make that many additional layers. When an adversary makes an attack against you, roll a number of d6s equal to the number of layers currently active. If any roll a 5 or higher, one layer of the aura is destroyed and the attack fails. If all the results are 4 or lower, you take the damage and this spell ends.", "mode": "note"}, {"name": "Earthquake", "domain": "Arcana", "lvl": 9, "recall": 2, "dc": "var(--arcana)", "text": "Make a Spellcast Roll (16). Once per rest on a success, all targets within Very Far range who aren't flying must make a Reaction Roll (18). Targets who fail take 3d10+8 physical damage and are temporarily Vulnerable. Targets who succeed take half damage.\n\nAdditionally, when you succeed on the Spellcast Roll, all terrain within Very Far range becomes difficult to move through and structures within this range might sustain damage or crumble.", "mode": "note"}, {"name": "Sensory Projection", "domain": "Arcana", "lvl": 9, "recall": 0, "dc": "var(--arcana)", "text": "Once per rest, make a Spellcast Roll (15). On a success, drop into a vision that lets you clearly see and hear any place you have been before as though you are standing there in this moment. You can move freely in this vision and are not constrained by the physics or impediments of a physical body. This spell cannot be detected by mundane or magical means. You drop out of this vision upon taking damage or casting another spell.", "mode": "note"}, {"name": "Adjust Reality", "domain": "Arcana", "lvl": 10, "recall": 1, "dc": "var(--arcana)", "text": "After you or a willing ally make any roll, you can spend 5 Hope to change the numerical result of that roll to a result of your choice instead. The result must be plausible within the range of the dice.", "mode": "note"}, {"name": "Falling Sky", "domain": "Arcana", "lvl": 10, "recall": 1, "dc": "var(--arcana)", "text": "Make a Spellcast Roll against all adversaries within Far range. Mark any number of Stress to make shards of arcana rain down from above. Targets you succeed against take 1d20+2 magic damage for each Stress marked.", "mode": "note"}, {"name": "Gifted Tracker", "domain": "Sage", "lvl": 1, "recall": 0, "dc": "var(--sage)", "text": "When you're tracking a specific creature or group of creatures based on signs of their passage, you can spend any number of Hope and ask the GM that many questions from the following list.\n\n- What direction did they go?\n- How long ago did they pass through?\n- What were they doing in this location?\n- How many of them were here?\n\nWhen you encounter creatures you've tracked in this way, gain a +1 bonus to your Evasion against them.", "mode": "note"}, {"name": "Nature's Tongue", "domain": "Sage", "lvl": 1, "recall": 0, "dc": "var(--sage)", "text": "You can speak the language of the natural world. When you want to speak to the plants and animals around you, make an Instinct Roll (12). On a success, they'll give you the information they know. On a roll with Fear, their knowledge might be limited or come at a cost.\n\nAdditionally, before you make a Spellcast Roll while within a natural environment, you can spend a Hope to gain a +2 bonus to the roll.", "mode": "note"}, {"name": "Vicious Entangle", "domain": "Sage", "lvl": 1, "recall": 1, "dc": "var(--sage)", "text": "Make a Spellcast Roll against a target within Far range. On a success, roots and vines reach out from the ground, dealing 1d8+1 physical damage and temporarily Restraining the target.\n\nAdditionally on a success, you can spend a Hope to temporarily Restrain another adversary within Very Close range of your target.", "mode": "spellAtk", "range": "Far", "dmg": {"n": 1, "d": 8, "b": 1}}, {"name": "Conjure Swarm", "domain": "Sage", "lvl": 2, "recall": 1, "dc": "var(--sage)", "text": "Tekaira Armored Beetles: Mark a Stress to conjure armored beetles that encircle you. When you next take damage, reduce the severity by one threshold. You can spend a Hope to keep the beetles conjured after taking damage.\n\nFire Flies: Make a Spellcast Roll against all adversaries within Close range. Spend a Hope to deal 2d8+3 magic damage to targets you succeed against.", "mode": "note"}, {"name": "Natural Familiar", "domain": "Sage", "lvl": 2, "recall": 1, "dc": "var(--sage)", "text": "Spend a Hope to summon a small nature spirit or forest critter to your side until your next rest, you cast Natural Familiar again, or the familiar is targeted by an attack. If you spend an additional Hope, you can summon a familiar that flies. You can communicate with them, make a Spellcast Roll to command them to perform simple tasks, and mark a Stress to see through their eyes.\n\nWhen you deal damage to an adversary within Melee range of your familiar, you add a d6 to your damage roll.", "mode": "note"}, {"name": "Corrosive Projectile", "domain": "Sage", "lvl": 3, "recall": 1, "dc": "var(--sage)", "text": "Make a Spellcast Roll against a target within Far range. On a success, deal 6d4 magic damage using your Proficiency. Additionally, mark 2 or more Stress to make them permanently Corroded. While a target is Corroded, they gain a -1 penalty to their Difficulty for every 2 Stress you spent. This condition can stack.", "mode": "note"}, {"name": "Towering Stalk", "domain": "Sage", "lvl": 3, "recall": 1, "dc": "var(--sage)", "text": "Once per rest, you can conjure a thick, twisting stalk within Close range that can be easily climbed. Its height can grow up to Far range.\n\nMark a Stress to use this spell as an attack. Make a Spellcast Roll against an adversary or group of adversaries within Close range. The erupting stalk lifts targets you succeed against into the air and drops them, dealing d8 physical damage using your Proficiency.", "mode": "note"}, {"name": "Death Grip", "domain": "Sage", "lvl": 4, "recall": 1, "dc": "var(--sage)", "text": "Make a Spellcast Roll against a target within Close range and choose one of the following options:\n\n- You pull the target into Melee range or pull yourself into Melee range of them.\n- You constrict the target and force them to mark 2 Stress.\n- All adversaries between you and the target must succeed on a Reaction Roll (13) or be hit by vines, taking 3d6+2 physical damage.\n\nOn a success, vines reach out from your hands, causing the chosen effect and temporarily Restraining the target.", "mode": "note"}, {"name": "Healing Field", "domain": "Sage", "lvl": 4, "recall": 2, "dc": "var(--sage)", "text": "Once per long rest, you can conjure a field of healing plants around you. Everywhere within Close range of you bursts to life with vibrant nature, allowing you and all allies in the area to clear a Hit Point.\n\nSpend 2 Hope to allow you and all allies to clear 2 Hit Points instead.", "mode": "note"}, {"name": "Thorn Skin", "domain": "Sage", "lvl": 5, "recall": 1, "dc": "var(--sage)", "text": "Once per rest, spend a Hope to sprout thorns all over your body. When you do, place a number of tokens equal to your Spellcast trait on this card. When you take damage, you can spend any number of tokens to roll that number of d6s. Add the results together and reduce the incoming damage by that amount. If you're within Melee range of the attacker, deal that amount of damage back to them.\n\nWhen you take a rest, clear all unspent tokens.", "mode": "note"}, {"name": "Wild Fortress", "domain": "Sage", "lvl": 5, "recall": 1, "dc": "var(--sage)", "text": "Make a Spellcast Roll (13). On a success, spend 2 Hope to grow a natural barricade in the shape of a dome that you and one ally can take cover within. While inside the dome, a creature can't be targeted by attacks and can't make attacks. Attacks made against the dome automatically succeed. The dome has the following damage thresholds and lasts until it marks 3 Hit Points. Place tokens on this card to represent marking Hit Points.\n\nThresholds: 15/30", "mode": "note"}, {"name": "Conjured Steeds", "domain": "Sage", "lvl": 6, "recall": 0, "dc": "var(--sage)", "text": "Spend any number of Hope to conjure that many magical steeds (such as horses, camels, or elephants) that you and your allies can ride until your next long rest or the steeds take any damage. The steeds double your land speed while traveling and, when in danger, allow you to move within Far range without having to roll. Creatures riding a steed gain a -2 penalty to attack rolls and a +2 bonus to damage rolls.", "mode": "note"}, {"name": "Forager", "domain": "Sage", "lvl": 6, "recall": 1, "dc": "var(--sage)", "text": "As an additional downtime move you can choose, roll a d6 to see what you forage. Work with the GM to describe it and add it to your inventory as a consumable. Your party can carry up to five foraged consumables at a time.\n\n1. An unusual flower (Clear 2 Stress)\n2. A beautiful relic (Gain 2 Hope)\n3. An arcane rune (+2 to a Spellcast Roll)\n4. A healing vial (Clear 2 Hit Points)\n5. A luck charm (Reroll any die)\n6. Choose one of the options above.", "mode": "note"}, {"name": "Sage-Touched", "domain": "Sage", "lvl": 7, "recall": 2, "dc": "var(--sage)", "text": "When 4 or more of the domain cards in your loadout are from the Sage domain, gain the following benefits:\n\n- While you're in a natural environment, you gain a +2 bonus to your Spellcast Rolls.\n- Once per rest, you can double your Agility or Instinct when making a roll that uses that trait. You must choose to do this before you roll.", "mode": "note"}, {"name": "Wild Surge", "domain": "Sage", "lvl": 7, "recall": 2, "dc": "var(--sage)", "text": "Once per long rest, mark a Stress to channel the natural world around you and enhance yourself. Describe how your appearance changes, then place a d6 on this card with the 1 value facing up.\n\nWhile the Wild Surge Die is active, you add its value to every action roll you make. After you add its value to a roll, increase the Wild Surge Die's value by one. When the die's value would exceed 6 or you take a rest, this form drops and you must mark an additional Stress.", "mode": "note"}, {"name": "Forest Sprites", "domain": "Sage", "lvl": 8, "recall": 2, "dc": "var(--sage)", "text": "Make a Spellcast Roll (13). On a success, spend any number of Hope to create an equal number of small forest sprites who appear at points you choose within Far range, providing the following benefits:\n\n- Your allies gain a +3 bonus to attack rolls against adversaries within Melee range of a sprite.\n- An ally who marks an Armor Slot while within Melee range of a sprite can mark an additional Armor Slot.\n\nA sprite vanishes after granting a benefit or taking any damage.", "mode": "note"}, {"name": "Rejuvenation Barrier", "domain": "Sage", "lvl": 8, "recall": 1, "dc": "var(--sage)", "text": "Make a Spellcast Roll (15). Once per rest on a success, create a temporary barrier of protective energy around you at Very Close range. You and all allies within the barrier when this spell is cast clear 1d4 Hit Points. While the barrier is up, you and all allies within have resistance to physical damage from outside the barrier.\n\nWhen you move, the barrier follows you.", "mode": "note"}, {"name": "Fane of the Wilds", "domain": "Sage", "lvl": 9, "recall": 2, "dc": "var(--sage)", "text": "After a long rest, place a number of tokens equal to the number of Sage domain cards in your loadout and vault on this card.\n\nWhen you would make a Spellcast Roll, you can spend any number of tokens after the roll to gain a +1 bonus for each token spent.\n\nWhen you critically succeed on a Spellcast Roll for a Sage domain spell, gain a token.\n\nWhen you take a long rest, clear all unspent tokens.", "mode": "note"}, {"name": "Plant Dominion", "domain": "Sage", "lvl": 9, "recall": 1, "dc": "var(--sage)", "text": "Make a Spellcast Roll (18). Once per long rest on a success, you reshape the natural world, changing the surrounding plant life anywhere within Far range of you. For example, you can grow trees instantly, clear a path through dense vines, or create a wall of roots.", "mode": "note"}, {"name": "Force of Nature", "domain": "Sage", "lvl": 10, "recall": 2, "dc": "var(--sage)", "text": "Mark a Stress to transform into a hulking nature spirit, gaining the following benefits:\n\n- When you succeed on an attack or Spellcast Roll, gain a +10 bonus to the damage roll.\n- When you deal enough damage to defeat a creature within Close range, you absorb them and clear an Armor Slot.\n- You can't be Restrained.\n\nBefore you make an action roll, you must spend a Hope. If you can't, you revert to your normal form.", "mode": "note"}, {"name": "Tempest", "domain": "Sage", "lvl": 10, "recall": 2, "dc": "var(--sage)", "text": "Choose one of the following tempests and make a Spellcast Roll against all targets within Far range. Targets you succeed against experience its effects until the GM spends a Fear on their turn to end this spell.\n\n- Blizzard: Deal 2d20+8 magic damage and targets are temporarily Vulnerable.\n- Hurricane: Deal 3d10+10 magic damage and choose a direction the wind is blowing. Targets can't move against the wind.\n- Sandstorm: Deal 5d6+9 magic damage. Attacks made from beyond Melee range have disadvantage.", "mode": "note"}];
+const CARDS_L1=CARDS.filter(c=>c.lvl===1);
+const SUBUP={"Warden of the Elements": {"specialization": [{"name": "Elemental Aura", "text": "Once per rest while Channeling, you can assume an aura matching your element. The aura affects targets within Close range until your Channeling ends.\n- Fire: When an adversary marks 1 or more Hit Points, they must also mark a Stress.\n- Earth: Your allies gain a +1 bonus to Strength.\n- Water: When an adversary deals damage to you, you can mark a Stress to move them anywhere within Very Close range of where they are.\n- Air: When you or an ally takes damage from an attack beyond Melee range, reduce the damage by 1d8."}], "mastery": [{"name": "Elemental Dominion", "text": "You further embody your element. While Channeling, you gain the following benefit:\n- Fire: You gain a +1 bonus to your Proficiency for attacks and spells that deal damage.\n- Earth: When you would mark Hit Points, roll a d6 per Hit Point marked. For each result of 6, reduce the number of Hit Points you mark by 1.\n- Water: When an attack against you succeeds, you can mark a Stress to make the attacker temporarily Vulnerable.\n- Air: You gain a +1 bonus to your Evasion and can fly."}]}, "Warden of Renewal": {"specialization": [{"name": "Regenerative Reach", "text": "You can target creatures within Very Close range with your \"Regeneration\" feature."}, {"name": "Warden's Protection", "text": "Once per long rest, spend 2 Hope to clear 2 Hit Points on 1d4 allies within Close range."}], "mastery": [{"name": "Defender", "text": "Your animal transformation embodies a healing guardian spirit. When you're in Beastform and an ally within Close range marks 2 or more Hit Points, you can mark a Stress to reduce the number of Hit Points they mark by 1."}]}};
+const REC={Druid:["Instinct","Strength","Agility","Presence","Finesse","Knowledge"]};
+const ADV=[{"id": "traits", "name": "Increase two unmarked traits (+1 each)", "cost": 1}, {"id": "hp", "name": "Add a Hit Point slot", "cost": 1}, {"id": "stress", "name": "Add a Stress slot", "cost": 1}, {"id": "evasion", "name": "Increase Evasion (+1)", "cost": 1}, {"id": "exp", "name": "Increase two Experiences (+1 each)", "cost": 1}, {"id": "domain", "name": "Take an additional domain card", "cost": 1}, {"id": "subclass", "name": "Upgrade subclass card", "cost": 1}, {"id": "prof", "name": "Increase Proficiency (+1)", "cost": 2}, {"id": "multiclass", "name": "Multiclass (not supported in prototype)", "cost": 2, "disabled": true}];
+let B={step:0,level:1,subclass:0,ancestry:null,community:null,mixed:null,
+ traitMode:"std",traitAssign:{},custom:{},
+ weaponIdx:0,secondaryIdx:7,armorIdx:0,cards:[],
+ exp1:"",exp2:"",name:"",pronouns:"",adv:{}};
+const $=id=>document.getElementById(id);
+const sgn=n=>(n>=0?"+":"")+n;
+const d=s=>Math.floor(Math.random()*s)+1;
+function toast(m){const t=$("toast");t.textContent=m;t.classList.add("show");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),1700);}
+const TRAITUSES={Agility:"Sprint·Leap·Maneuver",Strength:"Lift·Smash·Grapple",Finesse:"Control·Hide·Tinker",Instinct:"Perceive·Sense·Navigate",Presence:"Charm·Perform·Deceive",Knowledge:"Recall·Analyze·Comprehend"};
+const STEPS=[
+ {k:"class",label:"Class & Level"},{k:"heritage",label:"Heritage"},{k:"traits",label:"Traits"},
+ {k:"equip",label:"Equipment"},{k:"cards",label:"Domain Cards"},{k:"exp",label:"Experiences"},
+ {k:"adv",label:"Advancement"},{k:"export",label:"Review & Export"}];
+const tierOf=l=>l<=1?1:l<=4?2:l<=7?3:4;
+const subName=()=>DRUID.subclasses[B.subclass].name;
+function hasAnc(nm){if(B.mixed)return ANCESTRIES[B.mixed.top]&&ANCESTRIES[B.mixed.top][0]===nm||ANCESTRIES[B.mixed.bot]&&ANCESTRIES[B.mixed.bot][0]===nm;return B.ancestry!=null&&ANCESTRIES[B.ancestry][0]===nm;}
+function ancTop(nm){return B.mixed?(ANCESTRIES[B.mixed.top]&&ANCESTRIES[B.mixed.top][0]===nm):(B.ancestry!=null&&ANCESTRIES[B.ancestry][0]===nm);}
+function ancBot(nm){return B.mixed?(ANCESTRIES[B.mixed.bot]&&ANCESTRIES[B.mixed.bot][0]===nm):(B.ancestry!=null&&ANCESTRIES[B.ancestry][0]===nm);}
+function ancestryLabel(){if(B.mixed){const a=ANCESTRIES[B.mixed.top],b=ANCESTRIES[B.mixed.bot];return (B.mixed.name||"Mixed Ancestry")+(a&&b?` (${a[0]}/${b[0]})`:"");}return B.ancestry!=null?ANCESTRIES[B.ancestry][0]:"—";}
+function ancFeatures(){if(B.mixed){const a=ANCESTRIES[B.mixed.top],b=ANCESTRIES[B.mixed.bot];const r=[];if(a)r.push({name:a[1],text:a[2]});if(b)r.push({name:b[3],text:b[4]});return r;}if(B.ancestry==null)return [];const a=ANCESTRIES[B.ancestry];return [{name:a[1],text:a[2]},{name:a[3],text:a[4]}];}
+function recAssign(){const order=REC[DRUID.name]||TRAITS;const vals=[...ARRAY].sort((a,b)=>b-a);const o={};order.forEach((t,i)=>o[t]=vals[i]);return o;}
+function getTraits(){const o={};if(B.traitMode==="custom"){TRAITS.forEach(t=>o[t]=Number.isFinite(+B.custom[t])&&B.custom[t]!==""?+B.custom[t]:0);}else if(B.traitMode==="rec"){const r=recAssign();TRAITS.forEach(t=>o[t]=r[t]);}else{TRAITS.forEach(t=>o[t]=Number(B.traitAssign[t]||0));}return o;}
+function valid(i){
+ if(i===1){if(B.community==null)return false;return B.mixed?(B.mixed.top!=null&&B.mixed.bot!=null&&!!(B.mixed.name||"").trim()):(B.ancestry!=null);}
+ if(i===2){if(B.traitMode==="rec")return true;if(B.traitMode==="custom")return TRAITS.every(t=>B.custom[t]!==""&&B.custom[t]!=null&&Number.isFinite(+B.custom[t]));const v=Object.values(B.traitAssign);if(v.length!==6||v.some(x=>x===""))return false;return JSON.stringify(v.map(Number).sort((a,b)=>a-b))===JSON.stringify([...ARRAY].sort((a,b)=>a-b));}
+ if(i===4)return B.cards.length===2;
+ if(i===5)return B.exp1.trim()&&B.exp2.trim();
+ if(i===6)return true;
+ return true;}
+function renderRail(){$("rail").innerHTML=STEPS.map((s,i)=>{const skip=(i===6&&B.level<=1);const lab=skip?s.label+" (L1: none)":s.label;return `<button class="${i===B.step?'active':''} ${valid(i)&&i<B.step?'done':''}" data-go="${i}"><span>${lab}</span><span class="n">${valid(i)&&i<B.step?'✓':i+1}</span></button>`;}).join("");}
+function opt(sel,t,m,x,attr){return `<div class="opt ${sel?'sel':''}" ${attr||''}><div class="t">${t}</div>${m?`<div class="m">${m}</div>`:""}${x?`<div class="x">${x}</div>`:""}</div>`;}
+function renderStep(){const p=$("panel");const i=B.step;let h="";
+ if(i===0){h=`<div class="step-h">Class & Level</div><div class="step-d">This prototype builds a Druid. Choose your subclass and your starting level — the builder will advance the character to that level.</div>`;
+  h+=opt(true,"Druid","Domains: Sage & Arcana · Evasion 10 · HP 6 · Spellcast: Instinct","Beastform; Wildtouch; Hope Feature: Evolution","");
+  h+=`<label class="fl">Subclass</label>`+DRUID.subclasses.map((s,si)=>opt(B.subclass===si,s.name,"Spellcast: "+s.spellcast,s.foundation.map(f=>"<b>"+f.name+":</b> "+f.text).join("<br>"),`data-sub="${si}"`)).join("");
+  h+=`<label class="fl">Starting Level</label><select data-f2="level" style="width:120px">`+Array.from({length:10},(_,k)=>k+1).map(l=>`<option value="${l}" ${B.level===l?'selected':''}>Level ${l}</option>`).join("")+`</select>`;
+  h+=`<div class="note" style="text-align:left;margin-top:8px">Tier ${tierOf(B.level)}. ${B.level>1?`The Advancement step will walk levels 2–${B.level} with a recommended path you can adjust.`:"Level 1 — no advancements."}</div>`;}
+ else if(i===1){const mixed=!!B.mixed;
+  h=`<div class="step-h">Heritage</div><div class="step-d">Choose an ancestry (or build a Mixed Ancestry) and a community.</div>`;
+  h+=`<div class="seg" style="display:flex;gap:6px;margin-bottom:8px"><button class="btn ${!mixed?'gold':''}" data-mix="0" style="padding:6px 12px">Single Ancestry</button><button class="btn ${mixed?'gold':''}" data-mix="1" style="padding:6px 12px">Mixed Ancestry</button></div>`;
+  if(!mixed){h+=`<label class="fl">Ancestry</label><div class="optgrid">`+ANCESTRIES.map((a,ai)=>`<div class="opt ${B.ancestry===ai?'sel':''}" data-anc="${ai}"><div class="t">${a[0]}</div></div>`).join("")+`</div>`;
+   ancFeatures().forEach(f=>h+=`<div class="feat"><b>${f.name}</b><span class="ft">${f.text}</span></div>`);}
+  else{h+=`<label class="fl">Name your mixed ancestry</label><input data-f="mixname" value="${(B.mixed.name||'').replace(/"/g,'&quot;')}" placeholder="e.g. Half-Elf, Stoneborn, Drake-Touched">`;
+   h+=`<label class="fl">Top feature — take the <b>first-listed</b> feature from:</label><select data-mix2="top"><option value="">— choose ancestry —</option>`+ANCESTRIES.map((a,ai)=>`<option value="${ai}" ${B.mixed.top===ai?'selected':''}>${a[0]} — ${a[1]}</option>`).join("")+`</select>`;
+   h+=`<label class="fl">Bottom feature — take the <b>second-listed</b> feature from:</label><select data-mix2="bot"><option value="">— choose ancestry —</option>`+ANCESTRIES.map((a,ai)=>`<option value="${ai}" ${B.mixed.bot===ai?'selected':''}>${a[0]} — ${a[3]}</option>`).join("")+`</select>`;
+   const fs=ancFeatures();if(fs.length)fs.forEach(f=>h+=`<div class="feat"><b>${f.name}</b><span class="ft">${f.text}</span></div>`);else h+=`<div class="warn">Pick a top and bottom source to see your two features.</div>`;}
+  h+=`<label class="fl">Community</label><div class="optgrid">`+COMMUNITIES.map((c,ci)=>`<div class="opt ${B.community===ci?'sel':''}" data-com="${ci}"><div class="t">${c[0]}</div></div>`).join("")+`</div>`;
+  if(B.community!=null){const c=COMMUNITIES[B.community];h+=`<div class="feat"><b>${c[1]}</b><span class="ft">${c[2]}</span></div>`;}}
+ else if(i===2){h=`<div class="step-h">Traits</div><div class="step-d">Assign your six trait modifiers.</div>`;
+  h+=`<div class="seg" style="display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap"><button class="btn ${B.traitMode==='std'?'gold':''}" data-tm="std" style="padding:6px 12px">Standard Array</button><button class="btn ${B.traitMode==='rec'?'gold':''}" data-tm="rec" style="padding:6px 12px">Recommended</button><button class="btn ${B.traitMode==='custom'?'gold':''}" data-tm="custom" style="padding:6px 12px">Custom / Roll</button></div>`;
+  if(B.traitMode==="std"){h+=`<div class="step-d">Assign the array <b>+2, +1, +1, 0, 0, −1</b> — one value per trait.</div>`;
+   h+=TRAITS.map(tr=>{const cur=B.traitAssign[tr]??"";const optsv=[2,1,0,-1].map(v=>`<option value="${v}" ${String(cur)===String(v)?'selected':''}>${sgn(v)}</option>`).join("");return `<div class="traitrow"><span class="lab">${tr}</span><select data-trait="${tr}" style="width:90px"><option value="">—</option>${optsv}</select></div>`;}).join("");
+   const remain=[...ARRAY];Object.values(B.traitAssign).forEach(v=>{if(v!==""){const idx=remain.indexOf(Number(v));if(idx>-1)remain.splice(idx,1);}});
+   h+=`<div class="pillrow">Remaining: ${remain.length?remain.map(v=>`<span class="chip pick">${sgn(v)}</span>`).join(""):'<span style="color:var(--good)">all assigned ✓</span>'}</div>`;
+   if(!valid(2)&&Object.values(B.traitAssign).filter(x=>x!=="").length===6)h+=`<div class="warn">Values must match the array exactly (+2, +1, +1, 0, 0, −1).</div>`;}
+  else if(B.traitMode==="rec"){const r=recAssign();h+=`<div class="step-d">Recommended for ${DRUID.name} (${DRUID.subclasses[B.subclass].name}) — emphasizes Instinct (Spellcast).</div>`;
+   h+=TRAITS.map(tr=>`<div class="traitrow"><span class="lab">${tr}</span><span class="chip pick" style="min-width:42px;text-align:center">${sgn(r[tr])}</span>${tr==='Instinct'?'<span class="m" style="margin-left:6px">Spellcast</span>':''}</div>`).join("");}
+  else{h+=`<div class="step-d">Custom entry. Standard creation uses +2,+1,+1,0,0,−1; free entry / rolling is <b>homebrew</b> — confirm with your GM.</div>`;
+   h+=`<button class="btn" data-roll="1" style="margin-bottom:8px">🎲 Roll (homebrew: 2d4−4 per trait, −1…+4)</button>`;
+   h+=TRAITS.map(tr=>{const cur=B.custom[tr]??"";return `<div class="traitrow"><span class="lab">${tr}</span><input type="number" data-cust="${tr}" value="${cur}" style="width:80px" min="-3" max="6"></div>`;}).join("");
+   const sum=TRAITS.reduce((a,t)=>a+(+B.custom[t]||0),0);h+=`<div class="pillrow">Total modifier: <b style="color:var(--gold)">${sgn(sum)}</b> <span class="m">(standard array totals +3)</span></div>`;}}
+ else if(i===3){h=`<div class="step-h">Equipment</div><div class="step-d">Pick your starting gear (Tier 1). Damage dice scale with Proficiency (currently ${profPreview()}).</div>`;
+  h+=`<label class="fl">Primary Weapon</label><select data-eq="weaponIdx">`+WEAPONS.map((w,wi)=>`<option value="${wi}" ${B.weaponIdx===wi?'selected':''}>${w.n} — ${w.t}, ${w.r}, d${w.d}${w.b?'+'+w.b:''} ${w.dt}</option>`).join("")+`</select>`;
+  h+=`<label class="fl">Secondary Weapon</label><select data-eq="secondaryIdx">`+SECONDARY.map((w,wi)=>`<option value="${wi}" ${B.secondaryIdx===wi?'selected':''}>${w.none?'(none)':w.n+" — "+w.t+", "+w.r+", d"+w.d+(w.b?'+'+w.b:'')+(w.f?' · '+w.f:'')}</option>`).join("")+`</select>`;
+  h+=`<label class="fl">Armor</label><select data-eq="armorIdx">`+ARMORS.map((a,ai)=>`<option value="${ai}" ${B.armorIdx===ai?'selected':''}>${a.n} — Base Thresholds ${a.maj}/${a.sev}, Score ${a.score}${a.f?' · '+a.f:''}</option>`).join("")+`</select>`;
+  const arm=ARMORS[B.armorIdx];h+=`<div class="note" style="text-align:left;margin-top:8px">At Level ${B.level}, thresholds = base + level = <b>${arm.maj+B.level}/${arm.sev+B.level}</b> (Major/Severe).</div>`;}
+ else if(i===4){h=`<div class="step-h">Domain Cards</div><div class="step-d">Choose <b>2</b> starting cards from your domains (Sage & Arcana, level 1). Selected: ${B.cards.length}/2.</div>`;
+  h+=CARDS_L1.map((c,ci)=>opt(B.cards.includes(ci),c.name+"  —  "+c.domain,"Recall "+c.recall,c.text,`data-card="${ci}"`)).join("");}
+ else if(i===5){h=`<div class="step-h">Experiences</div><div class="step-d">Create two Experiences at <b>+2</b> each.</div><label class="fl">Experience 1 (+2)</label><input data-f="exp1" value="${B.exp1.replace(/"/g,'&quot;')}" placeholder="e.g. Forest Ranger"><label class="fl">Experience 2 (+2)</label><input data-f="exp2" value="${B.exp2.replace(/"/g,'&quot;')}" placeholder="e.g. Silver Tongue">`;}
+ else if(i===6){h=renderAdv();}
+ else if(i===7){h=renderExport();}
+ p.innerHTML=h;
+ $("backBtn").style.visibility=B.step===0?"hidden":"visible";
+ $("nextBtn").textContent=B.step===STEPS.length-1?"Done":"Next ›";
+ updateSum();}
+function profPreview(){let pr=1;for(const L of[2,5,8])if(B.level>=L)pr++;return pr+" (before advancements)";}
+function updateSum(){$("sum").innerHTML=`<b>${B.name||"Unnamed"}</b> · L${B.level} · ${B.community!=null?COMMUNITIES[B.community][0]+" ":""}${ancestryLabel()} Druid · ${subName()}`;}
+function render(){renderRail();renderStep();}
+function cardByName(n){return CARDS.find(c=>c.name===n);}
+function nextCard(L,owned){const pool=CARDS.filter(c=>c.lvl<=L&&!owned.includes(c.name));if(!pool.length)return null;
+ const sageN=owned.filter(n=>{const c=cardByName(n);return c&&c.domain==="Sage";}).length;const arcN=owned.length-sageN;const want=sageN<=arcN?"Sage":"Arcana";
+ const sorted=pool.slice().sort((a,b)=>(b.lvl-a.lvl)||(a.domain===want?-1:1));const pref=sorted.find(c=>c.domain===want);return pref||sorted[0];}
+function defaultAdv(){B.adv={};let subStage=0,marks={},owned=B.cards.map(ci=>CARDS_L1[ci].name);const fill=["hp","stress","evasion","exp"];let fi=0;
+ const order=REC[DRUID.name]||TRAITS;
+ for(let L=2;L<=B.level;L++){const tier=tierOf(L);if(L===5||L===8)marks={};
+  const e={a:null,b:null,ta:[],tb:[],ca:null,cb:null,card:null};let pts=2;const su=SUBUP[subName()]||{specialization:[],mastery:[]};
+  if(subStage===0&&tier>=2&&su.specialization.length){e.a="subclass";subStage=1;pts--;}
+  else if(subStage===1&&tier>=3&&su.mastery.length){e.a="subclass";subStage=2;pts--;}
+  const toFill=[];if(e.a==null)toFill.push("a");if(e.a!=null&&pts>0)toFill.push("b");if(e.a==null)toFill.push("b");
+  for(const sl of toFill){if(pts<=0)break;const um=order.filter(t=>!marks[t]);
+   if(um.length>=2){const t2=um.slice(0,2);if(sl==="a"){e.a="traits";e.ta=t2;}else{e.b="traits";e.tb=t2;}t2.forEach(t=>marks[t]=true);pts--;}
+   else{const id=fill[fi%fill.length];fi++;if(sl==="a")e.a=id;else e.b=id;pts--;}}
+  const c=nextCard(L,owned);if(c){e.card=c.name;owned.push(c.name);}
+  B.adv[L]=e;}}
+function computeProg(){const baseT=getTraits();const tr={};TRAITS.forEach(t=>tr[t]=baseT[t]);
+ let prof=1,hp=DRUID.hp+(ancTop("Giant")?1:0),st=6+(ancTop("Human")?1:0);
+ const arm=ARMORS[B.armorIdx],sec=SECONDARY[B.secondaryIdx];
+ let ev=DRUID.evasion+(ancBot("Simiah")?1:0)+(arm.eva||0)+(sec.n==="Tower Shield"?-1:0);
+ const exps=[{name:B.exp1||"Experience 1",mod:2},{name:B.exp2||"Experience 2",mod:2}];
+ let owned=B.cards.map(ci=>CARDS_L1[ci].name);let subStage=0,marks={};const warns=[],perLevel=[];
+ for(let L=2;L<=B.level;L++){if(L===2||L===5||L===8){prof++;exps.push({name:"New Experience (Lv"+L+")",mod:2});if(L===5||L===8)marks={};}
+  const e=B.adv[L]||{};let pts=0;const used=[];
+  function slot(id,ta,card){if(!id)return;if(id==="prof"){prof++;pts+=2;used.push("Proficiency +1");return;}pts+=1;
+   if(id==="hp"){hp++;used.push("+1 HP");}else if(id==="stress"){st++;used.push("+1 Stress");}else if(id==="evasion"){ev++;used.push("+1 Evasion");}
+   else if(id==="exp"){exps[0].mod++;if(exps[1])exps[1].mod++;used.push("+1 to two Experiences");}
+   else if(id==="traits"){(ta||[]).forEach(t=>{if(t&&tr[t]!=null){tr[t]++;marks[t]=true;}});used.push("+1 "+((ta||[]).filter(Boolean).join(", ")||"traits"));}
+   else if(id==="domain"){if(card&&!owned.includes(card)){owned.push(card);used.push("Extra card: "+card);}}
+   else if(id==="subclass"){if(subStage<2){subStage++;used.push("Subclass upgrade");}else used.push("Subclass (already at mastery)");}}
+  if(e.a==="prof")slot("prof");else{slot(e.a,e.ta,e.ca);slot(e.b,e.tb,e.cb);}
+  if(e.card&&!owned.includes(e.card))owned.push(e.card);
+  if(pts!==2)warns.push("Level "+L+": "+pts+"/2 advancement points used.");
+  perLevel.push({L,used:used.slice()});}
+ hp=Math.min(12,hp);st=Math.min(12,st);
+ const ownedCards=owned.map(cardByName).filter(Boolean);
+ const ordered=ownedCards.map((c,idx)=>({c,idx})).sort((a,b)=>(b.c.lvl-a.c.lvl)||(b.idx-a.idx));
+ const loadout=ordered.slice(0,5).map(o=>o.c),vault=ordered.slice(5).map(o=>o.c);
+ const su=SUBUP[subName()]||{specialization:[],mastery:[]};const subFeats=[];
+ if(subStage>=1)(su.specialization||[]).forEach(f=>subFeats.push(f));if(subStage>=2)(su.mastery||[]).forEach(f=>subFeats.push(f));
+ return {tr,prof,hp,st,ev,exps,loadout,vault,subFeats,subStage,warns,perLevel};}
+function advOpts(slot,cur){const list=ADV.filter(o=>!o.disabled&&(o.cost===1||(o.cost===2&&slot==="a")));return `<option value="">— none —</option>`+list.map(o=>`<option value="${o.id}" ${cur===o.id?'selected':''}>${o.name}${o.cost===2?' (2 pts)':''}</option>`).join("");}
+function cardOpts(L,cur){return `<option value="">— choose —</option>`+CARDS.filter(c=>c.lvl<=L).map(c=>`<option value="${c.name.replace(/"/g,'&quot;')}" ${cur===c.name?'selected':''}>${c.name} · ${c.domain} L${c.lvl}</option>`).join("");}
+function traitOpts(cur){return `<option value="">—</option>`+TRAITS.map(t=>`<option ${cur===t?'selected':''}>${t}</option>`).join("");}
+function renderAdv(){if(B.level<=1)return `<div class="step-h">Advancement</div><div class="step-d">This character is Level 1 — no advancements. Continue to Review &amp; Export.</div>`;
+ if(!B.adv||!Object.keys(B.adv).length)defaultAdv();const prog=computeProg();
+ let h=`<div class="step-h">Advancement — to Level ${B.level}</div><div class="step-d">Recommended path pre-filled. Each level grants a tier achievement (auto), 2 advancement points, +1 to all thresholds (auto), and a new domain card. Adjust any pick.</div>`;
+ h+=`<button class="btn" data-resetadv="1" style="margin-bottom:10px">↺ Reset to recommended</button>`;
+ for(let L=2;L<=B.level;L++){const e=B.adv[L]||{};const ta=tierOf(L);
+  const ach=(L===2||L===5||L===8)?`<div class="feat"><b>Tier Achievement (Lv${L})</b><span class="ft">+1 Proficiency · new Experience (+2)${L===5||L===8?' · clear marked traits':''}</span></div>`:"";
+  h+=`<div class="lvlblock" style="border:1px solid var(--line2);border-radius:11px;padding:10px 12px;margin-bottom:9px"><div style="font-family:var(--head);color:#fff;font-weight:700">LEVEL ${L} <span style="color:var(--mut);font-weight:400">· Tier ${ta}</span></div>${ach}`;
+  h+=`<label class="fl">Advancement A</label><select data-adv="${L}" data-kind="a">${advOpts("a",e.a)}</select>`;
+  if(e.a==="traits")h+=`<div class="twocol"><select data-adv="${L}" data-kind="ta1">${traitOpts((e.ta||[])[0])}</select><select data-adv="${L}" data-kind="ta2">${traitOpts((e.ta||[])[1])}</select></div>`;
+  if(e.a==="domain")h+=`<select data-adv="${L}" data-kind="ca">${cardOpts(L,e.ca)}</select>`;
+  if(e.a!=="prof"){h+=`<label class="fl">Advancement B</label><select data-adv="${L}" data-kind="b">${advOpts("b",e.b)}</select>`;
+   if(e.b==="traits")h+=`<div class="twocol"><select data-adv="${L}" data-kind="tb1">${traitOpts((e.tb||[])[0])}</select><select data-adv="${L}" data-kind="tb2">${traitOpts((e.tb||[])[1])}</select></div>`;
+   if(e.b==="domain")h+=`<select data-adv="${L}" data-kind="cb">${cardOpts(L,e.cb)}</select>`;}
+  else h+=`<div style="color:var(--mut);font-size:12px;margin-top:4px">Proficiency uses both advancement points.</div>`;
+  h+=`<label class="fl">New domain card (Lv ≤ ${L})</label><select data-adv="${L}" data-kind="card">${cardOpts(L,e.card)}</select></div>`;}
+ h+=`<div class="feat"><b>Result at Level ${B.level}</b><span class="ft">Prof ${prog.prof} · HP ${prog.hp} · Stress ${prog.st} · Evasion ${prog.ev}<br>Traits: ${TRAITS.map(t=>t[0]+sgn(prog.tr[t])).join(" ")}<br>${prog.loadout.length} loadout${prog.vault.length?' + '+prog.vault.length+' vault':''} cards${prog.subStage?' · subclass '+(prog.subStage>=2?'mastery':'specialization'):''}</span></div>`;
+ if(prog.warns.length)h+=`<div class="warn">${prog.warns.join("<br>")}</div>`;return h;}
+function renderExport(){const prog=computeProg();const ok=[1,2,4,5].every(valid)&&B.name.trim();
+ let h=`<div class="step-h">Review &amp; Export</div><div class="step-d">Name your character, then export the JSON and load it into the character sheet (Import).</div>`;
+ h+=`<div class="twocol"><div><label class="fl">Name</label><input data-f="name" value="${B.name.replace(/"/g,'&quot;')}" placeholder="Theron"></div><div><label class="fl">Pronouns</label><input data-f="pronouns" value="${B.pronouns.replace(/"/g,'&quot;')}" placeholder="they/them"></div></div>`;
+ h+=`<div class="feat"><b>${B.name||"Unnamed"} — Level ${B.level} ${ancestryLabel()} Druid (${subName()})</b><span class="ft">Prof ${prog.prof} · HP ${prog.hp} · Stress ${prog.st} · Evasion ${prog.ev}<br>Traits: ${TRAITS.map(t=>t+" "+sgn(prog.tr[t])).join(", ")}<br>Loadout: ${prog.loadout.map(c=>c.name+" (L"+c.lvl+")").join(", ")||"—"}${prog.vault.length?'<br>Vault: '+prog.vault.map(c=>c.name).join(", "):''}</span></div>`;
+ if(B.traitMode==="custom")h+=`<div class="warn">Custom/rolled traits are non-standard — verify with your GM.</div>`;
+ if(prog.warns.length)h+=`<div class="warn">${prog.warns.join("<br>")}</div>`;
+ if(!ok)h+=`<div class="warn">Finish required steps (heritage, traits, 2 starting cards, experiences, name) — check the rail.</div>`;
+ h+=`<div style="display:flex;gap:8px;margin:10px 0"><button class="btn gold" id="genBtn">Generate JSON</button><button class="btn" id="copyBtn">Copy</button><button class="btn" id="dlBtn">Download .json</button></div>`;
+ h+=`<textarea class="exportbox" id="out" placeholder="Click Generate JSON…"></textarea>`;return h;}
+function assembleCH(){const prog=computeProg();const tr=prog.tr;
+ const com=COMMUNITIES[B.community],sub=DRUID.subclasses[B.subclass];
+ const arm=ARMORS[B.armorIdx],sec=SECONDARY[B.secondaryIdx],wp=WEAPONS[B.weaponIdx];
+ let armorScore=arm.score+(sec.n==="Round Shield"?1:0)+(sec.n==="Tower Shield"?2:0);
+ const prof=prog.prof,spellcastVal=tr.Instinct;
+ const weapons=[{name:wp.n,trait:wp.t,range:wp.r,dn:prof,dd:wp.d,bonus:wp.b,type:wp.dt,feature:wp.f||""}];
+ if(!sec.none)weapons.push({name:sec.n,trait:sec.t,range:sec.r,dn:prof,dd:sec.d,bonus:sec.b,type:sec.dt,feature:sec.f||""});
+ const classFeats=[{name:"Beastform (Druid)",text:DRUID.classFeatures[0].text,cost:{stress:1}},{name:"Wildtouch (Druid)",text:DRUID.classFeatures[1].text},{name:DRUID.hopeFeature.name+" (Hope Feature)",text:DRUID.hopeFeature.text,cost:{hope:3}}];
+ sub.foundation.forEach(f=>classFeats.push({name:f.name+" ("+sub.name+")",text:f.text,cost:f.name==="Elemental Incarnation"?{stress:1}:undefined}));
+ prog.subFeats.forEach(f=>classFeats.push({name:f.name+" ("+sub.name+")",text:f.text}));
+ const ancFeats=ancFeatures().map(f=>({name:f.name,text:f.text}));ancFeats.push({name:com[1]+" ("+com[0]+")",text:com[2]});
+ function cardObj(c){const o={name:c.name,domain:c.domain,lvl:c.lvl,recall:c.recall,dc:c.dc,mode:c.mode||"note",text:c.text};if(c.mode==="tokens")o.tokens=spellcastVal;if(c.dmg)o.dmg=c.dmg;if(c.range)o.range=c.range;return o;}
+ const cards=prog.loadout.map(cardObj),vault=prog.vault.map(cardObj);
+ const inv=[{name:DRUID.classItems,note:"class item"}];if(com[0]==="Wanderborne")inv.push({name:"Nomadic Pack",note:"Wanderborne kit"});
+ return {name:B.name||"New Hero",sub:`${com[0]} ${ancestryLabel()} Druid · ${sub.name}`,meta:"Domains: Sage & Arcana · Spellcast: Instinct",
+  level:B.level,tier:tierOf(B.level),evasion:prog.ev,prof:prof,armorScore:armorScore,majorBase:arm.maj+B.level,severeBase:arm.sev+B.level,
+  hpMax:prog.hp,stMax:prog.st,hopeMax:6,hopeStart:2,spellcast:"Instinct",traits:tr,traitUses:TRAITUSES,exps:prog.exps,
+  weapons,classFeats,ancFeats,cards,vault,gold:{handfuls:1,bags:0,chests:0},inv};}
+document.addEventListener("click",e=>{const t=e.target.closest("[data-go],[data-sub],[data-anc],[data-com],[data-card],[data-mix],[data-tm],[data-roll],[data-resetadv]");if(!t)return;
+ if(t.dataset.go!=null){const g=+t.dataset.go;if(g<=B.step||valid(B.step)){B.step=g;render();}else toast("Finish this step first");}
+ else if(t.dataset.sub!=null){B.subclass=+t.dataset.sub;if(B.level>1)defaultAdv();render();}
+ else if(t.dataset.anc!=null){B.ancestry=+t.dataset.anc;render();}
+ else if(t.dataset.com!=null){B.community=+t.dataset.com;render();}
+ else if(t.dataset.card!=null){const ci=+t.dataset.card,k=B.cards.indexOf(ci);if(k>-1)B.cards.splice(k,1);else{if(B.cards.length>=2)return toast("Pick exactly 2 — deselect one first");B.cards.push(ci);}if(B.level>1)defaultAdv();render();}
+ else if(t.dataset.mix!=null){if(t.dataset.mix==="1"){B.mixed=B.mixed||{name:"",top:null,bot:null};B.ancestry=null;}else B.mixed=null;render();}
+ else if(t.dataset.tm){B.traitMode=t.dataset.tm;render();}
+ else if(t.dataset.roll){TRAITS.forEach(tr=>{B.custom[tr]=d(4)+d(4)-4;});render();}
+ else if(t.dataset.resetadv){defaultAdv();render();toast("Reset to recommended path");}});
+document.addEventListener("change",e=>{const t=e.target;
+ if(t.dataset.trait){B.traitAssign[t.dataset.trait]=t.value;render();}
+ else if(t.dataset.eq){B[t.dataset.eq]=+t.value;render();}
+ else if(t.dataset.f2==="level"){B.level=+t.value;defaultAdv();render();}
+ else if(t.dataset.mix2){B.mixed=B.mixed||{name:"",top:null,bot:null};B.mixed[t.dataset.mix2]=t.value===""?null:+t.value;render();}
+ else if(t.dataset.cust){B.custom[t.dataset.cust]=t.value===""?"":+t.value;render();}
+ else if(t.dataset.adv){const L=+t.dataset.adv,k=t.dataset.kind,en=B.adv[L]=B.adv[L]||{a:null,b:null,ta:[],tb:[],ca:null,cb:null,card:null};
+  if(k==="a"){en.a=t.value||null;if(en.a==="prof")en.b=null;}else if(k==="b")en.b=t.value||null;
+  else if(k==="ta1"){en.ta=en.ta||[];en.ta[0]=t.value;}else if(k==="ta2"){en.ta=en.ta||[];en.ta[1]=t.value;}
+  else if(k==="tb1"){en.tb=en.tb||[];en.tb[0]=t.value;}else if(k==="tb2"){en.tb=en.tb||[];en.tb[1]=t.value;}
+  else if(k==="ca")en.ca=t.value||null;else if(k==="cb")en.cb=t.value||null;else if(k==="card")en.card=t.value||null;
+  render();}});
+document.addEventListener("input",e=>{const t=e.target;if(t.dataset.f){if(t.dataset.f==="mixname"){B.mixed=B.mixed||{name:"",top:null,bot:null};B.mixed.name=t.value;updateSum();}else{B[t.dataset.f]=t.value;updateSum();}}});
+$("backBtn").onclick=()=>{if(B.step>0){B.step--;render();}};
+$("nextBtn").onclick=()=>{if(B.step===STEPS.length-1)return;if(!valid(B.step))return toast("Finish this step first");B.step++;render();};
+document.addEventListener("click",e=>{
+ if(e.target.id==="genBtn"){if(!B.name.trim())return toast("Name your character");$("out").value=JSON.stringify(assembleCH(),null,2);toast("JSON generated");}
+ else if(e.target.id==="copyBtn"){const o=$("out");if(!o.value)o.value=JSON.stringify(assembleCH(),null,2);o.select();try{navigator.clipboard.writeText(o.value);}catch(x){document.execCommand&&document.execCommand('copy');}toast("Copied — paste into the sheet's Import");}
+ else if(e.target.id==="dlBtn"){const ch=assembleCH();const blob=new Blob([JSON.stringify(ch,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=(B.name||"character").replace(/[^a-z0-9]+/gi,"_")+".dh.json";a.click();toast("Downloaded");}});
+if(B.level>1)defaultAdv();
+render();
+</script></body></html>

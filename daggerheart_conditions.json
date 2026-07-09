@@ -1,0 +1,200 @@
+{
+  "meta": {
+    "title": "Daggerheart Conditions Registry",
+    "source": "Daggerheart SRD 1.0 (standard conditions via daggerheartsrd.com/rules/conditions; special conditions extracted verbatim from their defining cards in daggerheart_domain_cards.json)",
+    "license": "Darrington Press Community Gaming License (DPCGL). SRD content (c) Critical Role, LLC.",
+    "generated": "2026-06-27",
+    "standardCount": 3,
+    "specialCount": 11,
+    "notes": [
+      "Daggerheart has only THREE standard (core) conditions: Hidden, Restrained, Vulnerable.",
+      "Everything else is a 'special condition' defined on the card/feature that applies it.",
+      "'temporary' is a tag (clear by a move against it), not a condition itself.",
+      "Poisoned is included from Beastform/adversary features (not a domain card) and is flagged verifyAgainstOfficial."
+    ]
+  },
+  "clearingMechanics": {
+    "applicationNote": "Unless otherwise noted, the same condition can't be applied more than once to the same target.",
+    "temporaryTag": "The temporary tag denotes a condition or effect that the affected creature can clear by making a move against it. When an affected PC makes a move to clear a temporary condition or effect, it normally requires a successful action roll using an appropriate trait. When an affected adversary makes a move to clear a temporary condition or effect, the GM puts the spotlight on the adversary and describes how they do it; this doesn't require a roll but it does use up that adversary's spotlight.",
+    "specialConditions": "Special conditions are only cleared when specific requirements are met, such as completing a certain action or using a particular item. The requirements for clearing these conditions are stated in the text of the effect that applies the condition."
+  },
+  "standardConditions": [
+    {
+      "name": "Hidden",
+      "slug": "hidden",
+      "tier": "standard",
+      "definition": "While you're out of sight from all enemies and they don't otherwise know your location, you gain the Hidden condition. Any rolls against a Hidden creature have disadvantage. After an adversary moves to where they would see you, you move into their line of sight, or you make an attack, you are no longer Hidden.",
+      "source": "SRD 1.0 — Conditions",
+      "url": "https://daggerheartsrd.com/rules/conditions/"
+    },
+    {
+      "name": "Restrained",
+      "slug": "restrained",
+      "tier": "standard",
+      "definition": "Restrained characters can't move, but you can still take actions from their current position.",
+      "source": "SRD 1.0 — Conditions",
+      "url": "https://daggerheartsrd.com/rules/conditions/"
+    },
+    {
+      "name": "Vulnerable",
+      "slug": "vulnerable",
+      "tier": "standard",
+      "definition": "When a creature is Vulnerable, all rolls targeting them have advantage.",
+      "source": "SRD 1.0 — Conditions",
+      "url": "https://daggerheartsrd.com/rules/conditions/"
+    }
+  ],
+  "specialConditions": [
+    {
+      "name": "On Fire",
+      "slug": "on-fire",
+      "tier": "special",
+      "appliedAs": "temporary",
+      "definition": "When a creature acts while On Fire, they must take an extra 2d6 magic damage if they are still On Fire at the end of their action.",
+      "clears": "temporary tag — cleared by a move against it",
+      "definedBy": {
+        "card": "Cinder Grasp",
+        "slug": "cinder-grasp",
+        "url": "https://daggerheartsrd.com/abilities/cinder-grasp/"
+      }
+    },
+    {
+      "name": "Corroded",
+      "slug": "corroded",
+      "tier": "special",
+      "appliedAs": "permanent",
+      "stackable": true,
+      "definition": "While a target is Corroded, they gain a -1 penalty to their Difficulty for every 2 Stress you spent. This condition can stack.",
+      "clears": "permanent (does not clear by normal means)",
+      "definedBy": {
+        "card": "Corrosive Projectile",
+        "slug": "corrosive-projectile",
+        "url": "https://daggerheartsrd.com/abilities/corrosive-projectile/"
+      }
+    },
+    {
+      "name": "Cloaked",
+      "slug": "cloaked",
+      "tier": "special",
+      "appliedAs": "special",
+      "definition": "While Cloaked, you remain unseen if you are stationary when an adversary moves to where they would normally see you.",
+      "clears": "When you move into or within an adversary's line of sight or make an attack, you are no longer Cloaked.",
+      "definedBy": {
+        "card": "Cloaking Blast",
+        "slug": "cloaking-blast",
+        "url": "https://daggerheartsrd.com/abilities/cloaking-blast/"
+      }
+    },
+    {
+      "name": "Stunned",
+      "slug": "stunned",
+      "tier": "special",
+      "appliedAs": "temporary",
+      "definition": "While Stunned, they can't use reactions and can't take any other actions until they clear this condition.",
+      "clears": "until they clear this condition (temporary)",
+      "definedBy": {
+        "card": "Hypnotic Shimmer",
+        "slug": "hypnotic-shimmer",
+        "url": "https://daggerheartsrd.com/abilities/hypnotic-shimmer/"
+      },
+      "alsoAppliedBy": [
+        "stunning-sunlight"
+      ]
+    },
+    {
+      "name": "Silenced",
+      "slug": "silenced",
+      "tier": "special",
+      "appliedAs": "special",
+      "definition": "While Silenced, they can't make noise and can't cast spells.",
+      "clears": "until the GM spends a Fear on their turn to clear this condition, you cast Hush again, or you take Major damage.",
+      "definedBy": {
+        "card": "Hush",
+        "slug": "hush",
+        "url": "https://daggerheartsrd.com/abilities/hush/"
+      }
+    },
+    {
+      "name": "Horrified",
+      "slug": "horrified",
+      "tier": "special",
+      "appliedAs": "temporary",
+      "definition": "While Horrified, they're Vulnerable.",
+      "clears": "temporary tag — cleared by a move against it",
+      "definedBy": {
+        "card": "Night Terror",
+        "slug": "night-terror",
+        "url": "https://daggerheartsrd.com/abilities/night-terror/"
+      }
+    },
+    {
+      "name": "Asleep",
+      "slug": "asleep",
+      "tier": "special",
+      "appliedAs": "special",
+      "definition": "On a success, they're Asleep until they take damage or the GM spends a Fear on their turn to clear this condition.",
+      "clears": "until they take damage or the GM spends a Fear on their turn to clear this condition.",
+      "definedBy": {
+        "card": "Book of Illiat (Slumber)",
+        "slug": "book-of-illiat",
+        "url": "https://daggerheartsrd.com/abilities/book-of-illiat/"
+      }
+    },
+    {
+      "name": "Enraptured",
+      "slug": "enraptured",
+      "tier": "special",
+      "appliedAs": "temporary",
+      "definition": "While Enraptured, a target's attention is fixed on you, narrowing their field of view and drowning out any sound but your voice.",
+      "clears": "temporary tag — cleared by a move against it",
+      "definedBy": {
+        "card": "Enrapture",
+        "slug": "enrapture",
+        "url": "https://daggerheartsrd.com/abilities/enrapture/"
+      },
+      "alsoAppliedBy": [
+        "mass-enrapture"
+      ]
+    },
+    {
+      "name": "Spectral",
+      "slug": "spectral",
+      "tier": "special",
+      "appliedAs": "special",
+      "definition": "While Spectral, you're immune to physical damage and can float and pass through solid objects.",
+      "clears": "until you make an action roll targeting another creature.",
+      "definedBy": {
+        "card": "Specter of the Dark",
+        "slug": "specter-of-the-dark",
+        "url": "https://daggerheartsrd.com/abilities/specter-of-the-dark/"
+      }
+    },
+    {
+      "name": "Frenzied",
+      "slug": "frenzied",
+      "tier": "special",
+      "appliedAs": "special",
+      "definition": "While Frenzied, you can't use Armor Slots, and you gain a +10 bonus to your damage rolls and a +8 bonus to your Severe damage threshold.",
+      "clears": "until there are no more adversaries within sight.",
+      "definedBy": {
+        "card": "Frenzy",
+        "slug": "frenzy",
+        "url": "https://daggerheartsrd.com/abilities/frenzy/"
+      }
+    },
+    {
+      "name": "Poisoned",
+      "slug": "poisoned",
+      "tier": "special",
+      "appliedAs": "temporary",
+      "definition": "A Poisoned creature takes 1d10 direct physical damage each time they act.",
+      "clears": "temporary tag — cleared by a move against it",
+      "definedBy": {
+        "card": "(Beastform / adversary features — NOT a domain card)",
+        "slug": null,
+        "url": null
+      },
+      "verifyAgainstOfficial": true
+    }
+  ]
+}

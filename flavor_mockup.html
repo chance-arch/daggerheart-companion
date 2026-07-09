@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Definitely Not Cursed — Flavor Mockup</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cinzel+Decorative:wght@700;900&family=EB+Garamond:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --dh-bg:#0b0913; --dh-bg-2:#120f1d; --dh-panel:#191426; --dh-panel-2:#221b34;
+  --dh-line:#332b4d; --dh-line-2:#473c6b;
+  --dh-gold:#d8b059; --dh-gold-2:#b88f3c; --dh-gold-dim:#7c6733;
+  --dh-ink:#f4ecdb; --dh-ink-strong:#ffffff; --dh-mut:#c3bad6;
+  --dh-ember:#e0732c; --dh-teal:#3fb0a0;
+  --dh-font-display:'Cinzel Decorative','Cinzel',Georgia,serif;
+  --dh-font-heading:'Cinzel',Georgia,serif;
+  --dh-font-flavor:'EB Garamond',Georgia,serif;
+  --dh-font-data:'Inter',system-ui,Arial,sans-serif;
+  --dh-radius-card:13px; --dh-radius-ctrl:9px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#06040c;color:var(--dh-ink);font-family:var(--dh-font-data)}
+body{min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:24px 16px 48px}
+
+/* ---- screen switcher ---- */
+.switch{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap;justify-content:center}
+.switch button{
+  font-family:var(--dh-font-heading);text-transform:uppercase;letter-spacing:.12em;font-size:12px;
+  color:var(--dh-mut);background:var(--dh-panel);border:1px solid var(--dh-line);
+  padding:10px 16px;border-radius:var(--dh-radius-ctrl);cursor:pointer;transition:.15s;
+}
+.switch button:hover{border-color:var(--dh-line-2);color:var(--dh-ink)}
+.switch button.on{color:#1c1406;background:linear-gradient(180deg,var(--dh-gold),var(--dh-gold-2));border-color:var(--dh-gold-2)}
+
+.stage{width:100%;max-width:440px}
+.screen{display:none}
+.screen.on{display:block}
+
+/* device frame */
+.device{
+  position:relative;border:1px solid var(--dh-line);border-radius:26px;overflow:hidden;
+  background:radial-gradient(120% 90% at 50% 0%,#161024 0%,var(--dh-bg) 60%,#06040c 100%);
+  box-shadow:0 18px 60px rgba(0,0,0,.6), inset 0 0 0 1px rgba(216,176,89,.05);
+  min-height:660px;display:flex;flex-direction:column;
+}
+.caption{font-family:var(--dh-font-heading);text-transform:uppercase;letter-spacing:.14em;
+  font-size:11px;color:var(--dh-gold-dim);text-align:center;margin:14px 0 18px}
+
+/* ===== LOADING SCREEN ===== */
+.load{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 28px;position:relative}
+.crest{width:118px;height:118px;margin-bottom:26px;filter:drop-shadow(0 0 18px rgba(216,176,89,.28))}
+.eyebrow{font-family:var(--dh-font-heading);text-transform:uppercase;letter-spacing:.34em;font-size:11px;color:var(--dh-gold-dim);margin-bottom:14px}
+.title-main{font-family:var(--dh-font-display);font-weight:900;font-size:30px;line-height:1.12;color:var(--dh-ink-strong);letter-spacing:.01em}
+.title-main .nope{color:var(--dh-gold);display:block;font-size:33px}
+.subtitle{font-family:var(--dh-font-display);font-weight:700;font-size:16px;color:var(--dh-ink);margin-top:10px;letter-spacing:.05em}
+.edition{font-family:var(--dh-font-heading);text-transform:uppercase;letter-spacing:.22em;font-size:10.5px;color:var(--dh-mut);margin-top:18px}
+.tagline{font-family:var(--dh-font-flavor);font-style:italic;font-size:15px;color:var(--dh-gold);margin-top:6px}
+.rule-orn{display:flex;align-items:center;gap:10px;margin:24px 0 0;width:80%}
+.rule-orn .ln{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--dh-gold-dim),transparent)}
+.rule-orn .dot{color:var(--dh-gold-dim);font-size:11px}
+.loadbar{margin-top:30px;width:180px;height:3px;background:var(--dh-line);border-radius:3px;overflow:hidden}
+.loadbar i{display:block;height:100%;width:42%;background:linear-gradient(90deg,var(--dh-gold-2),var(--dh-gold));border-radius:3px;animation:fill 2.4s ease-in-out infinite}
+@keyframes fill{0%{width:8%}50%{width:78%}100%{width:8%}}
+.loadnote{font-family:var(--dh-font-flavor);font-style:italic;font-size:14px;color:var(--dh-mut);margin-top:20px;max-width:300px;line-height:1.55;min-height:48px}
+.loadnote .by{display:block;font-style:normal;font-family:var(--dh-font-heading);text-transform:uppercase;letter-spacing:.14em;font-size:9.5px;color:var(--dh-gold-dim);margin-top:8px}
+.footer-note{position:absolute;bottom:18px;left:24px;right:24px;font-family:var(--dh-font-flavor);font-style:italic;font-size:11.5px;color:#6c6385;text-align:center;line-height:1.5}
+
+/* ===== PUBLISHER NOTICE ===== */
+.notice{flex:1;display:flex;flex-direction:column;padding:34px 26px 26px}
+.seal{width:62px;height:62px;align-self:center;margin-bottom:16px;filter:drop-shadow(0 0 10px rgba(216,176,89,.3))}
+.notice h2{font-family:var(--dh-font-display);font-weight:700;font-size:21px;text-align:center;color:var(--dh-ink-strong);margin:0 0 4px}
+.notice .sub{font-family:var(--dh-font-heading);text-transform:uppercase;letter-spacing:.2em;font-size:10px;color:var(--dh-gold-dim);text-align:center;margin-bottom:22px}
+.notice p{font-family:var(--dh-font-flavor);font-size:16px;line-height:1.62;color:var(--dh-ink);margin:0 0 16px}
+.notice p .drop{font-family:var(--dh-font-display);font-size:30px;float:left;line-height:.8;color:var(--dh-gold);padding:4px 8px 0 0}
+.notice .fine{font-style:italic;color:var(--dh-mut);font-size:14px}
+.notice .accept{margin-top:auto;display:flex;flex-direction:column;gap:10px;padding-top:18px}
+.btn-gold{font-family:var(--dh-font-heading);text-transform:uppercase;letter-spacing:.14em;font-size:12.5px;
+  color:#1c1406;background:linear-gradient(180deg,var(--dh-gold),var(--dh-gold-2));border:none;
+  padding:15px;border-radius:var(--dh-radius-ctrl);cursor:pointer;font-weight:600}
+.btn-ghost{font-family:var(--dh-font-flavor);font-style:italic;font-size:13px;color:var(--dh-mut);background:none;border:none;cursor:pointer}
+
+/* ===== TOGGLE DEMO ===== */
+.demo{flex:1;display:flex;flex-direction:column;padding:0}
+.demo-top{background:var(--dh-panel);border-bottom:1px solid var(--dh-line);padding:16px 20px;display:flex;align-items:center;justify-content:space-between}
+.demo-top .nm{font-family:var(--dh-font-display);font-size:17px;color:var(--dh-ink-strong)}
+.demo-top .lv{font-family:var(--dh-font-heading);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--dh-gold-dim)}
+.setting{margin:18px 16px;padding:14px 16px;background:var(--dh-panel);border:1px solid var(--dh-line);border-radius:var(--dh-radius-card)}
+.setting .hd{font-family:var(--dh-font-heading);text-transform:uppercase;letter-spacing:.16em;font-size:10px;color:var(--dh-gold-dim);margin-bottom:12px}
+.toggle-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.toggle-row .lab{font-family:var(--dh-font-flavor);font-size:15.5px;color:var(--dh-ink)}
+.toggle-row .lab small{display:block;font-family:var(--dh-font-data);font-size:12px;color:var(--dh-mut);margin-top:2px;font-style:normal}
+.tg{width:52px;height:30px;border-radius:20px;background:var(--dh-line);border:1px solid var(--dh-line-2);position:relative;cursor:pointer;transition:.2s;flex:none}
+.tg::after{content:"";position:absolute;top:2px;left:2px;width:24px;height:24px;border-radius:50%;background:var(--dh-mut);transition:.2s}
+.tg.on{background:linear-gradient(180deg,var(--dh-gold),var(--dh-gold-2));border-color:var(--dh-gold-2)}
+.tg.on::after{left:24px;background:#1c1406}
+.navlabel{font-family:var(--dh-font-heading);text-transform:uppercase;letter-spacing:.1em;font-size:9.5px;color:var(--dh-gold-dim);margin:10px 16px 6px}
+.nav{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:0 12px;padding:12px 6px;background:var(--dh-bg-2);border:1px solid var(--dh-line);border-radius:var(--dh-radius-card)}
+.nav .item{display:flex;flex-direction:column;align-items:center;gap:6px;padding:6px 2px;border-radius:8px}
+.nav .item.active{background:rgba(216,176,89,.08)}
+.nav .ic{font-size:20px;line-height:1}
+.nav .tx{font-family:var(--dh-font-data);font-size:10px;font-weight:600;color:var(--dh-mut);text-align:center;line-height:1.15}
+.nav .item.active .tx{color:var(--dh-gold)}
+.demo-foot{margin:18px 16px 16px;font-family:var(--dh-font-flavor);font-style:italic;font-size:13px;color:var(--dh-mut);text-align:center;line-height:1.5}
+</style>
+</head>
+<body>
+
+<div class="switch">
+  <button class="on" data-s="load">Loading Screen</button>
+  <button data-s="notice">Publisher's Notice</button>
+  <button data-s="demo">Label Toggle</button>
+</div>
+
+<div class="stage">
+
+  <!-- ===== LOADING ===== -->
+  <section class="screen on" data-screen="load">
+    <div class="device">
+      <div class="load">
+        <svg class="crest" viewBox="0 0 120 120" fill="none">
+          <circle cx="60" cy="60" r="56" stroke="#7c6733" stroke-width="1.5"/>
+          <circle cx="60" cy="60" r="48" stroke="#d8b059" stroke-width="1"/>
+          <path d="M60 18 L72 52 L60 102 L48 52 Z" fill="#191426" stroke="#d8b059" stroke-width="1.4"/>
+          <path d="M60 18 L60 102" stroke="#b88f3c" stroke-width="1"/>
+          <path d="M34 60 L86 60" stroke="#b88f3c" stroke-width="1"/>
+          <circle cx="60" cy="60" r="6" fill="#d8b059"/>
+          <path d="M60 30 q14 14 0 28 q-14 -14 0 -28Z" fill="#7b46c9" opacity=".55"/>
+        </svg>
+        <div class="eyebrow">The Wanderer's Survival Guide</div>
+        <div class="title-main">Definitely<span class="nope">Not Cursed</span></div>
+        <div class="edition">Eleventh Edition</div>
+        <div class="tagline" id="tagline">Now with 37% fewer hauntings.</div>
+        <div class="rule-orn"><span class="ln"></span><span class="dot">✦</span><span class="ln"></span></div>
+        <div class="loadbar"><i></i></div>
+        <div class="loadnote" id="loadnote">Consulting the index of mostly-survivable encounters…</div>
+        <div class="footer-note">Compiled from the journals of adventurers who were<br>mostly available for follow-up interviews.</div>
+      </div>
+    </div>
+    <div class="caption">App launch · lean-back screen · full flavor</div>
+  </section>
+
+  <!-- ===== NOTICE ===== -->
+  <section class="screen" data-screen="notice">
+    <div class="device">
+      <div class="notice">
+        <svg class="seal" viewBox="0 0 64 64" fill="none">
+          <circle cx="32" cy="32" r="30" stroke="#d8b059" stroke-width="1.4"/>
+          <circle cx="32" cy="32" r="23" stroke="#7c6733" stroke-width="1"/>
+          <path d="M32 14 L37 30 L32 50 L27 30 Z" fill="#221b34" stroke="#d8b059" stroke-width="1.2"/>
+          <circle cx="32" cy="32" r="3" fill="#d8b059"/>
+        </svg>
+        <h2>Publisher's Notice</h2>
+        <div class="sub">Please read before wandering</div>
+        <p><span class="drop">T</span>his guide has been thoroughly inspected by at least one wizard and is believed to be almost entirely free of curses.</p>
+        <p class="fine">Any spontaneous transformations, hauntings, extraplanar entanglements, or inexplicable desire to pet suspicious creatures are the sole responsibility of the reader.</p>
+        <div class="accept">
+          <button class="btn-gold">I Accept These Reasonable Risks</button>
+          <button class="btn-ghost">Read the fine print again, nervously</button>
+        </div>
+      </div>
+    </div>
+    <div class="caption">First launch · one-time · pure voice, zero usability cost</div>
+  </section>
+
+  <!-- ===== TOGGLE DEMO ===== -->
+  <section class="screen" data-screen="demo">
+    <div class="device">
+      <div class="demo">
+        <div class="demo-top">
+          <div class="nm">Theron</div>
+          <div class="lv">Druid · Level 4</div>
+        </div>
+
+        <div class="setting">
+          <div class="hd">Pack Arrangement · Settings</div>
+          <div class="toggle-row">
+            <div class="lab">In-world labels
+              <small>Dress the menu in the Guide's own words</small>
+            </div>
+            <div class="tg" id="tg"></div>
+          </div>
+        </div>
+
+        <div class="navlabel" id="navmode">Bottom navigation — plain labels (default)</div>
+        <div class="nav" id="nav"></div>
+
+        <div class="demo-foot" id="footnote">
+          Default keeps play fast and glanceable. Flip the toggle to see the flavored set.
+        </div>
+      </div>
+    </div>
+    <div class="caption">Lean-in play surface · plain by default, flavor by choice</div>
+  </section>
+
+</div>
+
+<script>
+/* ===== FLAVOR CONTENT POOLS (approved) ===== */
+const TAGLINES=[
+  "Now with 37% fewer hauntings.",
+  "Over 1,000 adventurers served. Several twice.",
+  "Trusted by wanderers who lived. Mostly.",
+  "The only field guide rated “probably fine” by a licensed wizard.",
+  "Results may vary. Limbs may also vary.",
+  "New edition, fewer ominous footnotes.",
+  "Statistically safer than the tenth edition.",
+  "Endorsed by the brave, the lucky, and the recently resurrected.",
+  "As seen in three prophecies and one very stern warning.",
+  "Curse-resistant. Not curse-proof. Read responsibly."
+];
+const LOADLINES=[
+  "Consulting the index of mostly-survivable encounters…",
+  "Counting Hope. Trying not to count Fear…",
+  "Rolling the Duality dice to see if today goes well…",
+  "Shelving the Midnight domain cards somewhere safe…",
+  "Double-checking which of these is a beastform and which is just a large dog…",
+  "Politely asking the Fear pool to wait its turn…",
+  "Reattaching margin scribbles that wandered off the page…",
+  "Tallying Stress so you don’t have to. Yet…",
+  "Sharpening the math rocks…",
+  "Warming up the campfire. Hiding the suspicious creatures…",
+  "Cross-referencing armor thresholds against your optimism…",
+  "Locating the chapter on not dying. It’s in here somewhere…",
+  "Feeding the dice. They bite when hungry…",
+  "Pretending the last session didn’t happen…",
+  "Filing your near-death experiences alphabetically…",
+  "Bribing the GM with snacks. Loading anyway…",
+  "Checking if “run away” counts as a valid build…"
+];
+const QUOTES=[
+  ["I could disarm the trap… or I could let the Warrior step on it and learn something about himself.","the Rogue"],
+  ["Have you tried hitting it? No, harder than that. Watch.","the Warrior"],
+  ["Technically, by the rules of the arcane weave, I’m always right. It’s not arrogance if it’s documented.","the Wizard"],
+  ["I didn’t mean to set it on fire. I never mean to set it on fire. And yet.","the Sorcerer"],
+  ["Why talk to the king when I can talk to this very handsome guard instead?","the Bard"],
+  ["I don’t need a map. I need to be left alone in the woods with my animal companion, who understands me.","the Ranger"],
+  ["Stand behind me. No — behind me. The whole party, behind the one guy. This is fine.","the Guardian"],
+  ["I have prayed on it, consulted the divine, and concluded that you are, in fact, wrong.","the Seraph"],
+  ["Cities are loud and full of people. I’m going to go be a bear about it.","the Druid"],
+  ["I checked for traps. I always check for traps. The one time I don’t is the story they’ll tell at my funeral.","the Rogue"],
+  ["My plan has one step and it has never failed to have one step.","the Warrior"],
+  ["Actually, the correct term is ‘thaumaturgically unstable,’ but ‘oops’ is acceptable in casual settings.","the Wizard"],
+  ["The magic is mostly under control. ‘Mostly’ is the operative and legally important word.","the Sorcerer"],
+  ["I rolled to seduce the door. With Hope. Don’t question my methods.","the Bard"],
+  ["Nature is healing. Nature is balance. Nature also just bit a guy in half for me, so.","the Druid"]
+];
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+// combined rotation: plain loading lines + class quotes, one line at a time
+const MESSAGES=[
+  ...LOADLINES.map(t=>({text:t})),
+  ...QUOTES.map(q=>({text:'“'+q[0]+'”',by:q[1]}))
+];
+function rollFlavor(){
+  document.getElementById('tagline').textContent=pick(TAGLINES);
+  const m=pick(MESSAGES);
+  document.getElementById('loadnote').innerHTML=m.text+(m.by?'<span class="by">— '+m.by+'</span>':'');
+}
+
+// screen switcher
+document.querySelectorAll('.switch button').forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll('.switch button').forEach(x=>x.classList.remove('on'));
+    document.querySelectorAll('.screen').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    document.querySelector('[data-screen="'+b.dataset.s+'"]').classList.add('on');
+    if(b.dataset.s==='load') rollFlavor();
+  };
+});
+rollFlavor();
+
+// nav label toggle demo
+const NAV=[
+  {ic:'📖',plain:'Character',world:'Your Entry',active:true},
+  {ic:'🎒',plain:'Inventory',world:'Pack Contents'},
+  {ic:'✦',plain:'Abilities',world:'Tricks & Talents'},
+  {ic:'🎲',plain:'Dice',world:'Math Rocks'},
+  {ic:'📝',plain:'Notes',world:'Margin Scribbles'},
+];
+const navEl=document.getElementById('nav');
+const tg=document.getElementById('tg');
+const navmode=document.getElementById('navmode');
+const footnote=document.getElementById('footnote');
+let world=false;
+function renderNav(){
+  navEl.innerHTML=NAV.map(n=>`<div class="item${n.active?' active':''}">
+    <div class="ic">${n.ic}</div>
+    <div class="tx">${world?n.world:n.plain}</div></div>`).join('');
+  navmode.textContent=world?'Bottom navigation — in-world labels (opt-in)':'Bottom navigation — plain labels (default)';
+  footnote.textContent=world
+    ? 'Same icons, same taps — just the Guide’s voice. Players who want immersion get it; nobody is forced to translate mid-combat.'
+    : 'Default keeps play fast and glanceable. Flip the toggle to see the flavored set.';
+}
+tg.onclick=()=>{world=!world;tg.classList.toggle('on',world);renderNav();};
+renderNav();
+</script>
+</body>
+</html>

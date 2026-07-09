@@ -1,0 +1,36 @@
+{
+  "meta": {
+    "name": "Daggerheart App Design Tokens",
+    "concept": "A — dark-fantasy grimoire",
+    "decided": "2026-06-26",
+    "note": "Machine-readable mirror of design_tokens.css for use in the app build (JS/TS theme, Tailwind config, etc.)."
+  },
+  "color": {
+    "surface": {"bg":"#0b0913","bg2":"#120f1d","panel":"#191426","panel2":"#221b34","line":"#332b4d","line2":"#473c6b"},
+    "metal": {"gold":"#d8b059","gold2":"#b88f3c","goldDim":"#7c6733"},
+    "text": {"ink":"#f4ecdb","inkStrong":"#ffffff","muted":"#c3bad6"},
+    "accent": {"ember":"#e0732c","teal":"#3fb0a0"},
+    "resource": {
+      "hp":"#e23b3e","hpEdge":"#7c1c1f",
+      "stress":"#f0a52e","stressEdge":"#9c560f",
+      "armor":"#46c0ae","armorEdge":"#216b60",
+      "hope":"#e9c772","hopeEdge":"#a8832f"
+    },
+    "domain": {
+      "arcana":"#7b46c9","blade":"#b0402f","bone":"#9a8c6e","codex":"#3f7bc9","grace":"#c94f93",
+      "midnight":"#3a3550","sage":"#3f9b54","splendor":"#caa23a","valor":"#c97a2f"
+    },
+    "semantic": {"success":"#46b06a","danger":"#c8484b","hopeRoll":"#d8b059","fearRoll":"#e0732c","crit":"#46b06a"}
+  },
+  "font": {
+    "display":"'Cinzel Decorative','Cinzel',Georgia,serif",
+    "heading":"'Cinzel',Georgia,serif",
+    "flavor":"'EB Garamond',Georgia,serif",
+    "data":"'Inter',system-ui,Arial,sans-serif"
+  },
+  "fontSize": {"hero":"32px","h2":"14px","body":"16px","data":"24px","small":"12.5px"},
+  "space": {"gap":"12px","pad":"14px"},
+  "radius": {"card":"13px","control":"9px","pill":"20px"},
+  "size": {"tapMin":"44px"},
+  "effect": {"glowGold":"0 0 14px rgba(216,176,89,.30)","shadowCard":"0 6px 22px rgba(0,0,0,.35)"}
+}

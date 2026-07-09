@@ -1,0 +1,12 @@
+.panel{
+  background:var(--dh-panel); border:1px solid var(--dh-line);
+  border-radius:var(--dh-radius-card); padding:14px; color:var(--dh-ink);
+}
+.label{
+  font-family:var(--dh-font-heading); font-size:var(--dh-fs-small);
+  letter-spacing:.08em; text-transform:uppercase; color:var(--dh-mut);
+  margin-bottom:9px;
+}
+.body{
+  font-family:var(--dh-font-flavor); font-size:13.5px; line-height:1.5;
+}

@@ -1,0 +1,38 @@
+CHANCE'S TO-DO LIST
+Daggerheart Companion App — running manual-review / decision list
+(Claude appends items here as QA turns up things only you can check or decide.)
+========================================================================
+
+[ ] ITEM 1 — VISUALLY REVIEW THE CHARACTER BUILDER
+    Why: jsdom verified the builder LOGIC (build/level-up/multiclass all
+    produce correct stats), and your Chrome can't be automated against a
+    local file, so the builder's LOOK and FEEL still needs your eyes.
+
+    How (≈5 min, in the companion app already open in Chrome):
+      1. Click "Build" in the top nav to start a new character.
+      2. Step through the wizard and check each step renders cleanly:
+           - Class & Subclass picker (try a caster AND a martial, e.g.
+             Wizard then Warrior)
+           - Heritage (ancestry + community; try a Mixed Ancestry too)
+           - Traits — toggle all three modes: Standard Array, Recommended,
+             Custom/Roll. Confirm the array assigns and the roller works.
+           - Equipment (weapon/armor pickers)
+           - Domain cards (loadout selection, cap of 5)
+      3. Set Starting Level to 5 or higher, then open the ADVANCEMENT step.
+         Confirm the recommended path is PRE-FILLED (each level shows
+         2 advancements + a domain card already chosen) and that you can
+         change any pick. Hit "Reset to recommended" and confirm it refills.
+      4. Finish/Review & Export, then confirm the new character lands in
+         Play mode and looks right.
+
+    Flag to Claude: anything misaligned, unreadable, off-brand, or a control
+    that doesn't respond. Grab a screen recording or screenshots if easy.
+
+------------------------------------------------------------------------
+[x] ITEM 2 — RE-PRINT THE CHARACTER SHEET AFTER PRINT FIXES  (DONE 2026-06-29)
+    Verified on re-print: blank page gone (4 pages -> 3), Proficiency dots
+    fill correctly (showed 2 of 6 at Level 4), and the "Quick Reference"
+    header now stays with its box. Print sheet signed off.
+
+========================================================================
+Log: created 2026-06-29 after the QA stabilization pass.

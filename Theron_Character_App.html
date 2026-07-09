@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Theron — Daggerheart Character App</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Cinzel+Decorative:wght@700;900&family=EB+Garamond:ital@0;1&display=swap');
+  :root{
+    --bg:#0a0812; --bg2:#13111e; --panel:#191527; --panel2:#221d36;
+    --gold:#d8b059; --gold-2:#b88f3c; --gold-dim:#7c6733; --ink:#ece2cd; --mut:#9b91ab;
+    --plum:#5a4690; --plumlite:#8169c0; --ember:#e0732c; --teal:#3fb0a0;
+    --good:#46b06a; --bad:#c8484b; --line:#352f4f; --line2:#46406a;
+    --disp:'Cinzel',Georgia,serif; --deco:'Cinzel Decorative','Cinzel',serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;color:var(--ink);font-family:"Segoe UI",system-ui,Arial,sans-serif;font-size:14px;line-height:1.45;
+    background:
+      radial-gradient(1100px 520px at 50% -8%, #2a2046 0%, rgba(42,32,70,0) 55%),
+      radial-gradient(900px 700px at 100% 0%, rgba(224,115,44,.10), rgba(224,115,44,0) 45%),
+      radial-gradient(900px 700px at 0% 100%, rgba(63,176,160,.08), rgba(63,176,160,0) 45%),
+      repeating-linear-gradient(45deg, rgba(255,255,255,.012) 0 2px, transparent 2px 7px),
+      linear-gradient(180deg,#0c0a16,#070610 70%);
+    background-attachment:fixed;}
+  h1,h2,h3,h4{margin:0;font-weight:700;letter-spacing:.4px}
+  .wrap{max-width:1200px;margin:0 auto;padding:16px 16px 70px}
+  .topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+  .topbar .btns{display:flex;gap:8px;flex-wrap:wrap}
+  button{cursor:pointer;font-family:inherit}
+  .btn{background:linear-gradient(180deg,#2a2440,#211c34);color:var(--ink);border:1px solid var(--line2);border-radius:8px;
+       padding:7px 12px;font-size:12.5px;font-weight:600;transition:.15s;letter-spacing:.2px}
+  .btn:hover{border-color:var(--gold);color:#fff;box-shadow:0 0 12px rgba(216,176,89,.25)}
+  .btn.gold{background:linear-gradient(180deg,#e6c878,#c39a44);border-color:#f0d792;color:#241a0a;
+    text-shadow:0 1px 0 rgba(255,255,255,.25);font-weight:700}
+  .btn.gold:hover{filter:brightness(1.07);box-shadow:0 0 14px rgba(216,176,89,.45)}
+  .btn.ember{background:linear-gradient(180deg,#ef8945,#cf5f20);border-color:#f5a261;color:#1a1014;font-weight:700}
+  .btn.sm{padding:4px 9px;font-size:11.5px}
+  .btn.ghost{background:transparent;border-color:var(--line)}
+  /* header banner */
+  .banner{position:relative;border-radius:16px;padding:18px 22px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+    background:
+      radial-gradient(420px 200px at 18% 30%, rgba(224,115,44,.16), transparent 70%),
+      linear-gradient(125deg,#2c2347 0%,#1c1830 55%,#15121f 100%);
+    border:1px solid var(--gold-2);
+    box-shadow:0 10px 34px rgba(0,0,0,.5), 0 0 0 1px rgba(0,0,0,.5) inset, 0 0 0 4px rgba(10,8,16,.6) inset;}
+  .banner::before,.banner::after{content:"";position:absolute;width:26px;height:26px;border:2px solid var(--gold);opacity:.7}
+  .banner::before{left:8px;top:8px;border-right:0;border-bottom:0;border-radius:6px 0 0 0}
+  .banner::after{right:8px;bottom:8px;border-left:0;border-top:0;border-radius:0 0 6px 0}
+  .banner h1{font-family:var(--deco);font-size:34px;color:#fff;letter-spacing:1px;line-height:1.05;
+    text-shadow:0 2px 10px #000,0 0 22px rgba(216,176,89,.25)}
+  .banner .sub{font-family:var(--disp);color:var(--gold);font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:2px;margin-top:3px}
+  /* avatar */
+  .avatar{position:relative;width:128px;height:128px;flex:0 0 auto;border-radius:50%;cursor:pointer;
+    background:#0c0a14 center/cover no-repeat;
+    box-shadow:0 0 0 3px #0a0812, 0 0 0 6px var(--gold), 0 0 0 8px #5a4a1f, 0 8px 22px rgba(0,0,0,.6), 0 0 26px rgba(216,176,89,.2);}
+  .avatar.empty{display:flex;align-items:center;justify-content:center}
+  .avatar .ph{font-family:var(--deco);font-size:40px;color:var(--gold-dim)}
+  .avatar .cam{position:absolute;right:2px;bottom:2px;width:30px;height:30px;border-radius:50%;
+    background:linear-gradient(180deg,#e6c878,#c39a44);color:#241a0a;border:2px solid #0a0812;
+    display:flex;align-items:center;justify-content:center;font-size:14px;opacity:0;transition:.15s}
+  .avatar:hover .cam{opacity:1}
+  .avatar:hover{box-shadow:0 0 0 3px #0a0812, 0 0 0 6px #f0d792, 0 0 0 8px #6b5826, 0 8px 22px rgba(0,0,0,.6), 0 0 30px rgba(216,176,89,.4)}
+  .lvlbox{text-align:center;padding:10px 16px;background:radial-gradient(circle at 50% 30%,#241d3c,#100d1c);
+    border:2px solid var(--gold);position:relative;
+    clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+  .lvlbox b{display:block;font-family:var(--deco);font-size:30px;color:#fff;line-height:1;text-shadow:0 0 12px rgba(216,176,89,.4)}
+  .lvlbox span{font-family:var(--disp);font-size:9px;color:var(--gold);letter-spacing:1.5px}
+  .idblock{flex:1;min-width:220px}
+  .grid{display:grid;gap:12px;margin-top:12px}
+  .cols3{grid-template-columns:1fr 1fr 1fr}
+  .cols2{grid-template-columns:1fr 1fr}
+  @media(max-width:860px){.cols3,.cols2{grid-template-columns:1fr}}
+  .card{background:linear-gradient(180deg,rgba(35,30,54,.92),rgba(20,17,32,.96));border:1px solid var(--line2);
+    border-radius:12px;padding:13px 15px;position:relative;box-shadow:0 6px 20px rgba(0,0,0,.35),0 0 0 1px rgba(0,0,0,.3) inset}
+  .card::before{content:"";position:absolute;left:14px;right:14px;top:0;height:2px;
+    background:linear-gradient(90deg,transparent,var(--gold-2),var(--gold),var(--gold-2),transparent);opacity:.55;border-radius:2px}
+  .card h3{font-family:var(--disp);font-size:13px;color:var(--gold);text-transform:uppercase;letter-spacing:2px;
+           border-bottom:1px solid var(--line2);padding-bottom:7px;margin-bottom:10px;display:flex;
+           justify-content:space-between;align-items:center;font-weight:700}
+  .card h3::first-letter{font-size:15px}
+  /* stat tiles */
+  .tiles{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+  @media(max-width:680px){.tiles{grid-template-columns:repeat(3,1fr)}}
+  .tile{background:linear-gradient(180deg,#241e3a,#15111f);border:1px solid var(--line2);border-radius:10px;
+    text-align:center;padding:9px 4px;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+  .tile b{display:block;font-family:var(--deco);font-size:23px;color:#fff;text-shadow:0 0 10px rgba(216,176,89,.25)}
+  .tile span{font-family:var(--disp);font-size:9px;color:var(--gold);letter-spacing:1.4px;text-transform:uppercase;font-weight:600}
+  .tile small{font-size:8.5px;color:var(--mut)}
+  /* traits */
+  .traits{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+  @media(max-width:680px){.traits{grid-template-columns:repeat(3,1fr)}}
+  .trait{background:radial-gradient(circle at 50% 22%,#241d3c,#0d0a17 75%);border:1.5px solid var(--line2);
+         border-radius:13px;text-align:center;padding:11px 5px 9px;cursor:pointer;transition:.15s;position:relative;overflow:hidden}
+  .trait::after{content:"";position:absolute;inset:3px;border-radius:10px;pointer-events:none;
+         box-shadow:0 0 0 1px rgba(216,176,89,.12) inset}
+  .trait:hover{border-color:var(--plumlite);transform:translateY(-1px)}
+  .trait.spell{border-color:var(--gold);box-shadow:0 0 14px rgba(216,176,89,.35)}
+  .trait .lab{font-family:var(--disp);font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:1.2px;font-weight:700}
+  .trait .val{font-family:var(--deco);font-size:27px;font-weight:800;color:#fff;line-height:1.15;text-shadow:0 0 10px rgba(0,0,0,.6)}
+  .trait .uses{font-size:8.5px;color:var(--mut);line-height:1.2;margin-top:3px}
+  /* pips */
+  .track{margin:9px 0}
+  .track .lab{display:flex;justify-content:space-between;font-size:11px;color:var(--mut);margin-bottom:4px}
+  .track .lab b{color:var(--ink)}
+  .pips{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+  .pip{width:28px;height:28px;padding:0;border:0;background:transparent;cursor:pointer;transition:.12s;line-height:0}
+  .pip:hover{transform:scale(1.14)}
+  .pip svg{width:100%;height:100%;display:block;pointer-events:none}
+  /* default (empty) shapes: dark fill, faint outline */
+  .pip .ic path,.pip .ic .tri{fill:#171327;stroke:#4a4368;stroke-width:1.2;stroke-linejoin:round}
+  .pip .ic .ex{fill:transparent}
+  /* HP — Zelda hearts (filled = health remaining) */
+  .pip.hp.on .ic path{fill:#e23b3e;stroke:#7c1c1f}
+  .pip.hp.on{filter:drop-shadow(0 1px 3px rgba(226,59,62,.55))}
+  .pip.hp .ic path{stroke-width:1.4}
+  /* Stress — caution triangle */
+  .pip.stress.on .ic .tri{fill:#f0a52e;stroke:#9c560f}
+  .pip.stress.on .ic .ex{fill:#241405}
+  .pip.stress.on{filter:drop-shadow(0 1px 3px rgba(224,115,44,.5))}
+  /* Armor — shields */
+  .pip.armor.on .ic path{fill:#46c0ae;stroke:#216b60}
+  .pip.armor.on{filter:drop-shadow(0 1px 3px rgba(63,176,160,.5))}
+  /* Hope — gold diamonds */
+  .pip.hope .ic path{fill:#100d1c;stroke:#7c6733}
+  .pip.hope.on .ic path{fill:#e9c772;stroke:#a8832f}
+  .pip.hope.on{filter:drop-shadow(0 0 5px rgba(216,176,89,.6))}
+  .miniBtns{display:flex;gap:5px;margin-left:auto}
+  .mini{width:24px;height:24px;border-radius:5px;border:1px solid var(--line);background:var(--panel2);
+        color:var(--ink);font-size:15px;font-weight:700;line-height:1}
+  .mini:hover{border-color:var(--gold)}
+  /* generic rows */
+  .row{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-bottom:1px dashed var(--line)}
+  .row:last-child{border-bottom:0}
+  .pill{display:inline-block;background:#0f0d1a;border:1px solid var(--line);border-radius:20px;
+        padding:1px 9px;font-size:11px;color:var(--gold);font-weight:700}
+  .name{font-weight:700;color:#fff}
+  .meta{color:var(--mut);font-size:11.5px}
+  .ftxt{color:var(--ink);font-size:12.5px;margin-top:2px}
+  .tag{font-size:9.5px;text-transform:uppercase;letter-spacing:.5px;padding:1px 6px;border-radius:4px;
+       background:#241c3a;color:var(--plumlite);border:1px solid var(--line);font-weight:700}
+  .tag.hb{color:var(--ember);border-color:#5a3a26}
+  /* inputs */
+  input,select,textarea{background:#0e0c18;border:1px solid var(--line);color:var(--ink);border-radius:6px;
+         padding:6px 8px;font-family:inherit;font-size:13px;width:100%}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold)}
+  label.fld{display:block;font-size:10.5px;color:var(--mut);text-transform:uppercase;letter-spacing:.5px;margin:7px 0 2px}
+  .inline{display:flex;gap:8px;align-items:center}
+  .num{width:64px;text-align:center}
+  /* result box */
+  .res{margin-top:9px;background:#0f0d1a;border:1px solid var(--line);border-radius:9px;padding:10px}
+  .res .big{font-family:var(--deco);font-size:32px;font-weight:800;color:#fff;text-align:center;text-shadow:0 0 12px rgba(216,176,89,.3)}
+  .res .verdict{text-align:center;font-weight:800;letter-spacing:1px;text-transform:uppercase;font-size:14px;margin-top:3px}
+  .v-hope{color:var(--gold)} .v-fear{color:var(--ember)} .v-crit{color:var(--good)}
+  .hint{font-size:11px;color:var(--mut);margin-top:4px}
+  .seg{display:flex;gap:4px;flex-wrap:wrap;margin:4px 0}
+  .seg button{flex:1;min-width:64px;border:1px solid var(--line);background:#0e0c18;color:var(--ink);
+        border-radius:7px;padding:6px 4px;font-size:11.5px;font-weight:600}
+  .seg button.active{background:var(--plum);border-color:var(--plumlite);color:#fff}
+  .seg.elem button.active{background:var(--ember);border-color:#f08a45;color:#1a1014}
+  .editOnly{display:none}
+  body.editing .editOnly{display:block}
+  body.editing .editOnly.twocol{display:grid}
+  body.editing .viewOnly{display:none}
+  .editbadge{display:none}
+  body.editing .editbadge{display:inline-block;background:var(--ember);color:#1a1014;font-size:10px;
+        font-weight:800;padding:2px 8px;border-radius:20px;letter-spacing:.5px}
+  .delx{background:transparent;border:0;color:var(--bad);font-weight:800;font-size:15px;cursor:pointer}
+  .addbtn{margin-top:8px}
+  .foot{text-align:center;color:var(--mut);font-size:11px;margin-top:18px}
+  .toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#0e0c18;
+        border:1px solid var(--gold);color:var(--ink);padding:9px 16px;border-radius:8px;opacity:0;
+        transition:.25s;pointer-events:none;font-size:13px;z-index:50}
+  .toast.show{opacity:1}
+  details summary{cursor:pointer;color:var(--gold);font-size:12px;font-weight:700;list-style:none}
+  details summary::-webkit-details-marker{display:none}
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  @media(max-width:560px){.twocol{grid-template-columns:1fr}}
+  /* domain cards as physical cards */
+  .cardgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(248px,1fr));gap:12px}
+  .dcard{--dc:#6a3fb0;position:relative;border-radius:14px;padding:0;overflow:hidden;
+    background:linear-gradient(180deg,#16131f,#0d0b14);border:1px solid var(--dc);
+    box-shadow:0 6px 18px #0008, 0 0 0 1px #0006 inset;display:flex;flex-direction:column;min-height:280px}
+  .dcard.vaulted{opacity:.55;filter:saturate(.5)}
+  .dc-top{background:linear-gradient(180deg,var(--dc),#0d0b14);padding:8px 11px 22px;position:relative}
+  .dc-badges{display:flex;justify-content:space-between;align-items:flex-start}
+  .dc-lvl{width:30px;height:30px;border-radius:50%;background:#0d0b14;border:2px solid #fff8;
+    color:#fff;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center}
+  .dc-recall{background:#0d0b14cc;border:1px solid #fff6;border-radius:20px;padding:2px 9px;
+    color:#fff;font-size:10.5px;font-weight:700;letter-spacing:.3px}
+  .dc-name{position:absolute;left:0;right:0;bottom:5px;text-align:center;color:#fff;font-weight:700;
+    font-family:var(--disp);font-size:15px;letter-spacing:.6px;text-shadow:0 2px 6px #000;padding:0 8px}
+  .dc-type{text-align:center;font-size:9.5px;letter-spacing:1.6px;text-transform:uppercase;
+    color:var(--dc);filter:brightness(1.5);font-weight:800;padding:7px 6px 4px;border-bottom:1px solid var(--line)}
+  .dc-body{padding:9px 12px;font-size:11.6px;line-height:1.42;color:var(--ink);flex:1;overflow:auto}
+  .dc-body p{margin:0 0 7px}
+  .dc-foot{display:flex;justify-content:space-between;align-items:center;padding:7px 10px;
+    border-top:1px solid var(--line);background:#0c0a12}
+  .dc-tag{font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut)}
+  .dc-edit{padding:8px 10px;border-top:1px solid var(--line)}
+  body.editing .dc-edit{display:grid;gap:5px}
+  .dc-edit input,.dc-edit textarea{font-size:12px}
+  .dc-cast{padding:8px 10px;border-top:1px solid var(--line);background:#0b0913}
+  .cast-row{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+  .cast-row .num{width:58px}
+  .cast-row select{flex:1;min-width:120px}
+  .cast-out{margin-top:7px;background:#10141b;border:1px solid #2c4f37;border-left:3px solid #7fd699;
+    border-radius:6px;padding:7px 9px;font-size:11.6px;color:#cfeed7;line-height:1.4}
+  /* beastform statblocks */
+  .bfgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px;margin-top:10px}
+  .bf{border:1px solid #3f9b54;border-radius:12px;background:linear-gradient(180deg,#101a13,#0c0f0c);overflow:hidden}
+  .bf-h{background:linear-gradient(180deg,#2a5a38,#16301e);padding:8px 12px}
+  .bf-h b{color:#fff;font-size:15px;letter-spacing:.5px;font-family:var(--disp)}
+  .bf-h .ex{color:#bfe6c8;font-size:10.5px;font-style:italic}
+  .bf-stats{display:flex;flex-wrap:wrap;gap:6px;padding:9px 12px;border-bottom:1px solid var(--line)}
+  .bf-stat{background:#0c130d;border:1px solid #2c4f37;border-radius:7px;padding:4px 9px;font-size:11.5px;color:var(--ink)}
+  .bf-stat b{color:#7fd699}
+  .bf-adv{padding:6px 12px;font-size:11px;color:var(--mut)}
+  .bf-adv b{color:#9bdcb0}
+  .bf-feats{padding:4px 12px 10px}
+  .bf-feat{font-size:11.6px;line-height:1.4;margin-top:5px}
+  .bf-feat b{color:#7fd699}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <div class="inline" style="gap:10px">
+      <span class="pill" style="font-size:13px">Daggerheart Character App</span>
+      <span class="editbadge">EDIT MODE — fields are editable</span>
+    </div>
+    <div class="btns">
+      <button class="btn" id="editToggle">✎ Edit Mode</button>
+      <button class="btn ghost" id="restBtn" title="Clear HP, Stress & Armor slots">🛌 Rest</button>
+      <button class="btn ghost" id="newSession" title="Reset Hope to starting value & clear marks">↻ New Session</button>
+      <button class="btn ghost" id="resetBtn" title="Restore Theron's saved build">⤺ Reset Build</button>
+    </div>
+  </div>
+
+  <!-- BANNER -->
+  <div class="banner">
+    <div class="avatar empty" id="avatar" title="Click to set your portrait"><span class="ph">⚔</span><span class="cam">✎</span></div>
+    <input type="file" id="avatarFile" accept="image/*" style="display:none">
+    <div class="idblock">
+      <h1 id="b-name">Theron</h1>
+      <div class="sub" id="b-heritage">Wanderborne Orcow Druid · Warden of the Elements</div>
+      <div class="meta" id="b-domains" style="margin-top:3px">Domains: Sage &amp; Arcana &nbsp;·&nbsp; Spellcast: Instinct</div>
+      <div class="editOnly" style="margin-top:8px">
+        <div class="twocol">
+          <div style="grid-column:1/-1"><label class="fld">Portrait image URL (or click the frame to upload)</label>
+            <div class="inline"><input id="e-avatar" placeholder="https://… or leave blank">
+            <button class="btn sm ghost" id="avatarClear" type="button">Clear</button></div></div>
+          <div><label class="fld">Name</label><input id="e-name"></div>
+          <div><label class="fld">Heritage line</label><input id="e-heritage"></div>
+          <div><label class="fld">Subclass</label><input id="e-subclass"></div>
+          <div><label class="fld">Domains</label><input id="e-domains"></div>
+          <div><label class="fld">Spellcast Trait</label><input id="e-spellcast"></div>
+          <div><label class="fld">Level</label><input id="e-level" type="number"></div>
+        </div>
+      </div>
+    </div>
+    <div class="lvlbox"><b id="b-level">4</b><span>LEVEL · TIER <span id="b-tier">2</span></span></div>
+  </div>
+
+  <div id="bfStatus"></div>
+
+  <!-- CORE TILES -->
+  <div class="card" style="margin-top:12px">
+    <h3>Core Stats <span class="meta viewOnly" style="text-transform:none;letter-spacing:0">auto-calculated</span></h3>
+    <div class="tiles" id="tiles"></div>
+    <div class="editOnly">
+      <div class="twocol" style="margin-top:10px">
+        <div><label class="fld">Evasion</label><input id="e-evasion" type="number"></div>
+        <div><label class="fld">Proficiency</label><input id="e-prof" type="number"></div>
+        <div><label class="fld">Armor Score (slots)</label><input id="e-armor" type="number"></div>
+        <div><label class="fld">HP Max</label><input id="e-hpmax" type="number"></div>
+        <div><label class="fld">Stress Max</label><input id="e-stmax" type="number"></div>
+        <div><label class="fld">Hope Max</label><input id="e-hopemax" type="number"></div>
+        <div><label class="fld">Major Threshold (base+level)</label><input id="e-major" type="number"></div>
+        <div><label class="fld">Severe Threshold (base+level)</label><input id="e-severe" type="number"></div>
+      </div>
+      <p class="hint">Major/Severe shown on tiles include the Earth-incarnation shift when active.</p>
+    </div>
+  </div>
+
+  <!-- TRAITS -->
+  <div class="card" style="margin-top:12px">
+    <h3>Traits <span class="meta viewOnly" style="text-transform:none;letter-spacing:0">click a trait to load it into the roll resolver</span></h3>
+    <div class="traits" id="traits"></div>
+  </div>
+
+  <div class="grid cols2">
+    <!-- RESOURCES -->
+    <div class="card">
+      <h3>Hit Points · Stress · Hope · Armor</h3>
+      <div id="tracks"></div>
+    </div>
+
+    <!-- DAMAGE CALC -->
+    <div class="card">
+      <h3>Damage Calculator</h3>
+      <label class="fld">Incoming damage</label>
+      <div class="inline">
+        <input id="dmgIn" class="num" type="number" placeholder="0" style="width:90px">
+        <button class="btn gold sm" id="dmgCalc">Resolve</button>
+        <span class="hint" id="dmgThresh"></span>
+      </div>
+      <div id="dmgRes"></div>
+    </div>
+  </div>
+
+  <div class="grid cols2">
+    <!-- ROLL RESOLVER -->
+    <div class="card">
+      <h3>Duality Roll Resolver <span class="meta" style="text-transform:none;letter-spacing:0">you roll · it does the math</span></h3>
+      <label class="fld">Rolling</label>
+      <select id="rollTrait"></select>
+      <div class="twocol" style="margin-top:6px">
+        <div><label class="fld">Hope die (d12)</label><input id="hopeDie" class="num" type="number" min="1" max="12"></div>
+        <div><label class="fld">Fear die (d12)</label><input id="fearDie" class="num" type="number" min="1" max="12"></div>
+      </div>
+      <label class="fld">Add Experiences (spends 1 Hope each)</label>
+      <div id="expChecks"></div>
+      <div class="inline" style="margin-top:6px">
+        <div style="flex:1"><label class="fld">Other bonus</label><input id="rollBonus" class="num" type="number" placeholder="0" style="width:80px"></div>
+        <div style="flex:1"><label class="fld">Difficulty (optional)</label><input id="rollDiff" class="num" type="number" placeholder="—" style="width:80px"></div>
+      </div>
+      <div class="inline" style="margin-top:9px">
+        <button class="btn gold" id="rollCalc">Resolve Roll</button>
+        <button class="btn sm ghost" id="rollApply" title="Apply Hope/Stress changes">Apply outcome</button>
+      </div>
+      <div id="rollRes"></div>
+    </div>
+
+    <!-- WEAPONS / ATTACK -->
+    <div class="card">
+      <h3>Weapons &amp; Attack</h3>
+      <div id="weapons"></div>
+      <div style="border-top:1px solid var(--line);margin-top:8px;padding-top:8px">
+        <label class="fld">Damage helper — enter your rolled damage dice total</label>
+        <select id="atkWeapon"></select>
+        <div class="inline" style="margin-top:6px">
+          <input id="atkDice" class="num" type="number" placeholder="dice sum" style="width:110px">
+          <button class="btn gold sm" id="atkCalc">Total</button>
+          <label class="inline" style="font-size:11.5px;gap:4px"><input type="checkbox" id="atkTusks" style="width:auto"> Tusks +1d6 (spend Hope)</label>
+        </div>
+        <input id="atkTuskDie" class="num" type="number" placeholder="d6" style="width:80px;margin-top:6px;display:none">
+        <div id="atkRes"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ELEMENTAL INCARNATION -->
+  <div class="card" style="margin-top:12px">
+    <h3>Elemental Incarnation <span class="meta" style="text-transform:none;letter-spacing:0">mark a Stress to channel · ends on Severe damage or rest</span></h3>
+    <div class="seg elem" id="elemSeg"></div>
+    <div class="ftxt" id="elemDesc"></div>
+  </div>
+
+  <!-- BEASTFORMS -->
+  <div class="card" style="margin-top:12px">
+    <h3>Beastform Statblocks — Tier 1 &amp; 2 <span class="meta" style="text-transform:none;letter-spacing:0">available at level 4 · values computed for Theron · click Activate to transform the sheet</span></h3>
+    <p class="hint">While transformed you can't use weapons or cast spells; you gain the form's Evasion bonus, trait bonus, and attack. Marking your last HP auto-drops the form.</p>
+    <div class="seg" id="bfTierSeg">
+      <button data-bftier="1" class="active">Tier 1 (7)</button>
+      <button data-bftier="2">Tier 2 (5)</button>
+      <button data-bftier="all">All 12</button>
+    </div>
+    <div id="beastforms"></div>
+  </div>
+
+  <!-- FEATURES -->
+  <div class="grid cols2">
+    <div class="card">
+      <h3>Class &amp; Subclass Features</h3>
+      <div id="classFeats"></div>
+      <button class="btn sm addbtn editOnly" data-add="classFeats">+ Add feature</button>
+    </div>
+    <div class="card">
+      <h3>Ancestry &amp; Community Features</h3>
+      <div id="ancFeats"></div>
+      <button class="btn sm addbtn editOnly" data-add="ancFeats">+ Add feature</button>
+    </div>
+  </div>
+
+  <!-- DOMAIN CARDS -->
+  <div class="card" style="margin-top:12px">
+    <h3>Domain Cards — Loadout <span id="loadCount" class="pill"></span></h3>
+    <div id="cards"></div>
+    <button class="btn sm addbtn editOnly" data-add="cards">+ Add card</button>
+  </div>
+
+  <!-- EXPERIENCES + INVENTORY -->
+  <div class="grid cols2">
+    <div class="card">
+      <h3>Experiences <span class="meta" style="text-transform:none;letter-spacing:0">spend Hope to add to a roll</span></h3>
+      <div id="exps"></div>
+      <button class="btn sm addbtn editOnly" data-add="exps">+ Add experience</button>
+    </div>
+    <div class="card">
+      <h3>Inventory</h3>
+      <div id="inv"></div>
+      <div class="inline" style="margin-top:9px">
+        <input id="invName" placeholder="Item name…" style="flex:2">
+        <input id="invNote" placeholder="note (optional)" style="flex:2">
+        <button class="btn gold sm" id="invAdd">+ Add</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    Auto-saves to this browser. Built from the validated Tier-2 build (Option A). Daggerheart is © Critical Role / Darrington Press; this is a personal play aid.
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+const SAVE_KEY = "theron_dh_app_v4";
+const DEFAULT_AVATAR = "https://chatgpt.com/backend-api/estuary/public_content/enc/eyJpZCI6Im1fNmEzZGE0MjVjNDljODE5MTk5OTkzOTI4NzZjOWI1N2E6c2VkaW1lbnQ6Ly9kNjNmNGQ3ZmYyNGZiOTUjZmlsZV8wMDAwMDAwMDdlYjA3MjMwOTk5OGU2ZGJkNTRkMDFjYyN1bmZ1cmwiLCJnaXptb19pZCI6bnVsbCwidHMiOiIyMDYzMCIsInAiOiJweWkiLCJjaWQiOiIxIiwic2lnIjoiNWI4NTNjMzU4ZGQ0NTExNWNhNDZhMTFkZDFmNzYwNTk3MWM0NDY1YWU5ZmQ3YmUyYTA4MmU5OWUyNDM4NDQwZCIsInYiOiIwIiwiY3MiOm51bGwsImNkbiI6bnVsbCwiZm4iOm51bGwsImNkIjpudWxsLCJjcCI6bnVsbCwibWEiOm51bGx9";
+
+const DEFAULT = {
+  name:"Theron",
+  avatar:DEFAULT_AVATAR,
+  heritage:"Wanderborne Orcow Druid · Warden of the Elements",
+  subclass:"Warden of the Elements",
+  domains:"Sage & Arcana",
+  spellcast:"Instinct",
+  level:4,
+  evasion:11, prof:2, armorScore:6,
+  majorBase:13, severeBase:24,
+  hpMax:8, stMax:6, hopeMax:6, hopeStart:2,
+  traits:{Agility:2,Strength:1,Finesse:2,Instinct:3,Presence:-1,Knowledge:0},
+  traitUses:{Agility:"Sprint·Leap·Maneuver",Strength:"Lift·Smash·Grapple",Finesse:"Control·Hide·Tinker",
+             Instinct:"Perceive·Sense·Navigate",Presence:"Charm·Perform·Deceive",Knowledge:"Recall·Analyze·Comprehend"},
+  exps:[
+    {name:"I used to work for the forestry service!",mod:3},
+    {name:"Savior Complex",mod:2},
+    {name:"War Mage (+2 spellcast/concentration)",mod:3}
+  ],
+  weapons:[
+    {name:"Improved Shortstaff",slot:"Primary",trait:"Instinct",range:"Close",dieN:2,dieD:8,bonus:4,type:"magic",feature:"—"},
+    {name:"Improved Round Shield",slot:"Secondary",trait:"Strength",range:"Melee",dieN:2,dieD:4,bonus:2,type:"physical",feature:"Protective: +2 Armor Score"}
+  ],
+  armor:{name:"Improved Leather",baseMajor:9,baseSevere:20,score:4,feature:"—"},
+  classFeats:[
+    {name:"Beastform (Druid)",text:"Mark a Stress to transform into a Beastform of your tier or lower (Tier ≤ 2).",hb:false,cost:{stress:1}},
+    {name:"Wildtouch (Druid)",text:"Create minor, harmless nature effects at will.",hb:false},
+    {name:"Elemental Incarnation (Warden — Foundation)",text:"Mark a Stress to channel one element until you take Severe damage or your next rest. (Use the panel above.)",hb:false,cost:{stress:1}},
+    {name:"Evolution (Hope Feature)",text:"Spend 3 Hope to enter a Beastform without marking Stress; choose one trait to raise +1 until you drop out of that form.",hb:false,cost:{hope:3}}
+  ],
+  ancFeats:[
+    {name:"Charge (Cow — homebrew ancestry)",text:"On a successful Agility roll to move from Far/Very Far into Melee, mark a Stress to deal 1d12 physical to all targets in Melee.",hb:true,cost:{stress:1}},
+    {name:"Tusks (Orc ancestry)",text:"On a successful Melee attack, spend a Hope to deal +1d6 damage.",hb:false,cost:{hope:1}},
+    {name:"Change Shape (homebrew)",text:"Swap your ancestry features on a long rest.",hb:true},
+    {name:"Nomadic Pack (Wanderborne community)",text:"Once per session, spend a Hope to pull a useful mundane item from the pack.",hb:false,cost:{hope:1}}
+  ],
+  cards:[
+    {name:"Unleash Chaos",domain:"Arcana",lvl:"1",type:"Spell",recall:"1",vault:false,hb:false,
+      castMode:"tokens", tokens:3,
+      text:"At the beginning of a session, place a number of tokens equal to your Spellcast trait on this card.\n\nMake a Spellcast Roll against a target within Far range and spend any number of tokens to channel raw energy from within yourself to unleash against them. On a success, roll a number of d10s equal to the tokens you spent and deal that much magic damage to the target. Mark a Stress to replenish this card with tokens (up to your Spellcast trait).\n\nAt the end of each session, clear all unspent tokens."},
+    {name:"Rune Ward",domain:"Arcana",lvl:"1",type:"Spell",recall:"0",vault:false,hb:false,
+      castMode:"simple", cost:{hope:1}, rollText:"Ward holder reduces incoming damage by 1d8 (roll 1d8). If that die shows 8, the ward ends until your next rest.",
+      text:"You have a deeply personal trinket that can be infused with protective magic and held as a ward by you or an ally. Describe what it is and why it's important to you. The ward's holder can spend a Hope to reduce incoming damage by 1d8.\n\nIf the Ward Die result is 8, the ward's power ends after it reduces damage this turn. It can be recharged for free on your next rest."},
+    {name:"Cinder Grasp",domain:"Arcana",lvl:"2",type:"Spell",recall:"1",vault:false,hb:false,
+      castMode:"simple", cost:{}, rollText:"Spellcast Roll vs a target in Melee. On success: 1d20+3 magic damage and target is temporarily On Fire (extra 2d6 magic if still On Fire at the end of its action).",
+      text:"Make a Spellcast Roll against a target within Melee range. On a success, the target instantly bursts into flames, takes 1d20+3 magic damage, and is temporarily lit On Fire.\n\nWhen a creature acts while On Fire, they must take an extra 2d6 magic damage if they are still On Fire at the end of their action."},
+    {name:"Natural Familiar",domain:"Sage",lvl:"2",type:"Spell",recall:"1",vault:false,hb:false,
+      castMode:"familiar", familiar:"",
+      text:"Spend a Hope to summon a small nature spirit or forest critter to your side until your next rest, you cast Natural Familiar again, or the familiar is targeted by an attack. If you spend an additional Hope, you can summon a familiar that flies. You can communicate with them, make a Spellcast Roll to command them to perform simple tasks, and mark a Stress to see through their eyes.\n\nWhen you deal damage to an adversary within Melee range of your familiar, you add a d6 to your damage roll."},
+    {name:"Corrosive Projectile",domain:"Sage",lvl:"3",type:"Spell",recall:"1",vault:false,hb:false,profDmg:{n:6,d:4},
+      castMode:"cstress",
+      text:"Make a Spellcast Roll against a target within Far range. On a success, deal 6d4 magic damage using your Proficiency. Additionally, mark 2 or more Stress to make them permanently Corroded. While a target is Corroded, they gain a -1 penalty to their Difficulty for every 2 Stress you spent. This condition can stack.\n\nHouse rule in play: \"using your Proficiency\" = multiply the damage dice by your Proficiency."}
+  ],
+  inv:[
+    {name:"Minor Health Potion",note:"clear 1d4 HP"},
+    {name:"Strange pendant",note:"narrative — no mechanics yet"},
+    {name:"Nomadic Pack",note:"Wanderborne kit"}
+  ],
+  // live state
+  hpUsed:0, stUsed:0, armorUsed:0, hope:2, element:"None",
+  bfActive:null, bfEvo:null
+};
+
+const BEASTFORMS=[
+  {key:"agile-scout",tier:1,name:"Agile Scout",ex:"Fox, Mouse, Weasel, etc.",trait:"Agility",tb:1,ev:2,range:"Melee",die:4,bonus:0,
+   adv:["deceive","locate","sneak"],feats:[
+   ["Agile","Your movement is silent, and you can spend a Hope to move up to Far range without rolling."],
+   ["Fragile","When you take Major or greater damage, you drop out of Beastform."]]},
+  {key:"household-friend",tier:1,name:"Household Friend",ex:"Cat, Dog, Rabbit, etc.",trait:"Instinct",tb:1,ev:2,range:"Melee",die:6,bonus:0,
+   adv:["climb","locate","protect"],feats:[
+   ["Companion","When you Help an Ally, you can roll a d8 as your advantage die."],
+   ["Fragile","When you take Major or greater damage, you drop out of Beastform."]]},
+  {key:"nimble-grazer",tier:1,name:"Nimble Grazer",ex:"Deer, Gazelle, Goat, etc.",trait:"Agility",tb:1,ev:3,range:"Melee",die:6,bonus:0,
+   adv:["leap","sneak","sprint"],feats:[
+   ["Elusive Prey","When an attack roll against you would succeed, you can mark a Stress and roll a d4. Add the result to your Evasion against this attack."],
+   ["Fragile","When you take Major or greater damage, you drop out of Beastform."]]},
+  {key:"pack-predator",tier:1,name:"Pack Predator",ex:"Coyote, Hyena, Wolf, etc.",trait:"Strength",tb:2,ev:1,range:"Melee",die:8,bonus:2,
+   adv:["attack","sprint","track"],feats:[
+   ["Hobbling Strike","When you succeed on an attack against a target within Melee range, you can mark a Stress to make the target temporarily Vulnerable."],
+   ["Pack Hunting","When you succeed on an attack against the same target as an ally who acts immediately before you, add a d8 to your damage roll."]]},
+  {key:"aquatic-scout",tier:1,name:"Aquatic Scout",ex:"Eel, Fish, Octopus, etc.",trait:"Agility",tb:1,ev:2,range:"Melee",die:4,bonus:0,
+   adv:["navigate","sneak","swim"],feats:[
+   ["Aquatic","You can breathe and move naturally underwater."],
+   ["Fragile","When you take Major or greater damage, you drop out of Beastform."]]},
+  {key:"stalking-arachnid",tier:1,name:"Stalking Arachnid",ex:"Tarantula, Wolf Spider, etc.",trait:"Finesse",tb:1,ev:2,range:"Melee",die:6,bonus:1,
+   adv:["attack","climb","sneak"],feats:[
+   ["Venomous Bite","When you succeed on an attack against a target within Melee range, the target becomes temporarily Poisoned. A Poisoned creature takes 1d10 direct physical damage each time they act."],
+   ["Webslinger","You can create strong web material useful for adventuring and battle, resilient enough to support one creature. You can temporarily Restrain a target within Close range by succeeding on a Finesse Roll against them."]]},
+  {key:"mighty-strider",tier:1,name:"Mighty Strider",ex:"Camel, Horse, Zebra, etc.",trait:"Agility",tb:1,ev:2,range:"Melee",die:8,bonus:1,
+   adv:["leap","navigate","sprint"],feats:[
+   ["Carrier","You can carry up to two willing allies with you when you move."],
+   ["Trample","Mark a Stress to move up to Close range in a straight line and make an attack against all targets within Melee range of the line. Targets you succeed against take d8+1 physical damage using your Proficiency and are temporarily Vulnerable."]]},
+  {key:"armored-sentry",tier:2,name:"Armored Sentry",ex:"Armadillo, Pangolin, Turtle, etc.",trait:"Strength",tb:1,ev:1,range:"Melee",die:8,bonus:2,
+   adv:["dig","locate","protect"],feats:[
+   ["Armored Shell","Your hardened exterior gives you resistance to physical damage. Additionally, mark an Armor Slot to retract into your shell. While in your shell, physical damage is reduced by a number equal to your Armor Score (after applying resistance), but you can't perform other actions without leaving this form."],
+   ["Cannonball","Mark a Stress to allow an ally to throw or launch you at an adversary within Close range (their attack, Agility or Strength). On a success, the adversary takes d12+2 physical damage using the thrower's Proficiency. Spend a Hope to also hit a second adversary within Very Close for half that damage."]]},
+  {key:"powerful-beast",tier:2,name:"Powerful Beast",ex:"Bear, Bull, Moose, etc.",trait:"Strength",tb:3,ev:1,range:"Melee",die:10,bonus:4,thrMod:2,
+   adv:["navigate","protect","scare"],feats:[
+   ["Rampage","When you roll a 1 on a damage die, you can roll a d10 and add the result to the damage roll. Additionally, before you make an attack roll, you can mark a Stress to gain a +1 bonus to your Proficiency for that attack."],
+   ["Thick Hide","You gain a +2 bonus to your damage thresholds. (Applied automatically below.)"]]},
+  {key:"striking-serpent",tier:2,name:"Striking Serpent",ex:"Cobra, Rattlesnake, Viper, etc.",trait:"Finesse",tb:1,ev:2,range:"Very Close",die:8,bonus:4,
+   adv:["climb","deceive","sprint"],feats:[
+   ["Venomous Strike","Make an attack against any number of targets within Very Close range. On a success, a target is temporarily Poisoned. A Poisoned creature takes 1d10 direct physical damage each time they act."],
+   ["Warning Hiss","Mark a Stress to force any number of targets within Melee range to move back to Very Close range."]]},
+  {key:"pouncing-predator",tier:2,name:"Pouncing Predator",ex:"Cheetah, Lion, Panther, etc.",trait:"Instinct",tb:1,ev:3,range:"Melee",die:8,bonus:6,
+   adv:["attack","climb","sneak"],feats:[
+   ["Fleet","Spend a Hope to move up to Far range without rolling."],
+   ["Takedown","Mark a Stress to move into Melee range of a target and make an attack roll against them. On a success, you gain a +2 bonus to your Proficiency for this attack and the target must mark a Stress."]]},
+  {key:"winged-beast",tier:2,name:"Winged Beast",ex:"Hawk, Owl, Raven, etc.",trait:"Finesse",tb:1,ev:3,range:"Melee",die:4,bonus:2,thrMod:-2,
+   adv:["deceive","locate","scare"],feats:[
+   ["Bird's-Eye View","You can fly at will. Once per rest while airborne, you can ask the GM a question about the scene below you without rolling. The first time a character acts on that info, they gain advantage."],
+   ["Hollow Bones","You gain a -2 penalty to your damage thresholds. (Applied automatically below.)"]]}
+];
+let bfTierFilter="1";
+const activeForm=()=>C.bfActive?BEASTFORMS.find(b=>b.key===C.bfActive):null;
+function effTrait(name){let v=C.traits[name]??0;const f=activeForm();
+  if(f&&f.trait===name)v+=f.tb; if(f&&C.bfEvo===name)v+=1; return v;}
+function effEvasion(){const f=activeForm();return C.evasion+(f?f.ev:0);}
+function thrMod(){const f=activeForm();return (f&&f.thrMod)?f.thrMod:0;}
+
+const ELEMENTS = {
+  None:"No element channeled.",
+  Fire:"An adversary who damages you in Melee takes 1d10 magic.",
+  Earth:"+Proficiency to damage thresholds (Major and Severe rise by your Proficiency).",
+  Water:"On damaging an adversary in Melee, all other adversaries in Very Close mark a Stress.",
+  Air:"Hover, and gain advantage on Agility rolls."
+};
+
+const FAMILIARS=[
+  {name:"Forest sprite",fly:false},{name:"Fox",fly:false},{name:"Squirrel",fly:false},
+  {name:"Serpent",fly:false},{name:"Frog",fly:false},{name:"Hare",fly:false},
+  {name:"Owl",fly:true},{name:"Raven",fly:true},{name:"Sparrow",fly:true},
+  {name:"Bat",fly:true},{name:"Dragonfly",fly:true}
+];
+const castOut={};
+let C = load();
+function load(){
+  let base=JSON.parse(JSON.stringify(DEFAULT));
+  try{const s=JSON.parse(localStorage.getItem(SAVE_KEY)); if(s) base=Object.assign(base,s);}catch(e){}
+  // one-time seeding of the portrait into existing saves (respects a later manual clear)
+  try{ if(!base.avatar && !localStorage.getItem("theron_avatar_seed")) base.avatar=DEFAULT_AVATAR;
+       localStorage.setItem("theron_avatar_seed","1"); }catch(e){}
+  return base;
+}
+function save(){try{localStorage.setItem(SAVE_KEY,JSON.stringify(C));}catch(e){/* storage blocked: run in-session only */}}
+function toast(m){const t=document.getElementById("toast");t.textContent=m;t.classList.add("show");
+  clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),1600);}
+const $=id=>document.getElementById(id);
+const tierOf=l=>l<=1?1:l<=4?2:l<=7?3:4;
+const sgn=n=>(n>=0?"+":"")+n;
+
+function major(){return C.majorBase + (C.element==="Earth"?C.prof:0) + thrMod();}
+function severe(){return C.severeBase + (C.element==="Earth"?C.prof:0) + thrMod();}
+
+/* ---------- RENDER ---------- */
+function render(){
+  // banner
+  $("b-name").textContent=C.name;
+  $("b-heritage").textContent=C.heritage;
+  $("b-domains").innerHTML=`Domains: ${C.domains} &nbsp;·&nbsp; Spellcast: ${C.spellcast}`;
+  $("b-level").textContent=C.level;
+  $("b-tier").textContent=tierOf(C.level);
+  // avatar
+  const av=$("avatar");
+  if(C.avatar){av.style.backgroundImage=`url("${C.avatar}")`;av.classList.remove("empty");}
+  else{av.style.backgroundImage="";av.classList.add("empty");}
+  $("e-avatar").value=(C.avatar&&/^https?:/i.test(C.avatar))?C.avatar:"";
+  // edit fields
+  $("e-name").value=C.name; $("e-heritage").value=C.heritage; $("e-subclass").value=C.subclass;
+  $("e-domains").value=C.domains; $("e-spellcast").value=C.spellcast; $("e-level").value=C.level;
+  $("e-evasion").value=C.evasion; $("e-prof").value=C.prof; $("e-armor").value=C.armorScore;
+  $("e-hpmax").value=C.hpMax; $("e-stmax").value=C.stMax; $("e-hopemax").value=C.hopeMax;
+  $("e-major").value=C.majorBase; $("e-severe").value=C.severeBase;
+
+  // tiles
+  const f=activeForm();
+  const evTag=f?`+${f.ev} form`:"";
+  const tiles=[["Evasion",effEvasion(),evTag],["Armor",C.armorScore,(C.armorScore-C.armorUsed)+" open"],
+    ["Proficiency",C.prof,C.prof+" dmg dice"],["Major",major(),"thr"],["Severe",severe(),"thr"],
+    ["Hope",C.hope+"/"+C.hopeMax,""]];
+  $("tiles").innerHTML=tiles.map(t=>`<div class="tile"><b>${t[1]}</b><span>${t[0]}</span>${t[2]?`<small>${t[2]}</small>`:""}</div>`).join("");
+
+  // traits
+  $("traits").innerHTML=Object.keys(C.traits).map(k=>{
+    const spell = k===C.spellcast;
+    const ev=effTrait(k), boosted=ev!==C.traits[k];
+    return `<div class="trait ${spell?"spell":""}" data-trait="${k}" style="${boosted?'border-color:#3f9b54;box-shadow:0 0 10px #3f9b5455':''}">
+      <div class="lab">${k}${spell?" ✦":""}</div>
+      <div class="viewOnly"><div class="val" style="${boosted?'color:#7fd699':''}">${sgn(ev)}</div>${boosted?`<div class="uses" style="color:#7fd699">was ${sgn(C.traits[k])}</div>`:''}</div>
+      <input class="editOnly" type="number" value="${C.traits[k]}" data-traitedit="${k}" style="text-align:center">
+      <div class="uses">${C.traitUses[k]||""}</div></div>`;
+  }).join("");
+
+  // beastform auto-drop on last HP
+  if(C.bfActive && C.hpUsed>=C.hpMax){C.bfActive=null;C.bfEvo=null;}
+  renderTracks();
+  renderRollTrait();
+  renderExpChecks();
+  renderWeapons();
+  renderElem();
+  renderBeastforms();
+  renderBfStatus();
+  renderFeats("classFeats"); renderFeats("ancFeats");
+  renderCards();
+  renderList("exps"); renderList("inv");
+  $("dmgThresh").textContent=`Minor <${major()} (1HP) · Major ${major()}–${severe()-1} (2HP) · Severe ${severe()}+ (3HP)`;
+  save();
+}
+
+function pipIcon(cls){
+  if(cls==="hp") return `<svg viewBox="0 0 24 24" class="ic"><path d="M12 21 C12 21 3.5 14.6 3.5 8.6 C3.5 6 5.4 4.3 7.6 4.3 C9.2 4.3 10.8 5.2 12 7 C13.2 5.2 14.8 4.3 16.4 4.3 C18.6 4.3 20.5 6 20.5 8.6 C20.5 14.6 12 21 12 21 Z"/></svg>`;
+  if(cls==="stress") return `<svg viewBox="0 0 24 24" class="ic"><path class="tri" d="M12 3.6 L21.6 20.4 L2.4 20.4 Z"/><rect class="ex" x="11" y="9.6" width="2" height="5" rx="1"/><rect class="ex" x="11" y="16.3" width="2" height="2" rx="1"/></svg>`;
+  if(cls==="armor") return `<svg viewBox="0 0 24 24" class="ic"><path d="M12 2.4 L20 5.2 V11 C20 16 16.4 19.8 12 21.6 C7.6 19.8 4 16 4 11 V5.2 Z"/></svg>`;
+  if(cls==="hope") return `<svg viewBox="0 0 24 24" class="ic"><path d="M12 2.2 L21.8 12 L12 21.8 L2.2 12 Z"/></svg>`;
+  return "";
+}
+function renderTracks(){
+  const t=[
+    {key:"hpUsed",max:"hpMax",cls:"hp",lab:"Hit Points",invert:true,sub:"hearts left"},
+    {key:"stUsed",max:"stMax",cls:"stress",lab:"Stress",sub:"marked"},
+    {key:"armorUsed",max:"armorScore",cls:"armor",lab:"Armor Slots",sub:"used"},
+    {key:"hope",max:"hopeMax",cls:"hope",lab:"Hope",good:true,sub:"available"}
+  ];
+  $("tracks").innerHTML=t.map(r=>{
+    const max=C[r.max], val=C[r.key];
+    let pips="";
+    for(let i=1;i<=max;i++){
+      const filled = r.invert ? (i>val) : (i<=val);
+      pips+=`<button class="pip ${r.cls} ${filled?"on":""}" data-track="${r.key}" data-max="${r.max}" data-i="${i}">${pipIcon(r.cls)}</button>`;
+    }
+    const count = r.invert ? (max-val)+" / "+max : val+" / "+max;
+    return `<div class="track"><div class="lab"><b>${r.lab}</b>
+      <span>${count} ${r.sub}
+      <span class="miniBtns" style="display:inline-flex">
+        <button class="mini" data-adj="${r.key}" data-d="-1">–</button>
+        <button class="mini" data-adj="${r.key}" data-d="1">+</button></span></span></div>
+      <div class="pips">${pips}</div></div>`;
+  }).join("");
+}
+
+function renderRollTrait(){
+  const opts=Object.keys(C.traits).map(k=>`<option value="${k}">${k} (${sgn(effTrait(k))})${k===C.spellcast?" — Spellcast":""}</option>`).join("");
+  const sel=$("rollTrait"); const cur=sel.value; sel.innerHTML=opts; if(cur) sel.value=cur;
+}
+function renderExpChecks(){
+  $("expChecks").innerHTML=C.exps.map((e,i)=>`<label class="inline" style="font-size:12px;gap:5px;margin:2px 0">
+    <input type="checkbox" data-exp="${i}" style="width:auto"> ${e.name} <span class="pill">${sgn(e.mod)}</span></label>`).join("");
+}
+function renderWeapons(){
+  const f=activeForm();
+  let bfHtml="";
+  if(f){
+    const mod=effTrait(f.trait), dmg=`${C.prof}d${f.die}${f.bonus?"+"+f.bonus:""}`;
+    bfHtml=`<div class="row" style="background:#101a13;border-radius:8px;padding:8px;border:1px solid #3f9b54">
+      <div><span class="name" style="color:#7fd699">🐾 ${f.name} — Beastform Attack</span>
+      <div style="color:#9bdcb0;font-size:12.5px;margin-top:2px">Attack: 2d12 ${sgn(mod)} (${f.trait}) · ${f.range} → hit: ${dmg} physical</div>
+      <div class="meta">Weapons &amp; spells are unavailable while transformed.</div></div></div>`;
+  }
+  $("weapons").innerHTML=bfHtml+C.weapons.map((w,i)=>{
+    const tm=effTrait(w.trait);
+    return `<div class="row" style="${f?'opacity:.45':''}"><div>
+      <span class="name">${w.name}</span> <span class="tag">${w.slot}</span>
+      <div class="meta">${w.trait} · ${w.range} · ${w.dieN}d${w.dieD}+${w.bonus} ${w.type}${w.feature&&w.feature!=="—"?" · "+w.feature:""}</div>
+      <div class="viewOnly" style="color:var(--gold);font-size:12px;margin-top:2px">Attack: 2d12 ${sgn(tm)} (${w.trait}) → hit: ${w.dieN}d${w.dieD}+${w.bonus} ${w.type}</div>
+      <div class="editOnly twocol" style="margin-top:5px">
+        <input data-w="${i}" data-k="name" value="${w.name}">
+        <input data-w="${i}" data-k="slot" value="${w.slot}">
+        <input data-w="${i}" data-k="trait" value="${w.trait}">
+        <input data-w="${i}" data-k="range" value="${w.range}">
+        <input data-w="${i}" data-k="dieN" type="number" value="${w.dieN}">
+        <input data-w="${i}" data-k="dieD" type="number" value="${w.dieD}">
+        <input data-w="${i}" data-k="bonus" type="number" value="${w.bonus}">
+        <input data-w="${i}" data-k="type" value="${w.type}">
+        <input data-w="${i}" data-k="feature" value="${w.feature}">
+      </div></div>
+      <span class="editOnly"><button class="delx" data-del="weapons" data-i="${i}">✕ remove</button></span></div>`;
+  }).join("") + `<button class="btn sm addbtn editOnly" data-add="weapons">+ Add weapon</button>`;
+  // attack weapon select
+  const sel=$("atkWeapon");const cur=sel.value;
+  let o=C.weapons.map((w,i)=>`<option value="${i}">${w.name} (${w.dieN}d${w.dieD}+${w.bonus})</option>`).join("");
+  if(f) o=`<option value="bf">🐾 ${f.name} (${C.prof}d${f.die}${f.bonus?"+"+f.bonus:""})</option>`+o;
+  sel.innerHTML=o;
+  if(f) sel.value="bf"; else if(cur && cur!=="bf") sel.value=cur;
+}
+function renderElem(){
+  $("elemSeg").innerHTML=Object.keys(ELEMENTS).map(e=>`<button data-elem="${e}" class="${C.element===e?"active":""}">${e}</button>`).join("");
+  $("elemDesc").textContent=ELEMENTS[C.element];
+}
+
+function renderBeastforms(){
+  document.querySelectorAll("#bfTierSeg button").forEach(b=>b.classList.toggle("active",b.dataset.bftier===bfTierFilter));
+  const list=BEASTFORMS.filter(f=>bfTierFilter==="all"?true:String(f.tier)===bfTierFilter);
+  $("beastforms").innerHTML=`<div class="bfgrid">`+list.map(f=>{
+    const base=C.traits[f.trait]??0, atk=base+f.tb, evn=C.evasion+f.ev;
+    const dmg=`${C.prof}d${f.die}${f.bonus?"+"+f.bonus:""}`;
+    const isOn=C.bfActive===f.key;
+    const thr=f.thrMod?`<span class="bf-stat"><b>Thresholds</b> ${C.majorBase+f.thrMod}/${C.severeBase+f.thrMod} (${sgn(f.thrMod)})</span>`:"";
+    const feats=f.feats.map(ft=>`<div class="bf-feat"><b>${ft[0]}:</b> ${esc(ft[1])}</div>`).join("");
+    const ctrl=isOn
+      ? `<span class="dc-tag" style="color:#7fd699;font-weight:800">● ACTIVE</span><button class="btn ember sm" data-bfdeact="1">Deactivate</button>`
+      : `<button class="btn gold sm" data-bfact="${f.key}">Activate — mark Stress</button>
+         <button class="btn sm" data-bfevo="${f.key}" title="Spend 3 Hope, no Stress, raise a trait +1">Evolution — 3 Hope</button>`;
+    return `<div class="bf" style="${isOn?'border-color:#7fd699;box-shadow:0 0 14px #3f9b5566':''}">
+      <div class="bf-h"><b>${f.name}</b> <span class="ex">(${esc(f.ex)})</span></div>
+      <div class="bf-stats">
+        <span class="bf-stat"><b>${f.trait}</b> ${sgn(f.tb)} → ${sgn(atk)}</span>
+        <span class="bf-stat"><b>Evasion</b> ${evn} (+${f.ev})</span>
+        <span class="bf-stat"><b>Attack</b> 2d12 ${sgn(atk)} · ${f.range}</span>
+        <span class="bf-stat"><b>Damage</b> ${dmg} phy</span>${thr}
+      </div>
+      <div class="bf-adv"><b>Advantage on:</b> ${f.adv.join(", ")}</div>
+      <div class="bf-feats">${feats}</div>
+      <div style="padding:8px 12px;border-top:1px solid var(--line);display:flex;gap:6px;flex-wrap:wrap;align-items:center">${ctrl}</div>
+    </div>`;
+  }).join("")+`</div>`;
+}
+
+function renderBfStatus(){
+  const f=activeForm();
+  if(!f){$("bfStatus").innerHTML="";return;}
+  $("bfStatus").innerHTML=`<div style="margin-top:10px;background:linear-gradient(180deg,#1c3a26,#13251a);
+    border:1px solid #7fd699;border-radius:10px;padding:10px 14px;display:flex;justify-content:space-between;
+    align-items:center;gap:10px;flex-wrap:wrap">
+    <div style="color:#cfeed7;font-size:13px"><b style="color:#fff">🐾 IN BEASTFORM: ${f.name}</b>
+      &nbsp;·&nbsp; Evasion ${effEvasion()} &nbsp;·&nbsp; Attack 2d12 ${sgn(effTrait(f.trait))} (${f.trait}) ${f.range}
+      &nbsp;·&nbsp; Damage ${C.prof}d${f.die}${f.bonus?"+"+f.bonus:""} phy${f.thrMod?` &nbsp;·&nbsp; Thresholds ${major()}/${severe()}`:""}${C.bfEvo?` &nbsp;·&nbsp; Evolution +1 ${C.bfEvo}`:""}
+      <div style="color:#9bdcb0;font-size:11px;margin-top:2px">Weapons &amp; spells unavailable. Mark your last HP and you auto-drop.</div></div>
+    <button class="btn ember" data-bfdeact="1">Deactivate Beastform</button></div>`;
+}
+
+function activateForm(key,viaEvo){
+  const f=BEASTFORMS.find(b=>b.key===key); if(!f)return;
+  if(viaEvo){
+    if(C.hope<3){toast("Need 3 Hope for Evolution");return;}
+    let tr=prompt("Evolution — choose one trait to raise +1 while in this form:\nAgility, Strength, Finesse, Instinct, Presence, Knowledge",f.trait);
+    if(tr===null)return; tr=tr.trim(); tr=tr.charAt(0).toUpperCase()+tr.slice(1).toLowerCase();
+    if(!(tr in C.traits)){toast("Unknown trait — cancelled");return;}
+    C.hope-=3; C.bfEvo=tr;
+  } else {
+    if(C.stUsed>=C.stMax){toast("No Stress slot free to transform");return;}
+    C.stUsed++; C.bfEvo=null;
+  }
+  C.bfActive=key; render();
+  toast((viaEvo?"Evolution → ":"Transformed → ")+f.name);
+  $("bfStatus").scrollIntoView({behavior:"smooth",block:"center"});
+}
+function deactivateForm(){C.bfActive=null;C.bfEvo=null;render();toast("Dropped out of Beastform");}
+function renderFeats(key){
+  const box=$(key);
+  box.innerHTML=C[key].map((f,i)=>{
+    let costBtn="";
+    if(f.cost){
+      const parts=[];if(f.cost.hope)parts.push(`spend ${f.cost.hope} Hope`);if(f.cost.stress)parts.push(`mark ${f.cost.stress} Stress`);
+      costBtn=`<button class="btn sm ember" data-feat="${key}" data-i="${i}" style="margin-top:5px">Use — ${parts.join(" · ")}</button>`;
+    }
+    return `<div class="row"><div style="flex:1">
+      <span class="name">${f.name}</span> ${f.hb?'<span class="tag hb">homebrew</span>':''}
+      <div class="ftxt viewOnly">${f.text}</div>
+      <div class="editOnly twocol" style="margin-top:5px">
+        <input data-f="${key}" data-fi="${i}" data-k="name" value="${f.name.replace(/"/g,'&quot;')}">
+        <textarea data-f="${key}" data-fi="${i}" data-k="text" rows="2">${f.text}</textarea>
+      </div>
+      ${costBtn}
+    </div><span class="editOnly"><button class="delx" data-del="${key}" data-i="${i}">✕</button></span></div>`;
+  }).join("");
+}
+const DOMAIN_COLOR={arcana:"#7b46c9",sage:"#3f9b54",blade:"#b0402f",bone:"#9a8c6e",
+  codex:"#3f7bc9",grace:"#c94f93",midnight:"#3a3550",splendor:"#caa23a",valor:"#c97a2f"};
+const esc=s=>(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const escA=s=>(s||'').replace(/"/g,'&quot;');
+
+function renderCast(c,i){
+  if(!c.castMode) return "";
+  const sct=C.traits[C.spellcast]??0;
+  let inner="";
+  if(c.castMode==="tokens"){
+    const tk=c.tokens??0;
+    inner=`<div class="cast-row"><span class="meta">Tokens <b style="color:#fff">${tk}</b>/${sct}</span>
+      <input id="tokspend-${i}" class="num" type="number" min="0" max="${tk}" value="${Math.min(tk,1)}" title="tokens to spend">
+      <button class="btn gold sm" data-cast="tokens" data-ci="${i}">Cast</button>
+      <button class="btn sm" data-cast="replenish" data-ci="${i}" title="Mark a Stress">+ Stress → refill ${sct}</button></div>`;
+  } else if(c.castMode==="familiar"){
+    const opts=FAMILIARS.map(f=>`<option value="${esc(f.name)}" data-fly="${f.fly?1:0}">${esc(f.name)}${f.fly?" (flying · 2 Hope)":" (1 Hope)"}</option>`).join("");
+    inner=`<div class="cast-row"><select id="famsel-${i}">${opts}</select>
+      <button class="btn gold sm" data-cast="familiar" data-ci="${i}">Summon</button></div>
+      ${c.familiar?`<div class="meta" style="margin-top:5px">Active: <b style="color:#7fd699">${esc(c.familiar)}</b> — adds +d6 when you damage an adversary in Melee of it. <button class="btn sm ghost" data-cast="dismiss" data-ci="${i}">dismiss</button></div>`:""}`;
+  } else if(c.castMode==="cstress"){
+    const td=(c.profDmg.n*C.prof);
+    inner=`<div class="cast-row"><span class="meta">Corrode Stress</span>
+      <input id="corrstress-${i}" class="num" type="number" min="0" value="0" title="Stress for Corroded (0 or 2+)">
+      <button class="btn gold sm" data-cast="cstress" data-ci="${i}">Cast → ${td}d${c.profDmg.d}</button></div>`;
+  } else { // simple
+    const cost=c.cost||{};const parts=[];if(cost.hope)parts.push(cost.hope+" Hope");if(cost.stress)parts.push(cost.stress+" Stress");
+    inner=`<div class="cast-row"><span class="meta">Cost: ${parts.length?parts.join(" · "):"free"}</span>
+      <button class="btn gold sm" data-cast="simple" data-ci="${i}">Cast</button></div>`;
+  }
+  const out=castOut[i]?`<div class="cast-out">${esc(castOut[i])}</div>`:"";
+  return `<div class="dc-cast">${inner}${out}</div>`;
+}
+
+function castCard(mode,i){
+  const c=C.cards[i]; if(!c)return;
+  if(C.bfActive && mode!=="dismiss"){toast("Can't use domain cards while in Beastform");return;}
+  const sct=C.traits[C.spellcast]??0;
+  if(mode==="tokens"){
+    const want=+(document.getElementById("tokspend-"+i)||{}).value||0;
+    const n=Math.max(0,Math.min(c.tokens||0,want));
+    if(n<=0){toast("Set tokens to spend");return;}
+    c.tokens-=n;
+    castOut[i]=`Spellcast Roll vs target in Far. On success, roll ${n}d10 magic damage. ${c.tokens} token(s) left.`;
+    render();return;
+  }
+  if(mode==="replenish"){
+    if(C.stUsed>=C.stMax){toast("No Stress slot free");return;}
+    C.stUsed++; c.tokens=sct; castOut[i]=`Marked a Stress — tokens refilled to ${sct}.`; render();return;
+  }
+  if(mode==="familiar"){
+    const sel=document.getElementById("famsel-"+i); if(!sel)return;
+    const fly=sel.selectedOptions[0].dataset.fly==="1"; const cost=1+(fly?1:0);
+    if(C.hope<cost){toast("Need "+cost+" Hope");return;}
+    C.hope-=cost; c.familiar=sel.value;
+    castOut[i]=`Summoned ${sel.value} — spent ${cost} Hope. Lasts until your next rest, you recast, or it's attacked.`;
+    render();return;
+  }
+  if(mode==="dismiss"){c.familiar="";delete castOut[i];render();return;}
+  if(mode==="cstress"){
+    const s=+(document.getElementById("corrstress-"+i)||{}).value||0;
+    if(s>0&&s<2){toast("Corroded needs 0, or 2+ Stress");return;}
+    if(C.stUsed+s>C.stMax){toast("Not enough Stress slots");return;}
+    C.stUsed+=s; const td=c.profDmg.n*C.prof; const pen=Math.floor(s/2);
+    castOut[i]=`Spellcast Roll vs target in Far. On success, roll ${td}d${c.profDmg.d} magic damage.`+(s>=2?` Marked ${s} Stress → target permanently Corroded: -${pen} to their Difficulty.`:" (No Stress marked — no Corrode.)");
+    render();return;
+  }
+  // simple
+  const cost=c.cost||{};
+  if(cost.hope){if(C.hope<cost.hope){toast("Need "+cost.hope+" Hope");return;}C.hope-=cost.hope;}
+  if(cost.stress){if(C.stUsed+cost.stress>C.stMax){toast("Not enough Stress");return;}C.stUsed+=cost.stress;}
+  const paid=[cost.hope?cost.hope+" Hope":"",cost.stress?cost.stress+" Stress":""].filter(Boolean).join(", ");
+  castOut[i]=(c.rollText||"Cast.")+(paid?` (paid ${paid})`:"");
+  render();
+}
+
+function renderCards(){
+  const inLoad=C.cards.filter(c=>!c.vault).length;
+  $("loadCount").textContent=inLoad+" in loadout · "+C.cards.length+" total";
+  $("cards").innerHTML=`<div class="cardgrid">`+C.cards.map((c,i)=>{
+    const dkey=(c.domain||'').toLowerCase().replace(/[^a-z]/g,'');
+    const col=DOMAIN_COLOR[dkey]||"#6a3fb0";
+    let paras=(c.text||'').split(/\n\n+/).map(p=>`<p>${esc(p)}</p>`).join("");
+    if(c.profDmg){const td=c.profDmg.n*C.prof;
+      paras+=`<p style="color:#7fd699;border-top:1px dashed var(--line);padding-top:6px;margin-top:6px"><b>Your damage (Prof ${C.prof}):</b> roll ${td}d${c.profDmg.d} magic <span class="meta">(${c.profDmg.n}d${c.profDmg.d} × ${C.prof})</span></p>`;}
+    return `<div class="dcard ${c.vault?'vaulted':''}" style="--dc:${col}">
+      <div class="dc-top">
+        <div class="dc-badges">
+          <span class="dc-lvl" title="Card level">${esc(c.lvl)}</span>
+          <span class="dc-recall" title="Recall Cost (Hope to bring from vault)">RECALL ${esc(c.recall||'0')}</span>
+        </div>
+        <div class="dc-name">${esc(c.name)}</div>
+      </div>
+      <div class="dc-type">${esc(c.domain)} · ${esc(c.type||'Spell')}</div>
+      <div class="dc-body viewOnly">${paras||'<p class="meta">No text.</p>'}</div>
+      ${renderCast(c,i)}
+      <div class="dc-edit editOnly">
+        <div class="twocol">
+          <input data-c="${i}" data-k="name" value="${escA(c.name)}" placeholder="Name">
+          <input data-c="${i}" data-k="domain" value="${escA(c.domain)}" placeholder="Domain">
+          <input data-c="${i}" data-k="lvl" value="${escA(c.lvl)}" placeholder="Level">
+          <input data-c="${i}" data-k="type" value="${escA(c.type||'')}" placeholder="Type">
+          <input data-c="${i}" data-k="recall" value="${escA(c.recall||'')}" placeholder="Recall">
+        </div>
+        <textarea data-c="${i}" data-k="text" rows="5" placeholder="Full card text">${esc(c.text||'')}</textarea>
+      </div>
+      <div class="dc-foot">
+        <button class="btn sm ghost" data-vault="${i}">${c.vault?"→ Loadout":"→ Vault"}</button>
+        <span class="dc-tag">${c.vault?'IN VAULT':'IN LOADOUT'}</span>
+        <span class="editOnly"><button class="delx" data-del="cards" data-i="${i}">✕</button></span>
+      </div>
+    </div>`;
+  }).join("")+`</div>`;
+}
+function renderList(key){
+  const box=$(key);
+  const delCls = key==="inv" ? "" : "editOnly";
+  box.innerHTML=C[key].map((it,i)=>`<div class="row"><div style="flex:1">
+      <span class="name">${it.name}</span> ${it.mod!==undefined?`<span class="pill">${sgn(it.mod)}</span>`:""}
+      ${it.note?`<div class="meta viewOnly">${it.note}</div>`:""}
+      <div class="editOnly twocol" style="margin-top:4px">
+        <input data-l="${key}" data-li="${i}" data-k="name" value="${it.name.replace(/"/g,'&quot;')}">
+        ${it.mod!==undefined?`<input data-l="${key}" data-li="${i}" data-k="mod" type="number" value="${it.mod}">`:
+          `<input data-l="${key}" data-li="${i}" data-k="note" value="${(it.note||'').replace(/"/g,'&quot;')}">`}
+      </div></div>
+      <span class="${delCls}"><button class="delx" data-del="${key}" data-i="${i}">✕</button></span></div>`).join("");
+}
+
+/* ---------- INTERACTIONS ---------- */
+document.addEventListener("click",e=>{
+  const t=e.target;
+  // pips
+  if(t.dataset.track){
+    const key=t.dataset.track, i=+t.dataset.i;
+    if(key==="hope"){ C.hope = (C.hope===i)?i-1:i; }
+    else { C[key] = (C[key]===i)?i-1:i; }
+    render(); return;
+  }
+  if(t.dataset.adj){const k=t.dataset.adj,d=+t.dataset.d;
+    const maxMap={hpUsed:C.hpMax,stUsed:C.stMax,armorUsed:C.armorScore,hope:C.hopeMax};
+    C[k]=Math.max(0,Math.min(maxMap[k],C[k]+d));render();return;}
+  // trait click -> roll resolver
+  if(t.closest(".trait") && !t.matches("input")){
+    const k=t.closest(".trait").dataset.trait; $("rollTrait").value=k; toast(k+" loaded into roll resolver");
+    $("rollTrait").scrollIntoView({behavior:"smooth",block:"center"}); return;
+  }
+  // element
+  if(t.dataset.elem){
+    const el=t.dataset.elem;
+    if(el!=="None" && C.element==="None"){ // channeling costs a stress
+      if(C.stUsed<C.stMax){C.stUsed++; toast("Marked 1 Stress to channel "+el);}
+    }
+    C.element=el; render(); return;
+  }
+  // beastform controls
+  if(t.dataset.bftier){bfTierFilter=t.dataset.bftier;renderBeastforms();return;}
+  if(t.dataset.bfact){activateForm(t.dataset.bfact,false);return;}
+  if(t.dataset.bfevo){activateForm(t.dataset.bfevo,true);return;}
+  if(t.dataset.bfdeact){deactivateForm();return;}
+  // card cast
+  if(t.dataset.cast){castCard(t.dataset.cast,+t.dataset.ci);return;}
+  // feature use (spend cost)
+  if(t.dataset.feat){
+    const f=C[t.dataset.feat][+t.dataset.i];
+    if(f.cost){
+      if(f.cost.hope){ if(C.hope<f.cost.hope){toast("Not enough Hope");return;} C.hope-=f.cost.hope; }
+      if(f.cost.stress){ if(C.stUsed+f.cost.stress>C.stMax){toast("Not enough Stress slots");return;} C.stUsed+=f.cost.stress; }
+      toast(f.name.split("(")[0].trim()+" used");
+      render();
+    }
+    return;
+  }
+  // vault toggle
+  if(t.dataset.vault!==undefined){C.cards[+t.dataset.vault].vault=!C.cards[+t.dataset.vault].vault;render();return;}
+  // delete
+  if(t.dataset.del){C[t.dataset.del].splice(+t.dataset.i,1);render();return;}
+  // add
+  if(t.dataset.add){addRow(t.dataset.add);return;}
+});
+
+function addRow(key){
+  const tmpl={
+    weapons:{name:"New Weapon",slot:"Primary",trait:"Instinct",range:"Close",dieN:2,dieD:6,bonus:0,type:"physical",feature:"—"},
+    classFeats:{name:"New Feature",text:"",hb:false},
+    ancFeats:{name:"New Feature",text:"",hb:false},
+    cards:{name:"New Card",domain:"Arcana",lvl:"1",type:"Spell",recall:"0",text:"",vault:false,hb:false},
+    exps:{name:"New Experience",mod:1},
+    inv:{name:"New Item",note:""}
+  }[key];
+  C[key].push(JSON.parse(JSON.stringify(tmpl)));render();
+}
+
+// edits (input/textarea/select changes)
+document.addEventListener("input",e=>{
+  const t=e.target;
+  if(t.id==="e-avatar"){C.avatar=t.value.trim();render();return;}
+  const map={"e-name":"name","e-heritage":"heritage","e-subclass":"subclass","e-domains":"domains",
+    "e-spellcast":"spellcast"};
+  if(map[t.id]){C[map[t.id]]=t.value;
+    if(t.id==="e-name")$("b-name").textContent=t.value;
+    if(t.id==="e-heritage")$("b-heritage").textContent=t.value;
+    save();return;}
+  const numMap={"e-level":"level","e-evasion":"evasion","e-prof":"prof","e-armor":"armorScore",
+    "e-hpmax":"hpMax","e-stmax":"stMax","e-hopemax":"hopeMax","e-major":"majorBase","e-severe":"severeBase"};
+  if(numMap[t.id]){C[numMap[t.id]]=+t.value||0; render(); return;}
+  if(t.dataset.traitedit){C.traits[t.dataset.traitedit]=+t.value||0; render(); return;}
+  if(t.dataset.w!==undefined){const w=C.weapons[+t.dataset.w],k=t.dataset.k;
+    w[k]=(["dieN","dieD","bonus"].includes(k))?(+t.value||0):t.value; render(); return;}
+  if(t.dataset.f){const f=C[t.dataset.f][+t.dataset.fi];f[t.dataset.k]=t.value;
+    if(t.dataset.k==="name"){/*keep*/} save(); return;}
+  if(t.dataset.c!==undefined){C.cards[+t.dataset.c][t.dataset.k]=t.value; save(); return;}
+  if(t.dataset.l){const it=C[t.dataset.l][+t.dataset.li],k=t.dataset.k;
+    it[k]=(k==="mod")?(+t.value||0):t.value; save(); return;}
+});
+
+/* ---------- DAMAGE CALC ---------- */
+$("dmgCalc").onclick=()=>{
+  const d=+$("dmgIn").value;
+  if(!d&&d!==0){$("dmgRes").innerHTML="";return;}
+  let tier = d>=severe()?3 : d>=major()?2 : 1;
+  const names={1:"Minor",2:"Major",3:"Severe"};
+  let html=`<div class="res"><div class="verdict ${tier===3?'v-fear':tier===2?'':'v-hope'}">${names[tier]} — ${tier} HP</div>
+    <div class="hint" style="text-align:center">${d} vs Major ${major()} / Severe ${severe()}</div>`;
+  const openArmor=C.armorScore-C.armorUsed;
+  html+=`<div class="inline" style="justify-content:center;margin-top:8px;gap:6px">`;
+  if(openArmor>0 && tier>0) html+=`<button class="btn sm" id="dmgArmor">Mark Armor Slot (−1 severity, ${openArmor} open)</button>`;
+  html+=`<button class="btn gold sm" id="dmgApply" data-tier="${tier}">Apply ${tier} HP</button></div></div>`;
+  $("dmgRes").innerHTML=html;
+  let curTier=tier;
+  const reArm=()=>{ // re-render small block keeping reduced tier
+    const open=C.armorScore-C.armorUsed;
+    $("dmgRes").querySelector(".verdict").innerHTML=`${names[curTier]||"None"} — ${curTier} HP`;
+    const ap=$("dmgApply"); ap.dataset.tier=curTier; ap.textContent=`Apply ${curTier} HP`;
+    const ab=$("dmgArmor"); if(ab && (open<=0||curTier<=0)) ab.remove();
+  };
+  const ab=$("dmgArmor"); if(ab) ab.onclick=()=>{ if(C.armorUsed<C.armorScore && curTier>0){C.armorUsed++;curTier--;render();reArm();toast("Armor slot marked");}};
+  $("dmgApply").onclick=()=>{const tt=+$("dmgApply").dataset.tier;
+    C.hpUsed=Math.min(C.hpMax,C.hpUsed+tt); render(); toast("Marked "+tt+" HP"); $("dmgRes").innerHTML="";$("dmgIn").value="";};
+};
+
+/* ---------- ROLL RESOLVER ---------- */
+$("rollCalc").onclick=()=>resolveRoll(false);
+$("rollApply").onclick=()=>resolveRoll(true);
+function resolveRoll(apply){
+  const k=$("rollTrait").value; const tm=effTrait(k);
+  const hd=+$("hopeDie").value, fd=+$("fearDie").value;
+  if(!hd||!fd){toast("Enter both dice");return;}
+  let expSum=0, expN=0;
+  document.querySelectorAll("[data-exp]").forEach(cb=>{if(cb.checked){expSum+=C.exps[+cb.dataset.exp].mod;expN++;}});
+  const bonus=+$("rollBonus").value||0;
+  const total=hd+fd+tm+expSum+bonus;
+  const diff=$("rollDiff").value!==""?+$("rollDiff").value:null;
+  let verdict, cls, effect;
+  if(hd===fd){verdict="CRITICAL SUCCESS";cls="v-crit";effect="Gain a Hope and clear a Stress. (auto-success)";}
+  else if(hd>fd){verdict="with HOPE";cls="v-hope";effect="You gain a Hope.";}
+  else {verdict="with FEAR";cls="v-fear";effect="The GM gains a Fear.";}
+  let dl = diff!==null ? `<div class="hint" style="text-align:center">vs Difficulty ${diff}: <b>${total>=diff?"SUCCESS":"FAILURE"}</b></div>` : "";
+  $("rollRes").innerHTML=`<div class="res"><div class="big">${total}</div>
+    <div class="verdict ${cls}">${verdict}</div>${dl}
+    <div class="hint" style="text-align:center">${hd}+${fd} ${sgn(tm)} ${k}${expSum?` ${sgn(expSum)} exp`:""}${bonus?` ${sgn(bonus)}`:""} · ${effect}</div>
+    ${expN?`<div class="hint" style="text-align:center">Using ${expN} Experience(s) costs ${expN} Hope.</div>`:""}</div>`;
+  if(apply){
+    let msg=[];
+    if(expN){const sp=Math.min(C.hope,expN);C.hope-=sp;msg.push("−"+sp+" Hope (exp)");}
+    if(hd===fd){C.hope=Math.min(C.hopeMax,C.hope+1);if(C.stUsed>0)C.stUsed--;msg.push("+1 Hope, −1 Stress");}
+    else if(hd>fd){C.hope=Math.min(C.hopeMax,C.hope+1);msg.push("+1 Hope");}
+    render();toast("Applied: "+msg.join(", "));
+  }
+}
+
+/* ---------- ATTACK DAMAGE HELPER ---------- */
+$("atkTusks").onchange=e=>{$("atkTuskDie").style.display=e.target.checked?"block":"none";};
+$("atkCalc").onclick=()=>{
+  const val=$("atkWeapon").value;
+  let dn,dd,bonus,type,label;
+  if(val==="bf"){const f=activeForm();if(!f)return;dn=C.prof;dd=f.die;bonus=f.bonus;type="physical";label=f.name;}
+  else{const w=C.weapons[+val];if(!w)return;dn=w.dieN;dd=w.dieD;bonus=w.bonus;type=w.type;label=w.name;}
+  const dice=+$("atkDice").value||0;
+  let total=dice+bonus; let parts=`${dice} (${dn}d${dd}) +${bonus}`;
+  if($("atkTusks").checked){const td=+$("atkTuskDie").value||0;total+=td;parts+=` +${td} (Tusks 1d6)`;
+    if(C.hope>0){C.hope--;render();} }
+  $("atkRes").innerHTML=`<div class="res"><div class="big">${total} <span style="font-size:14px;color:var(--mut)">${type}</span></div>
+    <div class="hint" style="text-align:center">${label}: ${parts}${$("atkTusks").checked?" · spent 1 Hope":""}</div></div>`;
+};
+
+/* ---------- TOP BUTTONS ---------- */
+function addInvItem(){
+  const n=$("invName").value.trim(); if(!n){toast("Enter an item name");return;}
+  C.inv.push({name:n,note:$("invNote").value.trim()});
+  $("invName").value="";$("invNote").value="";render();toast("Added "+n);$("invName").focus();
+}
+$("invAdd").onclick=addInvItem;
+$("invName").addEventListener("keydown",e=>{if(e.key==="Enter")addInvItem();});
+$("invNote").addEventListener("keydown",e=>{if(e.key==="Enter")addInvItem();});
+$("avatar").onclick=()=>$("avatarFile").click();
+$("avatarFile").onchange=e=>{const f=e.target.files&&e.target.files[0];if(f)handleAvatar(f);e.target.value="";};
+$("avatarClear").onclick=()=>{C.avatar="";render();toast("Portrait cleared");};
+function handleAvatar(file){
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    const img=new Image();
+    img.onload=()=>{
+      const max=440;let w=img.width,h=img.height;const s=Math.min(1,max/Math.max(w,h));
+      w=Math.round(w*s);h=Math.round(h*s);
+      const cv=document.createElement("canvas");cv.width=w;cv.height=h;
+      cv.getContext("2d").drawImage(img,0,0,w,h);
+      try{C.avatar=cv.toDataURL("image/jpeg",0.85);}catch(err){C.avatar=ev.target.result;}
+      render();toast("Portrait updated");
+    };
+    img.onerror=()=>toast("Couldn't read that image");
+    img.src=ev.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+$("editToggle").onclick=()=>{const on=document.body.classList.toggle("editing");
+  $("editToggle").textContent=on?"✓ Done editing":"✎ Edit Mode";
+  if(!on) render(); /* refresh view text after edits */};
+$("restBtn").onclick=()=>{if(confirm("Rest: clear all HP, Stress, and Armor slots? (Familiars are dismissed.)")){
+  C.hpUsed=0;C.stUsed=0;C.armorUsed=0;C.element="None";C.bfActive=null;C.bfEvo=null;
+  C.cards.forEach((c,i)=>{if(c.castMode==="familiar"){c.familiar="";delete castOut[i];}});
+  render();toast("Rested — HP, Stress & Armor cleared");}};
+$("newSession").onclick=()=>{if(confirm("New session: clear marks, set Hope to "+C.hopeStart+", refill spell tokens?")){
+  C.hpUsed=0;C.stUsed=0;C.armorUsed=0;C.hope=C.hopeStart;C.element="None";C.bfActive=null;C.bfEvo=null;
+  const sct=C.traits[C.spellcast]??0;
+  C.cards.forEach(c=>{if(c.castMode==="tokens")c.tokens=sct;if(c.castMode==="familiar")c.familiar="";});
+  for(const k in castOut)delete castOut[k];
+  render();toast("New session ready");}};
+$("resetBtn").onclick=()=>{if(confirm("Reset everything to Theron's saved build? This erases your edits.")){
+  C=JSON.parse(JSON.stringify(DEFAULT));render();toast("Build reset");}};
+
+render();
+</script>
+</body>
+</html>

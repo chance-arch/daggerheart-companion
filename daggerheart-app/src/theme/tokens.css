@@ -1,0 +1,29 @@
+/* Daggerheart App — Design Tokens (Concept A: dark-fantasy grimoire) */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cinzel+Decorative:wght@700;900&family=EB+Garamond:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root{
+  --dh-bg:#0b0913; --dh-bg-2:#120f1d; --dh-panel:#191426; --dh-panel-2:#221b34;
+  --dh-line:#332b4d; --dh-line-2:#473c6b;
+  --dh-gold:#d8b059; --dh-gold-2:#b88f3c; --dh-gold-dim:#7c6733;
+  --dh-ink:#f4ecdb; --dh-ink-strong:#ffffff; --dh-mut:#c3bad6;
+  --dh-ember:#e0732c; --dh-teal:#3fb0a0;
+  --dh-hp:#e23b3e; --dh-hp-edge:#7c1c1f; --dh-stress:#f0a52e; --dh-stress-edge:#9c560f;
+  --dh-armor:#46c0ae; --dh-armor-edge:#216b60; --dh-hope:#e9c772; --dh-hope-edge:#a8832f;
+  --dh-arcana:#7b46c9; --dh-blade:#b0402f; --dh-bone:#9a8c6e; --dh-codex:#3f7bc9;
+  --dh-grace:#c94f93; --dh-midnight:#3a3550; --dh-sage:#3f9b54; --dh-splendor:#caa23a; --dh-valor:#c97a2f;
+  --dh-success:#46b06a; --dh-danger:#c8484b; --dh-hope-roll:var(--dh-gold); --dh-fear-roll:var(--dh-ember); --dh-crit:#46b06a;
+  --dh-font-display:'Cinzel Decorative','Cinzel',Georgia,serif;
+  --dh-font-heading:'Cinzel',Georgia,serif;
+  --dh-font-flavor:'EB Garamond',Georgia,serif;
+  --dh-font-data:'Inter',system-ui,Arial,sans-serif;
+  --dh-fs-hero:32px; --dh-fs-h2:14px; --dh-fs-body:16px; --dh-fs-data:24px; --dh-fs-small:12.5px;
+  --dh-gap:12px; --dh-pad:14px;
+  --dh-radius-card:13px; --dh-radius-ctrl:9px; --dh-radius-pill:20px; --dh-tap-min:44px;
+  --dh-glow-gold:0 0 14px rgba(216,176,89,.30); --dh-shadow-card:0 6px 22px rgba(0,0,0,.35);
+}
+/* Domain helper: set --dc on a card to theme its frame. */
+.dh-domain-arcana{--dc:var(--dh-arcana)} .dh-domain-blade{--dc:var(--dh-blade)}
+.dh-domain-bone{--dc:var(--dh-bone)} .dh-domain-codex{--dc:var(--dh-codex)}
+.dh-domain-grace{--dc:var(--dh-grace)} .dh-domain-midnight{--dc:var(--dh-midnight)}
+.dh-domain-sage{--dc:var(--dh-sage)} .dh-domain-splendor{--dc:var(--dh-splendor)}
+.dh-domain-valor{--dc:var(--dh-valor)}
