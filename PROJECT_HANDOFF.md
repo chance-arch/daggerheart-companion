@@ -95,6 +95,23 @@ Chance's design worry: *will the app get slow or crash once every class / domain
 
 ---
 
+## 4b. Additional field notes (added 2026-07-10, post-pilot)
+
+New requests from Chance, not from the original pilot batch. Numbered continuing the sequence.
+
+| # | Type | Item | Notes |
+|---|------|------|-------|
+| **#9** | Feature | **Equip / unequip toggle for armor & weapons** | Items stay on their respective lists, but a buff/stat only applies when the item is **equipped via a checkbox**. Own many, toggle which are active — no destructive swap. |
+| **#10** | Feature | **Marketplace / Tinker (buy & sell values)** | Searchable list of everything purchasable from an in-game merchant. Selecting an item (or moving it to a **"shopping list"**) shows its worth as a **range** — e.g. *"Short Sword · common · 1–3 handfuls · used value 1 handful."* |
+
+**#9 design note.** Today the app applies gear effects *immediately and destructively*: `swapArmor` bakes the armor's Evasion/Agility/threshold/Armor-Score deltas straight into base stats, and weapons are always "on." This note wants gear to carry an **equipped flag** and only contribute its bonuses while checked. That is exactly the **"active-modifier system" the app currently lacks** — the same gap called out in #4's root cause (the Natural Familiar +1d6). Doing #9 well likely means building a small "what's currently applied" layer that `render()` reads, rather than mutating base stats — which would also make #4/#5-style inline math cleaner. Watch the direct stat mutation on Evasion / thresholds / Armor Score / Agility when converting.
+
+**#10 design note — pricing source RESOLVED (2026-07-10, with Chance).** Build a **clearly-labeled homebrew price table** keyed by **tier** (weapons/armor) and **rarity** (consumables / loot / magic items); each cell gives a **buy range + used/sell value** — e.g. *Short Sword · common · 1–3 handfuls · used value 1 handful*. This **obeys the standard precedence** (`SOURCES_precedence.md`), not a special case: the homebrew table sits at **rank 8 (community/homebrew)**, tagged via `sourceTier` like every other record; if official prices are ever published (errata/Core, rank 1/3) they **supersede** it automatically. **No fabricated "official" prices.**
+
+*Data gap — a content task comes before the UI.* The equipment dataset carries `tier` but **no `rarity` field and no price/value fields**. So step 1 is data: **(a)** add `rarity` to the item classes that use it (consumables/loot/magic items; weapons & armor stay tier-keyed), and **(b)** author the homebrew buy-range + used-value model per tier/rarity, all tagged homebrew. Step 2 is the UI (search → shopping list → range display), which reuses the existing capped-search picker pattern (30–40 cap).
+
+---
+
 ## 5. Where everything lives (folder map)
 
 **The product**
