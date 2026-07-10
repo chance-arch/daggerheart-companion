@@ -1,0 +1,43 @@
+# jsdom test harness notes
+
+How this project verifies `daggerheart_companion.html` logic headlessly (no browser automation
+works on `file://` here — see PROJECT_HANDOFF.md §6.3).
+
+## Setup (once per machine / temp dir)
+
+```
+npm install jsdom        # anywhere; node_modules/ is gitignored
+```
+
+If jsdom is installed somewhere else, point node at it:
+
+```
+NODE_PATH=/path/to/node_modules node test_subclass_tiers.js
+```
+
+## The pattern
+
+Load the whole HTML file into jsdom with scripts enabled, then drive the **real UI**
+(click/select/input events), never internal functions directly:
+
+```js
+const dom = new JSDOM(fs.readFileSync("daggerheart_companion.html", "utf8"),
+  { runScripts: "dangerously", url: "http://localhost/app.html", pretendToBeVisual: true });
+```
+
+- `url: http://localhost/...` gives the app working `localStorage`.
+- The two external Firebase `<script src>` tags simply don't load in jsdom (no resource
+  loader) — the app tolerates that; ignore the warnings.
+- Read app state via `window.eval("App.active")` etc. — eval in the *harness* is fine;
+  the app itself must stay eval-free (PROJECT_HANDOFF.md §6.1).
+- After any app edit: extract the `<script>` block and `node --check` it.
+
+## Current harnesses
+
+| File | Covers |
+|---|---|
+| `test_subclass_tiers.js` | Field note #6: Foundation/Specialization/Mastery tier gating in builder + level-up, permanent stat effects (Stalwart thresholds, Nightwalker Evasion, Winged Sentinel Severe), start-at-level-N recommended paths, manual-pick blocking, dropdown gating. 46 checks. |
+| `test_subclass_tiers_extra.js` | All 9 classes x 18 subclasses at L1 and L10 through the real wizard, spellcast trait stability across tiers, Play-mode armor swap preserving subclass threshold bonuses. 75 checks. |
+
+Both default to `daggerheart_companion.html`; pass another HTML path as argv[2] to test a
+backup or scratch build. Exit code 0 = all pass.
