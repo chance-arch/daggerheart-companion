@@ -74,6 +74,27 @@ Plus one open manual-review item in `CHANCES TO DO LIST.txt`: **visually review 
 
 ---
 
+## 4a. Scaling & hardening assessment (added 2026-07-10)
+
+Chance's design worry: *will the app get slow or crash once every class / domain / weapon / item is fully built out?* We read the actual render path (`daggerheart_companion.html`, Play-mode `render()` ~line 371, plus the search/picker code) and answered it. **Verdict: the fear is largely unfounded — building out more content does NOT make the play screen heavier.** No code changed; this is a recorded finding + one optional future improvement.
+
+**Why content growth is safe (the app already does the right thing):**
+- The full libraries are **never mounted on screen at once.** Card/weapon/armor/item search (`renderSpellResults`, `pickRowsHTML`) caps results at **30–40 rows** and requires a search term. The 189 cards / 346 items / 129 adversaries live in memory as *data*, not as DOM.
+- Mechanizing the remaining classes adds **recipes (data) to cards, not new things to draw.** A character still only carries **≤5 loadout cards**, their weapons, and a few feats. So a fully-built-out app draws the *same* amount on the Play screen as today's half-built one. Screen weight scales with the *character*, which is capped — not with the *library*, which is what grows.
+
+**The one real inefficiency (non-urgent):** Play-mode `render()` rebuilds the **entire** play screen (all tiles, traits, pip tracks, actions, loadout cards, all 24 beastforms, feats, equipment, vault, conditions, inventory) via `innerHTML` on **every** interaction — every pip tap calls `render()`. It's wasteful, but what it redraws is **character-sized, not library-sized**, so it stays fast. Main felt symptom: can steal input focus / scroll position mid-interaction. Not a crash risk.
+
+**The only two per-character lists that actually grow (and redraw fully every tap):**
+1. **Vault** (`CH.vault`, `renderVault`) — banked cards, **no cap**. A level-10 character could stash 30–40 cards, all redrawn on every tap.
+2. **Inventory** (`CH.inv`, `renderInv`) — hoarded gear, **no cap**.
+- Separately, **uploaded portrait photos** (`CH.avatar` as a data URL) remain the most likely thing to hit the browser's ~5–10 MB localStorage limit — far more than all card data combined. Watch this before the render cost.
+
+**Recommended hardening (optional, do only if the table ever feels it):** teach `render()` to **update only what changed** instead of rebuilding the whole screen. It's a contained fix to a single function, **inside the single file — no restructuring, no build tools, no risk to the double-click model.** Splitting the app into separate files would *not* have addressed this fear and is not required.
+
+**Bottom line for the "break it into separate engines" idea:** the stability Chance wants comes from *(a)* the already-present "never mount the whole library" pattern and *(b)* the optional targeted-redraw fix above — not from splitting files. File-splitting is a developer-edit-comfort choice, separable from stability, and still collides with `file://` (ES `import` needs a bundler or a server). Park it unless edit-pain on the 448 KB file becomes the real bottleneck.
+
+---
+
 ## 5. Where everything lives (folder map)
 
 **The product**
