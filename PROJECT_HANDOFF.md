@@ -57,11 +57,11 @@ Content library (all Official SRD, verified clean 2026-06-29): 189 domain cards,
 
 ## 4. The 8 field notes (the active backlog)
 
-Logged from the pilot on 2026-07-05. **Progress (2026-07-09): #4 fixed, #8 verified resolved. (2026-07-10): #6 verified — 3 gaps found and fixed.** Remaining active: #1, #2, #5, #7 (#3 parked). Full detail also lives in project memory (`daggerheart-pilot-feedback`).
+Logged from the pilot on 2026-07-05. **Progress (2026-07-09): #4 fixed, #8 verified resolved. (2026-07-10): #6 verified — 3 gaps found and fixed; #1 built.** Remaining active: #2, #5, #7 (#3 parked). Full detail also lives in project memory (`daggerheart-pilot-feedback`).
 
 | # | Type | Item | Notes |
 |---|------|------|-------|
-| 1 | Feature | **Campaign notes section** | Free-text area for campaign notes, separate from character data. |
+| 1 | ✅ Feature (BUILT 2026-07-10) | **Campaign notes section** | 📓 Notes button in the always-visible header toolbar toggles a shared free-text panel (one page for the whole campaign, reachable from Play, Roster, and every mode). Persists to its own localStorage key **`dh_campaign_notes_v1`** — never inside the roster key — with debounced autosave (400 ms + flush on blur) and the standard blocked-storage fallback (in-memory + warning toast). Excluded from the printable sheet. jsdom-verified (`test_campaign_notes.js`, 24 checks). **Needs Chance's eyes for look/feel only** (panel styling matches the Import/Export/Cloud boxes). |
 | 2 | Feature | **Content-completeness view** | Surface which classes/subclasses/cards are fully mechanized vs. reference-only, in-app, so Chance knows what's fully playable. (Answer already known — see §3 — needs a UI.) |
 | 3 | Feature | **Sharing / access** — *PARKED* | Share app or access key, possibly QR. Deferred with hosting; do not build unless un-parked. |
 | 4 | ✅ Bug (FIXED 2026-07-09) | **Natural Familiar** doesn't apply its extra damage die | Root cause: `summon` effect handler dropped the card's `grants` array and the app has no active-modifier system, so the +1d6 never reached a roll. Fix: while a Natural Familiar is summoned, Combat Actions shows a "🐾 Familiar adjacent (+1d6)" toggle; when on, `rollDmg` adds a d6 to weapon/beastform/spell damage with the term shown in the log. Positional condition is player-asserted (can't be auto-known). jsdom-verified. This is also the inline-math pattern #5 wants — generalize it when #5 is picked up. |

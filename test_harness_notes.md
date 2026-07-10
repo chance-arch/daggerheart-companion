@@ -38,6 +38,7 @@ const dom = new JSDOM(fs.readFileSync("daggerheart_companion.html", "utf8"),
 |---|---|
 | `test_subclass_tiers.js` | Field note #6: Foundation/Specialization/Mastery tier gating in builder + level-up, permanent stat effects (Stalwart thresholds, Nightwalker Evasion, Winged Sentinel Severe), start-at-level-N recommended paths, manual-pick blocking, dropdown gating. 46 checks. |
 | `test_subclass_tiers_extra.js` | All 9 classes x 18 subclasses at L1 and L10 through the real wizard, spellcast trait stability across tiers, Play-mode armor swap preserving subclass threshold bonuses. 75 checks. |
+| `test_campaign_notes.js` | Field note #1: campaign notes panel — header-button toggle, debounced autosave to `dh_campaign_notes_v1`, roster save/wipe + character switching leave notes intact, reload hydration (via `beforeParse` pre-seeding), print-sheet exclusion, blocked-storage in-memory fallback + toast. 24 checks. |
 
 Both default to `daggerheart_companion.html`; pass another HTML path as argv[2] to test a
 backup or scratch build. Exit code 0 = all pass.
