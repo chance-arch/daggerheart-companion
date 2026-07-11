@@ -344,7 +344,7 @@ const BEASTFORMS=[
 {key:"pouncing-predator",tier:2,name:"Pouncing Predator",ex:"Cheetah, Lion, Panther",trait:"Instinct",tb:1,ev:3,range:"Melee",die:8,bonus:6,adv:["attack","climb","sneak"],feats:[["Fleet","Spend a Hope to move Far without rolling."],["Takedown","Mark a Stress: move to Melee + attack; on success +2 Prof and target marks a Stress."]]},
 {key:"winged-beast",tier:2,name:"Winged Beast",ex:"Hawk, Owl, Raven",trait:"Finesse",tb:1,ev:3,range:"Melee",die:4,bonus:2,thrMod:-2,adv:["deceive","locate","scare"],feats:[["Bird's-Eye View","Fly at will. Once/rest airborne, ask the GM a question; first to act on it gains advantage."],["Hollow Bones","−2 damage thresholds (applied)."]]}];
 const Sheet=(function(){
-let CH=null,S=null,bfTierFilter="1";let _onChange=null;
+let CH=null,S=null,bfTierFilter="1",bfQuickKey=null;let _onChange=null;
 const $=id=>document.getElementById(id);
 const sgn=n=>(n>=0?"+":"")+n;
 const d=s=>Math.floor(Math.random()*s)+1;
@@ -450,8 +450,18 @@ function runSessionStart(){CH.cards.forEach((c,ci)=>{const st=S.cardState[ci]||(
 function costLabel(c){const p=[];if(c&&c.hope)p.push(c.hope+" Hope");if(c&&c.stress)p.push(c.stress+" Stress");return "Cost: "+(p.join(" + ")||"—");}
 function affordFeat(ft){if(ft.cost){if(ft.cost.hope&&S.hope<ft.cost.hope)return "need "+ft.cost.hope+" Hope";if(ft.cost.stress&&S.stUsed+ft.cost.stress>CH.stMax)return "not enough Stress";}return "";}
 function renderActions(){const f=aForm();let h="";
+ // Evolution trait chooser (replaces the old prompt()) — focus on the choice, then transform.
+ if(!f&&S.bfEvoPending){const b=BEASTFORMS.find(x=>x.key===S.bfEvoPending);
+  h+=`<div class="row" style="background:#141018;border:1px solid var(--gold);border-radius:8px;padding:8px;flex-wrap:wrap;gap:6px"><div style="flex:1;min-width:170px"><span class="name" style="color:var(--gold)">🐾 Evolution → ${b?b.name:"Beastform"}</span><div class="meta">Raise one trait +1 for this Beastform (spends 3 Hope):</div><div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:6px">`+Object.keys(CH.traits).map(k=>`<button class="btn sm" data-bfevotrait="${k}">${k} ${sgn(CH.traits[k])}${b&&b.trait===k?' ★':''}</button>`).join("")+`</div></div><button class="btn ember sm" data-bfevocancel="1">Cancel</button></div>`;
+  $("actions").innerHTML=h;return;}
  const _famT=familiarActive()?`<label class="row" style="background:#101a13;border:1px solid #3f9b54;border-radius:8px;padding:8px;cursor:pointer;display:flex;gap:8px;align-items:center;margin-bottom:8px"><input type="checkbox" data-familiaradj ${S.familiarAdj?"checked":""}><span class="meta" style="color:#9bdcb0">🐾 Familiar adjacent — add <b>+1d6</b> to your damage (target within Melee of your familiar)</span></label>`:"";h=_famT;
- if(f){h+=`<div class="row" style="background:#101a13;border:1px solid #3f9b54;border-radius:8px;padding:8px"><div><span class="name" style="color:#7fd699">🐾 ${f.name} Attack</span><div class="meta" style="color:#9bdcb0">2d12 ${sgn(effTrait(f.trait))} (${f.trait}: ${mathSub(sgn(CH.traits[f.trait]),traitParts(f.trait).slice(1))||sgn(CH.traits[f.trait])+" base"}) ${f.range} → ${CH.prof}d${f.die}${f.bonus?'+'+f.bonus:''} phy</div></div><button class="btn gold sm" data-bfatk="1">Attack</button></div><div class="meta" style="margin-top:6px">Weapons &amp; spells unavailable while transformed.</div>`;$("actions").innerHTML=h;return;}
+ if(f){h+=`<div class="row" style="background:#101a13;border:1px solid #3f9b54;border-radius:8px;padding:8px"><div><span class="name" style="color:#7fd699">🐾 ${f.name} Attack</span><div class="meta" style="color:#9bdcb0">2d12 ${sgn(effTrait(f.trait))} (${f.trait}: ${mathSub(sgn(CH.traits[f.trait]),traitParts(f.trait).slice(1))||sgn(CH.traits[f.trait])+" base"}) ${f.range} → ${CH.prof}d${f.die}${f.bonus?'+'+f.bonus:''} phy</div></div><button class="btn gold sm" data-bfatk="1">Attack</button></div><div class="row" style="margin-top:6px"><span class="meta">Weapons &amp; spells unavailable while transformed.</span><button class="btn ember sm" data-bfdeact="1">✕ Drop Beastform</button></div>`;$("actions").innerHTML=h;return;}
+ // Beastform quick-launcher — assume a form from the action panel without scrolling to the grid.
+ if(CH.hasBeastform){const _tiers=BEASTFORMS.map(b=>b.tier).filter((v,i,a)=>a.indexOf(v)===i).sort();
+  if(!bfQuickKey||!BEASTFORMS.some(b=>b.key===bfQuickKey))bfQuickKey=BEASTFORMS[0]&&BEASTFORMS[0].key;
+  const _opts=_tiers.map(t=>`<optgroup label="Tier ${t}">`+BEASTFORMS.filter(b=>b.tier===t).map(b=>`<option value="${b.key}"${b.key===bfQuickKey?' selected':''}>${b.name} — ${b.trait} ${sgn(CH.traits[b.trait]+b.tb)}, ${b.range}, ${CH.prof}d${b.die}${b.bonus?'+'+b.bonus:''}</option>`).join("")+`</optgroup>`).join("");
+  const _noStress=S.stUsed>=CH.stMax,_noHope=S.hope<3;
+  h+=`<div class="row" style="background:#101a13;border:1px solid #3f9b54;border-radius:8px;padding:8px;flex-wrap:wrap;gap:8px"><div style="flex:1;min-width:160px"><span class="name" style="color:#7fd699">🐾 Beastform</span><div class="meta" style="color:#9bdcb0">Transform from here — no scrolling. Full list &amp; features are in the Beastforms panel below.</div><select id="bfQuickSel" style="width:100%;margin-top:6px">${_opts}</select></div><div style="display:flex;flex-direction:column;gap:5px;justify-content:center"><button class="btn gold sm" data-bfquick="1"${_noStress?' disabled style="opacity:.4;cursor:not-allowed" title="No Stress slot free"':''}>Assume (Stress)</button><button class="btn sm" data-bfquickevo="1"${_noHope?' disabled style="opacity:.4;cursor:not-allowed" title="Need 3 Hope"':''}>Evolution (3 Hope)</button></div></div>`;}
  CH.weapons.forEach((w,i)=>{h+=`<div class="row"><div><span class="name">${w.name}</span> <span class="tag">${w.type}</span><div class="meta">${w.range} &middot; 2d12 ${sgn(effTrait(w.trait))} → ${w.dn}d${w.dd}+${w.bonus}</div></div><button class="btn gold sm" data-wpn="${i}">Attack</button></div>`;});
  CH.cards.forEach((c,ci)=>{cardAbilities(c).forEach((ab,ai)=>{if(ab.trigger.kind!=="action")return;const ctx=ctxBase(ci);(ab.inputs||[]).forEach(inp=>{const el=$("inp_"+ci+"_"+inp.id);if(el)ctx[inp.id]=inp.kind==="bool"?el.checked:(+el.value||0);});const why=whyCost(abCost(ab,ctx));const multi=cardAbilities(c).length>1;h+=`<div class="row"><div><span class="name">${multi?c.name+" — "+(ab.label||"Cast"):c.name}</span> <span class="tag" style="color:#a98fd6">${c.domain}</span><div class="meta">${ab.cost?costStr(ab.cost):"Spellcast"}${why?' &middot; <span style="color:var(--ember)">'+why+'</span>':''}</div></div><button class="btn ${why?'sm':'gold sm'}" data-ab="${ci}" data-ai="${ai}" ${why?'disabled style="opacity:.4;cursor:not-allowed"':''}>${ab.label||"Cast"}</button></div>`;});});
  (CH.ancFeats||[]).forEach((ft,i)=>{if(!ft.cost)return;const why=affordFeat(ft);h+=`<div class="row"><div><span class="name">${ft.name}</span> <span class="tag">ancestry</span><div class="meta">${costLabel(ft.cost)}${why?' &middot; <span style="color:var(--ember)">'+why+'</span>':''}</div></div><button class="btn ${why?'sm':'gold sm'}" data-feat="af" data-fi="${i}" ${why?'disabled style="opacity:.4;cursor:not-allowed"':''}>Use</button></div>`;});
@@ -500,14 +510,19 @@ function gather(){let sum=0,exps=[];document.querySelectorAll('[data-exp]:checke
 function rollAction(baseMod,label,baseParts){const g=gather();const bp=baseParts||(baseMod?[{v:baseMod,l:"mod"}]:[]);const extra=modTerms(bp)+modTerms(g.exps)+(g.bonus?` ${sgn(g.bonus)} bonus`:'');const r=duality(baseMod+g.sum+g.bonus,label,{dc:g.dc,extra});if(g.n){S.hope-=Math.min(S.hope,g.n);}document.querySelectorAll('[data-exp]').forEach(cb=>cb.checked=false);render();return r;}
 function rollDmg(n,sides,b,label){let p=[],tot=b||0;for(let i=0;i<n;i++){const r=d(sides);p.push(r);tot+=r;}let _famX="";if(S.familiarAdj&&familiarActive()){const fr=d(6);tot+=fr;_famX=` +${fr} <span class="hint">(Natural Familiar d6)</span>`;}logRoll(`<b>${label} dmg</b> ${tot} = ${n}d${sides} [${p.join(',')}]${b?' +'+b:''}${_famX}`);return tot;}
 /* castCard replaced by generic interpreter (runAbility/execEffects) */
-function activate(key,evo){const b=BEASTFORMS.find(x=>x.key===key);if(!b)return;
- if(evo){if(S.hope<3)return toast("Need 3 Hope");let tr=prompt("Evolution — raise one trait +1:\nAgility, Strength, Finesse, Instinct, Presence, Knowledge",b.trait);if(tr===null)return;tr=tr.trim();tr=tr.charAt(0).toUpperCase()+tr.slice(1).toLowerCase();if(!(tr in CH.traits))return toast("Unknown trait");S.hope-=3;S.bfEvo=tr;}
- else{if(S.stUsed>=CH.stMax)return toast("No Stress slot free");S.stUsed++;S.bfEvo=null;}
- S.bfActive=key;render();toast((evo?"Evolution → ":"Transformed → ")+b.name);}
-function deact(){S.bfActive=null;S.bfEvo=null;render();toast("Dropped out of Beastform");}
+function activate(key){const b=BEASTFORMS.find(x=>x.key===key);if(!b)return;
+ if(S.stUsed>=CH.stMax)return toast("No Stress slot free");S.stUsed++;S.bfEvo=null;S.bfEvoPending=null;
+ S.bfActive=key;render();toast("Transformed → "+b.name);}
+/* Evolution (Hope feature): pick the +1 trait in-app instead of a native prompt() —
+   accessible, keyboard-friendly, and works in sandboxed/preview contexts where prompt() fails. */
+function beginEvo(key){const b=BEASTFORMS.find(x=>x.key===key);if(!b)return;if(S.hope<3)return toast("Need 3 Hope");S.bfEvoPending=key;render();}
+function evoPick(trait){const key=S.bfEvoPending;if(!key)return;if(!(trait in CH.traits))return toast("Unknown trait");if(S.hope<3){S.bfEvoPending=null;render();return toast("Need 3 Hope");}S.hope-=3;S.bfEvo=trait;S.bfEvoPending=null;S.bfActive=key;const b=BEASTFORMS.find(x=>x.key===key);render();toast("Evolution → "+(b?b.name:"Beastform")+" (+1 "+trait+")");}
+function cancelEvo(){S.bfEvoPending=null;render();}
+function deact(){S.bfActive=null;S.bfEvo=null;S.bfEvoPending=null;render();toast("Dropped out of Beastform");}
+document.addEventListener("change",e=>{if(e.target&&e.target.id==="bfQuickSel")bfQuickKey=e.target.value;});
 let traySel=12;
 function renderTray(){$("trayDice").innerHTML=[4,6,8,10,12,20].map(s=>`<button class="dbtn" data-die="${s}" style="${s===traySel?'border-color:var(--gold);color:var(--gold)':''}">d${s}</button>`).join("");}
-document.addEventListener("click",e=>{const t=e.target.closest("[data-trait],[data-wpn],[data-bfatk],[data-ab],[data-tk],[data-adj],[data-die],[data-elem],[data-bftier],[data-bfact],[data-bfevo],[data-bfdeact],[data-feat],[data-gold],[data-invdel],[data-invadd],[data-tovault],[data-toload],[data-condtoggle],[data-condadd],[data-conddel],[data-freeswap],[data-pickadd],[data-invqty]");if(!t)return;
+document.addEventListener("click",e=>{const t=e.target.closest("[data-trait],[data-wpn],[data-bfatk],[data-ab],[data-tk],[data-adj],[data-die],[data-elem],[data-bftier],[data-bfact],[data-bfevo],[data-bfdeact],[data-bfquick],[data-bfquickevo],[data-bfevotrait],[data-bfevocancel],[data-feat],[data-gold],[data-invdel],[data-invadd],[data-tovault],[data-toload],[data-condtoggle],[data-condadd],[data-conddel],[data-freeswap],[data-pickadd],[data-invqty]");if(!t)return;
  if(t.dataset.trait){rollAction(effTrait(t.dataset.trait),t.dataset.trait+(t.dataset.trait===CH.spellcast?' (Spellcast)':''),traitParts(t.dataset.trait));}
  else if(t.dataset.wpn!=null){if(aForm())return toast("Weapons unavailable in Beastform");const w=CH.weapons[+t.dataset.wpn];rollAction(effTrait(w.trait),w.name+" attack",traitParts(w.trait));const dm=rollDmg(w.dn,w.dd,w.bonus,w.name);$("diceResult").innerHTML+=`<div class="hint">Damage if it hits: <b>${dm}</b> ${w.type}</div>`;}
  else if(t.dataset.bfatk){const f=aForm();rollAction(effTrait(f.trait),f.name+" attack",traitParts(f.trait));const dm=rollDmg(CH.prof,f.die,f.bonus,f.name);$("diceResult").innerHTML+=`<div class="hint">Damage if it hits: <b>${dm}</b> physical</div>`;}
@@ -517,9 +532,13 @@ document.addEventListener("click",e=>{const t=e.target.closest("[data-trait],[da
  else if(t.dataset.die){traySel=+t.dataset.die;renderTray();}
  else if(t.dataset.elem){const el=t.dataset.elem;if(el!=="None"&&S.element==="None"&&S.stUsed<CH.stMax){S.stUsed++;toast("Marked 1 Stress to channel "+el);}S.element=el;render();}
  else if(t.dataset.bftier){bfTierFilter=t.dataset.bftier;render();}
- else if(t.dataset.bfact){activate(t.dataset.bfact,false);}
- else if(t.dataset.bfevo){activate(t.dataset.bfevo,true);}
+ else if(t.dataset.bfact){activate(t.dataset.bfact);}
+ else if(t.dataset.bfevo){beginEvo(t.dataset.bfevo);}
  else if(t.dataset.bfdeact){deact();}
+ else if(t.dataset.bfquick){const sel=$("bfQuickSel");const k=(sel&&sel.value)||bfQuickKey;if(k)activate(k);}
+ else if(t.dataset.bfquickevo){const sel=$("bfQuickSel");const k=(sel&&sel.value)||bfQuickKey;if(k)beginEvo(k);}
+ else if(t.dataset.bfevotrait){evoPick(t.dataset.bfevotrait);}
+ else if(t.dataset.bfevocancel){cancelEvo();}
  else if(t.dataset.gold){const k=t.dataset.gold;CH.gold[k]=Math.max(0,(CH.gold[k]||0)+ +t.dataset.d);render();}
  else if(t.dataset.invdel!=null){CH.inv.splice(+t.dataset.invdel,1);render();}
  else if(t.dataset.invadd){const nm=$("invName").value.trim();if(!nm)return toast("Enter an item name");CH.inv.push({name:nm,note:$("invNote").value.trim(),qty:1});render();toast("Added "+nm);} else if(t.dataset.invqty!=null){const it=(CH.inv||[])[+t.dataset.invqty];if(it){it.qty=Math.max(1,(it.qty||1)+(+t.dataset.d));render();}} else if(t.dataset.freeswap){S.freeSwap=!S.freeSwap;render();toast(S.freeSwap?"Free swap ON — downtime/rest, no Recall cost":"Free swap OFF — recalling costs Stress");} else if(t.dataset.pickadd){pickAdd(t.dataset.pickadd,+t.dataset.i,t.dataset.slot);}
