@@ -57,7 +57,81 @@
       "Ghostblade damageType is 'physical or magic' (Otherworldly).",
       "Items & consumables show no tier on the SRD (tier=null).",
       "Hope & Fear content is NOT included (unreleased until 2026-08-25; opt-in only)."
-    ]
+    ],
+    "priceModel": {
+      "sourceTier": "Homebrew (precedence rank 8)",
+      "note": "Homebrew buy/sell values. Daggerheart publishes no prices; superseded automatically if official prices are ever published. All amounts in Handfuls: 10 Handfuls = 1 Bag, 10 Bags = 1 Chest.",
+      "denominations": {
+        "handfulsPerBag": 10,
+        "bagsPerChest": 10
+      },
+      "weaponsArmorByTier": {
+        "1": {
+          "buyMin": 1,
+          "buyMax": 5,
+          "sell": 1
+        },
+        "2": {
+          "buyMin": 10,
+          "buyMax": 30,
+          "sell": 4
+        },
+        "3": {
+          "buyMin": 50,
+          "buyMax": 100,
+          "sell": 20
+        },
+        "4": {
+          "buyMin": 100,
+          "buyMax": 300,
+          "sell": 40
+        }
+      },
+      "itemsByRarity": {
+        "common": {
+          "buyMin": 1,
+          "buyMax": 3,
+          "sell": 1
+        },
+        "uncommon": {
+          "buyMin": 5,
+          "buyMax": 20,
+          "sell": 2
+        },
+        "rare": {
+          "buyMin": 30,
+          "buyMax": 80,
+          "sell": 10
+        },
+        "legendary": {
+          "buyMin": 100,
+          "buyMax": 300,
+          "sell": 40
+        }
+      },
+      "consumablesByRarity": {
+        "common": {
+          "buyMin": 1,
+          "buyMax": 2,
+          "sell": 1
+        },
+        "uncommon": {
+          "buyMin": 3,
+          "buyMax": 6,
+          "sell": 1
+        },
+        "rare": {
+          "buyMin": 10,
+          "buyMax": 30,
+          "sell": 4
+        },
+        "legendary": {
+          "buyMin": 50,
+          "buyMax": 100,
+          "sell": 20
+        }
+      }
+    }
   },
   "weapons": [
     {
@@ -2871,420 +2945,480 @@
       "slug": "airblade-charm",
       "tier": null,
       "description": "You can attach this charm to a weapon with a Melee range. Three times per rest, you can activate the charm and attack a target within Close range.",
-      "url": "https://daggerheartsrd.com/items/airblade-charm/"
+      "url": "https://daggerheartsrd.com/items/airblade-charm/",
+      "rarity": "uncommon"
     },
     {
       "name": "Alistair's Torch",
       "slug": "alistairs-torch",
       "tier": null,
       "description": "You can light this magic torch at will. The flame's light fills a much larger space than it should, enough to illuminate a cave bright as day.",
-      "url": "https://daggerheartsrd.com/items/alistairs-torch/"
+      "url": "https://daggerheartsrd.com/items/alistairs-torch/",
+      "rarity": "common"
     },
     {
       "name": "Arcane Cloak",
       "slug": "arcane-cloak",
       "tier": null,
       "description": "A creature with a Spellcast trait wearing this cloak can adjust its color, texture, and size at will.",
-      "url": "https://daggerheartsrd.com/items/arcane-cloak/"
+      "url": "https://daggerheartsrd.com/items/arcane-cloak/",
+      "rarity": "common"
     },
     {
       "name": "Arcane Prism",
       "slug": "arcane-prism",
       "tier": null,
       "description": "Position this prism in a location of your choosing and activate it. All allies within Close range of it gain a +1 bonus to their Spellcast Rolls. While activated, the prism can't be moved. Once the prism is deactivated, it can't be activated again until your next long rest.",
-      "url": "https://daggerheartsrd.com/items/arcane-prism/"
+      "url": "https://daggerheartsrd.com/items/arcane-prism/",
+      "rarity": "rare"
     },
     {
       "name": "Attune Relic",
       "slug": "attune-relic",
       "tier": null,
       "description": "You gain a +1 bonus to your Instinct. You can only carry one relic.",
-      "url": "https://daggerheartsrd.com/items/attune-relic/"
+      "url": "https://daggerheartsrd.com/items/attune-relic/",
+      "rarity": "rare"
     },
     {
       "name": "Bag Of Ficklesand",
       "slug": "bag-of-ficklesand",
       "tier": null,
       "description": "You can convince this small bag of sand to be much heavier or lighter with a successful Presence Roll (10). Additionally, on a successful Finesse Roll (10), you can blow a bit of sand into a target's face to make them temporarily Vulnerable.",
-      "url": "https://daggerheartsrd.com/items/bag-of-ficklesand/"
+      "url": "https://daggerheartsrd.com/items/bag-of-ficklesand/",
+      "rarity": "common"
     },
     {
       "name": "Belt Of Unity",
       "slug": "belt-of-unity",
       "tier": null,
       "description": "Once per session, you can spend 5 Hope to lead a Tag Team Roll with three PCs instead of two.",
-      "url": "https://daggerheartsrd.com/items/belt-of-unity/"
+      "url": "https://daggerheartsrd.com/items/belt-of-unity/",
+      "rarity": "rare"
     },
     {
       "name": "Bloodstone",
       "slug": "bloodstone",
       "tier": null,
       "description": "You can attach this stone to a weapon that doesn't already have a feature. The weapon gains the following feature. Brutal: When you roll the maximum value on a damage die, roll an additional damage die.",
-      "url": "https://daggerheartsrd.com/items/bloodstone/"
+      "url": "https://daggerheartsrd.com/items/bloodstone/",
+      "rarity": "uncommon"
     },
     {
       "name": "Bolster Relic",
       "slug": "bolster-relic",
       "tier": null,
       "description": "You gain a +1 bonus to your Strength. You can only carry one relic.",
-      "url": "https://daggerheartsrd.com/items/bolster-relic/"
+      "url": "https://daggerheartsrd.com/items/bolster-relic/",
+      "rarity": "rare"
     },
     {
       "name": "Box Of Many Goods",
       "slug": "box-of-many-goods",
       "tier": null,
       "description": "Once per long rest, you can open this small box and roll a d12. On a result of 1–6, it's empty. On a result of 7–10, it contains one random common consumable. On a result of 11–12, it contains two random common consumables.",
-      "url": "https://daggerheartsrd.com/items/box-of-many-goods/"
+      "url": "https://daggerheartsrd.com/items/box-of-many-goods/",
+      "rarity": "uncommon"
     },
     {
       "name": "Calming Pendant",
       "slug": "calming-pendant",
       "tier": null,
       "description": "When you would mark your last Stress, roll a d6. On a result of 5 or higher, don't mark it.",
-      "url": "https://daggerheartsrd.com/items/calming-pendant/"
+      "url": "https://daggerheartsrd.com/items/calming-pendant/",
+      "rarity": "uncommon"
     },
     {
       "name": "Charging Quiver",
       "slug": "charging-quiver",
       "tier": null,
       "description": "When you succeed on an attack with an arrow stored in this quiver, gain a bonus to the damage roll equal to your current tier.",
-      "url": "https://daggerheartsrd.com/items/charging-quiver/"
+      "url": "https://daggerheartsrd.com/items/charging-quiver/",
+      "rarity": "uncommon"
     },
     {
       "name": "Charm Relic",
       "slug": "charm-relic",
       "tier": null,
       "description": "You gain a +1 bonus to your Presence. You can only carry one relic.",
-      "url": "https://daggerheartsrd.com/items/charm-relic/"
+      "url": "https://daggerheartsrd.com/items/charm-relic/",
+      "rarity": "rare"
     },
     {
       "name": "Clay Companion",
       "slug": "clay-companion",
       "tier": null,
       "description": "When you sculpt this ball of clay into a clay animal companion, it behaves as that animal. For example, a clay spider can spin clay webs, while a clay bird can fly. The clay companion retains memory and identity across different shapes, but they can adopt new mannerisms with each form.",
-      "url": "https://daggerheartsrd.com/items/clay-companion/"
+      "url": "https://daggerheartsrd.com/items/clay-companion/",
+      "rarity": "uncommon"
     },
     {
       "name": "Companion Case",
       "slug": "companion-case",
       "tier": null,
       "description": "This case can fit a small animal companion. While the companion is inside, the animal and case are immune to all damage and harmful effects.",
-      "url": "https://daggerheartsrd.com/items/companion-case/"
+      "url": "https://daggerheartsrd.com/items/companion-case/",
+      "rarity": "uncommon"
     },
     {
       "name": "Control Relic",
       "slug": "control-relic",
       "tier": null,
       "description": "You gain a +1 bonus to your Finesse. You can only carry one relic.",
-      "url": "https://daggerheartsrd.com/items/control-relic/"
+      "url": "https://daggerheartsrd.com/items/control-relic/",
+      "rarity": "rare"
     },
     {
       "name": "Corrector Sprite",
       "slug": "corrector-sprite",
       "tier": null,
       "description": "This tiny sprite sits in the curve of your ear canal and whispers helpful advice during combat. Once per short rest, you can gain advantage on an attack roll.",
-      "url": "https://daggerheartsrd.com/items/corrector-sprite/"
+      "url": "https://daggerheartsrd.com/items/corrector-sprite/",
+      "rarity": "uncommon"
     },
     {
       "name": "Dual Flask",
       "slug": "dual-flask",
       "tier": null,
       "description": "This flask can hold two different liquids. You can swap between them by flipping a small switch on the flask's side.",
-      "url": "https://daggerheartsrd.com/items/dual-flask/"
+      "url": "https://daggerheartsrd.com/items/dual-flask/",
+      "rarity": "common"
     },
     {
       "name": "Elusive Amulet",
       "slug": "elusive-amulet",
       "tier": null,
       "description": "Once per long rest, you can activate this amulet to become Hidden until you move. While Hidden in this way, you remain unseen even if an adversary moves to where they would normally see you.",
-      "url": "https://daggerheartsrd.com/items/elusive-amulet/"
+      "url": "https://daggerheartsrd.com/items/elusive-amulet/",
+      "rarity": "rare"
     },
     {
       "name": "Empty Chest",
       "slug": "empty-chest",
       "tier": null,
       "description": "This magical chest appears empty. When you speak a specific trigger word or action and open the chest, you can see the items stored within it.",
-      "url": "https://daggerheartsrd.com/items/empty-chest/"
+      "url": "https://daggerheartsrd.com/items/empty-chest/",
+      "rarity": "uncommon"
     },
     {
       "name": "Enlighten Relic",
       "slug": "enlighten-relic",
       "tier": null,
       "description": "You gain a +1 bonus to your Knowledge. You can only carry one relic.",
-      "url": "https://daggerheartsrd.com/items/enlighten-relic/"
+      "url": "https://daggerheartsrd.com/items/enlighten-relic/",
+      "rarity": "rare"
     },
     {
       "name": "Fire Jar",
       "slug": "fire-jar",
       "tier": null,
       "description": "You can pour out the strange liquid contents of this jar to instantly produce fire. The contents regenerate when you take a long rest.",
-      "url": "https://daggerheartsrd.com/items/fire-jar/"
+      "url": "https://daggerheartsrd.com/items/fire-jar/",
+      "rarity": "common"
     },
     {
       "name": "Flickerfly Pendant",
       "slug": "flickerfly-pendant",
       "tier": null,
       "description": "While you carry this pendant, your weapons with a Melee range that deal physical damage have a gossamer sheen and can attack targets within Very Close range.",
-      "url": "https://daggerheartsrd.com/items/flickerfly-pendant/"
+      "url": "https://daggerheartsrd.com/items/flickerfly-pendant/",
+      "rarity": "rare"
     },
     {
       "name": "Gecko Gloves",
       "slug": "gecko-gloves",
       "tier": null,
       "description": "You can climb up vertical surfaces and across ceilings.",
-      "url": "https://daggerheartsrd.com/items/gecko-gloves/"
+      "url": "https://daggerheartsrd.com/items/gecko-gloves/",
+      "rarity": "rare"
     },
     {
       "name": "Gem Of Alacrity",
       "slug": "gem-of-alacrity",
       "tier": null,
       "description": "You can attach this gem to a weapon, allowing you to use your Agility when making an attack with that weapon.",
-      "url": "https://daggerheartsrd.com/items/gem-of-alacrity/"
+      "url": "https://daggerheartsrd.com/items/gem-of-alacrity/",
+      "rarity": "uncommon"
     },
     {
       "name": "Gem Of Audacity",
       "slug": "gem-of-audacity",
       "tier": null,
       "description": "You can attach this gem to a weapon, allowing you to use your Presence when making an attack with that weapon.",
-      "url": "https://daggerheartsrd.com/items/gem-of-audacity/"
+      "url": "https://daggerheartsrd.com/items/gem-of-audacity/",
+      "rarity": "uncommon"
     },
     {
       "name": "Gem Of Insight",
       "slug": "gem-of-insight",
       "tier": null,
       "description": "You can attach this gem to a weapon, allowing you to use your Instinct when making an attack with that weapon.",
-      "url": "https://daggerheartsrd.com/items/gem-of-insight/"
+      "url": "https://daggerheartsrd.com/items/gem-of-insight/",
+      "rarity": "uncommon"
     },
     {
       "name": "Gem Of Might",
       "slug": "gem-of-might",
       "tier": null,
       "description": "You can attach this gem to a weapon, allowing you to use your Strength when making an attack with that weapon.",
-      "url": "https://daggerheartsrd.com/items/gem-of-might/"
+      "url": "https://daggerheartsrd.com/items/gem-of-might/",
+      "rarity": "uncommon"
     },
     {
       "name": "Gem Of Precision",
       "slug": "gem-of-precision",
       "tier": null,
       "description": "You can attach this gem to a weapon, allowing you to use your Finesse when making an attack with that weapon.",
-      "url": "https://daggerheartsrd.com/items/gem-of-precision/"
+      "url": "https://daggerheartsrd.com/items/gem-of-precision/",
+      "rarity": "uncommon"
     },
     {
       "name": "Gem Of Sagacity",
       "slug": "gem-of-sagacity",
       "tier": null,
       "description": "You can attach this gem to a weapon, allowing you to use your Knowledge when making an attack with that weapon.",
-      "url": "https://daggerheartsrd.com/items/gem-of-sagacity/"
+      "url": "https://daggerheartsrd.com/items/gem-of-sagacity/",
+      "rarity": "uncommon"
     },
     {
       "name": "Glamour Stone",
       "slug": "glamour-stone",
       "tier": null,
       "description": "Activate this pebble-sized stone to memorize the appearance of someone you can see. Spend a Hope to magically recreate this guise on yourself as an illusion.",
-      "url": "https://daggerheartsrd.com/items/glamour-stone/"
+      "url": "https://daggerheartsrd.com/items/glamour-stone/",
+      "rarity": "uncommon"
     },
     {
       "name": "Glider",
       "slug": "glider",
       "tier": null,
       "description": "While falling, you can mark a Stress to deploy this small parachute and glide safely to the ground.",
-      "url": "https://daggerheartsrd.com/items/glider/"
+      "url": "https://daggerheartsrd.com/items/glider/",
+      "rarity": "common"
     },
     {
       "name": "Greatstone",
       "slug": "greatstone",
       "tier": null,
       "description": "You can attach this stone to a weapon that doesn't already have a feature. The weapon gains the following feature. Powerful: On a successful attack, roll an additional damage die and discard the lowest result.",
-      "url": "https://daggerheartsrd.com/items/greatstone/"
+      "url": "https://daggerheartsrd.com/items/greatstone/",
+      "rarity": "uncommon"
     },
     {
       "name": "Homing Compasses",
       "slug": "homing-compasses",
       "tier": null,
       "description": "These two compasses point toward each other no matter how far apart they are.",
-      "url": "https://daggerheartsrd.com/items/homing-compasses/"
+      "url": "https://daggerheartsrd.com/items/homing-compasses/",
+      "rarity": "common"
     },
     {
       "name": "Honing Relic",
       "slug": "honing-relic",
       "tier": null,
       "description": "You gain a +1 bonus to an Experience of your choice. You can only carry one relic.",
-      "url": "https://daggerheartsrd.com/items/honing-relic/"
+      "url": "https://daggerheartsrd.com/items/honing-relic/",
+      "rarity": "rare"
     },
     {
       "name": "Hopekeeper Locket",
       "slug": "hopekeeper-locket",
       "tier": null,
       "description": "During a long rest, if you have 6 Hope, you can spend a Hope to imbue this locket with your bountiful resolve. When you have 0 Hope, you can use the locket to immediately gain a Hope. The locket must be re-imbued before it can be used this way again.",
-      "url": "https://daggerheartsrd.com/items/hopekeeper-locket/"
+      "url": "https://daggerheartsrd.com/items/hopekeeper-locket/",
+      "rarity": "uncommon"
     },
     {
       "name": "Infinite Bag",
       "slug": "infinite-bag",
       "tier": null,
       "description": "When you store items in this bag, they are kept in a pocket dimension that never runs out of space. You can retrieve an item at any time.",
-      "url": "https://daggerheartsrd.com/items/infinite-bag/"
+      "url": "https://daggerheartsrd.com/items/infinite-bag/",
+      "rarity": "rare"
     },
     {
       "name": "Lasketider Boots",
       "slug": "lasketider-boots",
       "tier": null,
       "description": "You can walk on the surface of water as if it were soft ground.",
-      "url": "https://daggerheartsrd.com/items/lasketider-boots/"
+      "url": "https://daggerheartsrd.com/items/lasketider-boots/",
+      "rarity": "rare"
     },
     {
       "name": "Lorekeeper",
       "slug": "lorekeeper",
       "tier": null,
       "description": "You can store the name and details of up to three hostile creatures inside this book. You gain a +1 bonus to action rolls against those creatures.",
-      "url": "https://daggerheartsrd.com/items/lorekeeper/"
+      "url": "https://daggerheartsrd.com/items/lorekeeper/",
+      "rarity": "uncommon"
     },
     {
       "name": "Manacles",
       "slug": "manacles",
       "tier": null,
       "description": "This pair of locking cuffs comes with a key.",
-      "url": "https://daggerheartsrd.com/items/manacles/"
+      "url": "https://daggerheartsrd.com/items/manacles/",
+      "rarity": "common"
     },
     {
       "name": "Minor Health Potion Recipe",
       "slug": "minor-health-potion-recipe",
       "tier": null,
       "description": "As a downtime move, you can use a vial of blood to craft a Minor Health Potion.",
-      "url": "https://daggerheartsrd.com/items/minor-health-potion-recipe/"
+      "url": "https://daggerheartsrd.com/items/minor-health-potion-recipe/",
+      "rarity": "common"
     },
     {
       "name": "Minor Stamina Potion Recipe",
       "slug": "minor-stamina-potion-recipe",
       "tier": null,
       "description": "As a downtime move, you can use the bone of a creature to craft a Minor Stamina Potion.",
-      "url": "https://daggerheartsrd.com/items/minor-stamina-potion-recipe/"
+      "url": "https://daggerheartsrd.com/items/minor-stamina-potion-recipe/",
+      "rarity": "common"
     },
     {
       "name": "Mythic Dust Recipe",
       "slug": "mythic-dust-recipe",
       "tier": null,
       "description": "As a downtime move, you can use a handful of fine gold dust to craft Mythic Dust.",
-      "url": "https://daggerheartsrd.com/items/mythic-dust-recipe/"
+      "url": "https://daggerheartsrd.com/items/mythic-dust-recipe/",
+      "rarity": "rare"
     },
     {
       "name": "Paragon's Chain",
       "slug": "paragons-chain",
       "tier": null,
       "description": "As a downtime move, you can meditate on an ideal or principle you hold dear and focus your will into this chain. Once per long rest, you can spend a Hope to roll a d20 as your Hope Die for rolls that directly align with that principle.",
-      "url": "https://daggerheartsrd.com/items/paragons-chain/"
+      "url": "https://daggerheartsrd.com/items/paragons-chain/",
+      "rarity": "rare"
     },
     {
       "name": "Phoenix Feather",
       "slug": "phoenix-feather",
       "tier": null,
       "description": "If you have at least one Phoenix Feather on you when you fall unconscious, you gain a +1 bonus to the roll you make to determine whether you gain a scar.",
-      "url": "https://daggerheartsrd.com/items/phoenix-feather/"
+      "url": "https://daggerheartsrd.com/items/phoenix-feather/",
+      "rarity": "uncommon"
     },
     {
       "name": "Piercing Arrows",
       "slug": "piercing-arrows",
       "tier": null,
       "description": "Three times per rest when you succeed on an attack with one of these arrows, you can add your Proficiency to the damage roll.",
-      "url": "https://daggerheartsrd.com/items/piercing-arrows/"
+      "url": "https://daggerheartsrd.com/items/piercing-arrows/",
+      "rarity": "uncommon"
     },
     {
       "name": "Piper Whistle",
       "slug": "piper-whistle",
       "tier": null,
       "description": "This handcrafted whistle has a distinctive sound. When you blow this whistle, its piercing tone can be heard within a 1-mile radius.",
-      "url": "https://daggerheartsrd.com/items/piper-whistle/"
+      "url": "https://daggerheartsrd.com/items/piper-whistle/",
+      "rarity": "common"
     },
     {
       "name": "Portal Seed",
       "slug": "portal-seed",
       "tier": null,
       "description": "You can plant this seed in the ground to grow a portal in that spot. The portal is ready to use in 24 hours. You can use this portal to travel to any other location where you planted a portal seed. A portal can be destroyed by dealing any amount of magic damage to it.",
-      "url": "https://daggerheartsrd.com/items/portal-seed/"
+      "url": "https://daggerheartsrd.com/items/portal-seed/",
+      "rarity": "legendary"
     },
     {
       "name": "Premium Bedroll",
       "slug": "premium-bedroll",
       "tier": null,
       "description": "During downtime, you automatically clear a Stress.",
-      "url": "https://daggerheartsrd.com/items/premium-bedroll/"
+      "url": "https://daggerheartsrd.com/items/premium-bedroll/",
+      "rarity": "common"
     },
     {
       "name": "Ring Of Resistance",
       "slug": "ring-of-resistance",
       "tier": null,
       "description": "Once per long rest, you can activate this ring after a successful attack against you to halve the damage.",
-      "url": "https://daggerheartsrd.com/items/ring-of-resistance/"
+      "url": "https://daggerheartsrd.com/items/ring-of-resistance/",
+      "rarity": "rare"
     },
     {
       "name": "Ring Of Silence",
       "slug": "ring-of-silence",
       "tier": null,
       "description": "Spend a Hope to activate this ring. Your footsteps are silent until your next rest.",
-      "url": "https://daggerheartsrd.com/items/ring-of-silence/"
+      "url": "https://daggerheartsrd.com/items/ring-of-silence/",
+      "rarity": "uncommon"
     },
     {
       "name": "Ring Of Unbreakable Resolve",
       "slug": "ring-of-unbreakable-resolve",
       "tier": null,
       "description": "Once per session, when the GM spends a Fear, you can spend 4 Hope to cancel the effects of that spent Fear.",
-      "url": "https://daggerheartsrd.com/items/ring-of-unbreakable-resolve/"
+      "url": "https://daggerheartsrd.com/items/ring-of-unbreakable-resolve/",
+      "rarity": "legendary"
     },
     {
       "name": "Shard Of Memory",
       "slug": "shard-of-memory",
       "tier": null,
       "description": "Once per long rest, you can spend 2 Hope to recall a domain card from your vault instead of paying its Recall Cost.",
-      "url": "https://daggerheartsrd.com/items/shard-of-memory/"
+      "url": "https://daggerheartsrd.com/items/shard-of-memory/",
+      "rarity": "rare"
     },
     {
       "name": "Skeleton Key",
       "slug": "skeleton-key",
       "tier": null,
       "description": "When you use this key to open a locked door, you gain advantage on the Finesse Roll.",
-      "url": "https://daggerheartsrd.com/items/skeleton-key/"
+      "url": "https://daggerheartsrd.com/items/skeleton-key/",
+      "rarity": "uncommon"
     },
     {
       "name": "Speaking Orbs",
       "slug": "speaking-orbs",
       "tier": null,
       "description": "This pair of orbs allows any creatures holding them to communicate with each other across any distance.",
-      "url": "https://daggerheartsrd.com/items/speaking-orbs/"
+      "url": "https://daggerheartsrd.com/items/speaking-orbs/",
+      "rarity": "rare"
     },
     {
       "name": "Stride Relic",
       "slug": "stride-relic",
       "tier": null,
       "description": "You gain a +1 bonus to your Agility. You can only carry one relic.",
-      "url": "https://daggerheartsrd.com/items/stride-relic/"
+      "url": "https://daggerheartsrd.com/items/stride-relic/",
+      "rarity": "rare"
     },
     {
       "name": "Suspended Rod",
       "slug": "suspended-rod",
       "tier": null,
       "description": "This flat rod is inscribed with runes. When you activate the rod, it is immediately suspended in place. Until the rod is deactivated, it can't move, doesn't abide by the rules of gravity, and remains in place.",
-      "url": "https://daggerheartsrd.com/items/suspended-rod/"
+      "url": "https://daggerheartsrd.com/items/suspended-rod/",
+      "rarity": "uncommon"
     },
     {
       "name": "Valorstone",
       "slug": "valorstone",
       "tier": null,
       "description": "You can attach this stone to armor that doesn't already have a feature. The armor gains the following feature. Resilient: Before you mark your last Armor Slot, roll a d6. On a result of 6, reduce the severity by one threshold without marking an Armor Slot.",
-      "url": "https://daggerheartsrd.com/items/valorstone/"
+      "url": "https://daggerheartsrd.com/items/valorstone/",
+      "rarity": "uncommon"
     },
     {
       "name": "Vial Of Darksmoke Recipe",
       "slug": "vial-of-darksmoke-recipe",
       "tier": null,
       "description": "As a downtime move, you can mark a Stress to craft a Vial of Darksmoke.",
-      "url": "https://daggerheartsrd.com/items/vial-of-darksmoke-recipe/"
+      "url": "https://daggerheartsrd.com/items/vial-of-darksmoke-recipe/",
+      "rarity": "uncommon"
     },
     {
       "name": "Woven Net",
       "slug": "woven-net",
       "tier": null,
       "description": "You can make a Finesse Roll using this net to trap a small creature. A trapped target can break free with a successful Attack Roll (16).",
-      "url": "https://daggerheartsrd.com/items/woven-net/"
+      "url": "https://daggerheartsrd.com/items/woven-net/",
+      "rarity": "common"
     }
   ],
   "consumables": [
@@ -3293,420 +3427,480 @@
       "slug": "acidpaste",
       "tier": null,
       "description": "This paste eats away walls and other surfaces in bright flashes.",
-      "url": "https://daggerheartsrd.com/consumables/acidpaste/"
+      "url": "https://daggerheartsrd.com/consumables/acidpaste/",
+      "rarity": "uncommon"
     },
     {
       "name": "Armor Stitcher",
       "slug": "armor-stitcher",
       "tier": null,
       "description": "You can use this stitcher to spend any number of Hope and clear that many Armor Slots.",
-      "url": "https://daggerheartsrd.com/consumables/armor-stitcher/"
+      "url": "https://daggerheartsrd.com/consumables/armor-stitcher/",
+      "rarity": "rare"
     },
     {
       "name": "Attune Potion",
       "slug": "attune-potion",
       "tier": null,
       "description": "You gain a +1 bonus to your next Instinct Roll.",
-      "url": "https://daggerheartsrd.com/consumables/attune-potion/"
+      "url": "https://daggerheartsrd.com/consumables/attune-potion/",
+      "rarity": "common"
     },
     {
       "name": "Blinding Orb",
       "slug": "blinding-orb",
       "tier": null,
       "description": "You can activate this orb to create a flash of bright light. All targets within Close range become Blinded until they mark HP.",
-      "url": "https://daggerheartsrd.com/consumables/blinding-orb/"
+      "url": "https://daggerheartsrd.com/consumables/blinding-orb/",
+      "rarity": "uncommon"
     },
     {
       "name": "Blood Of The Yorgi",
       "slug": "blood-of-the-yorgi",
       "tier": null,
       "description": "You can drink this blood to disappear from where you are and immediately reappear at a point you can see within very Far range.",
-      "url": "https://daggerheartsrd.com/consumables/blood-of-the-yorgi/"
+      "url": "https://daggerheartsrd.com/consumables/blood-of-the-yorgi/",
+      "rarity": "rare"
     },
     {
       "name": "Bolster Potion",
       "slug": "bolster-potion",
       "tier": null,
       "description": "You gain a +1 bonus to your next Strength Roll.",
-      "url": "https://daggerheartsrd.com/consumables/bolster-potion/"
+      "url": "https://daggerheartsrd.com/consumables/bolster-potion/",
+      "rarity": "common"
     },
     {
       "name": "Bonding Honey",
       "slug": "bonding-honey",
       "tier": null,
       "description": "This honey can be used to glue two objects together permanently.",
-      "url": "https://daggerheartsrd.com/consumables/bonding-honey/"
+      "url": "https://daggerheartsrd.com/consumables/bonding-honey/",
+      "rarity": "common"
     },
     {
       "name": "Bridge Seed",
       "slug": "bridge-seed",
       "tier": null,
       "description": "Thick vines grow from your location to a point of your choice within Far range, allowing you to climb up or across them. The vines dissipate on your next short rest.",
-      "url": "https://daggerheartsrd.com/consumables/bridge-seed/"
+      "url": "https://daggerheartsrd.com/consumables/bridge-seed/",
+      "rarity": "uncommon"
     },
     {
       "name": "Channelstone",
       "slug": "channelstone",
       "tier": null,
       "description": "You can use this stone to take a spell or grimoire from your vault, use it once, and return it to your vault.",
-      "url": "https://daggerheartsrd.com/consumables/channelstone/"
+      "url": "https://daggerheartsrd.com/consumables/channelstone/",
+      "rarity": "rare"
     },
     {
       "name": "Charm Potion",
       "slug": "charm-potion",
       "tier": null,
       "description": "You gain a +1 bonus to your next Presence Roll.",
-      "url": "https://daggerheartsrd.com/consumables/charm-potion/"
+      "url": "https://daggerheartsrd.com/consumables/charm-potion/",
+      "rarity": "common"
     },
     {
       "name": "Circle Of The Void",
       "slug": "circle-of-the-void",
       "tier": null,
       "description": "Mark a Stress to create a void that extends up to Far range. No magic can be cast inside the void, and creatures within the void are immune to magic damage.",
-      "url": "https://daggerheartsrd.com/consumables/circle-of-the-void/"
+      "url": "https://daggerheartsrd.com/consumables/circle-of-the-void/",
+      "rarity": "rare"
     },
     {
       "name": "Control Potion",
       "slug": "control-potion",
       "tier": null,
       "description": "You gain a +1 bonus to your next Finesse Roll.",
-      "url": "https://daggerheartsrd.com/consumables/control-potion/"
+      "url": "https://daggerheartsrd.com/consumables/control-potion/",
+      "rarity": "common"
     },
     {
       "name": "Death Tea",
       "slug": "death-tea",
       "tier": null,
       "description": "After you drink this tea, you instantly kill your target when you critically succeed on an attack. If you don't critically succeed on an attack before your next long rest, you die.",
-      "url": "https://daggerheartsrd.com/consumables/death-tea/"
+      "url": "https://daggerheartsrd.com/consumables/death-tea/",
+      "rarity": "legendary"
     },
     {
       "name": "Dragonbloom Tea",
       "slug": "dragonbloom-tea",
       "tier": null,
       "description": "You can drink this tea to unleash a fiery breath attack. Make an Instinct Roll against all adversaries in front of you within Close range. Targets you succeed against take 2d20 physical damage using your Proficiency.",
-      "url": "https://daggerheartsrd.com/consumables/dragonbloom-tea/"
+      "url": "https://daggerheartsrd.com/consumables/dragonbloom-tea/",
+      "rarity": "rare"
     },
     {
       "name": "Dripfang Poison",
       "slug": "dripfang-poison",
       "tier": null,
       "description": "A creature who consumes this poison takes 8d10 direct magic damage.",
-      "url": "https://daggerheartsrd.com/consumables/dripfang-poison/"
+      "url": "https://daggerheartsrd.com/consumables/dripfang-poison/",
+      "rarity": "legendary"
     },
     {
       "name": "Enlighten Potion",
       "slug": "enlighten-potion",
       "tier": null,
       "description": "You gain a +1 bonus to your next Knowledge Roll.",
-      "url": "https://daggerheartsrd.com/consumables/enlighten-potion/"
+      "url": "https://daggerheartsrd.com/consumables/enlighten-potion/",
+      "rarity": "common"
     },
     {
       "name": "Feast Of Xurla",
       "slug": "feast-of-xurla",
       "tier": null,
       "description": "You can eat this meal to clear all HP and Stress and gain 1d4 Hope.",
-      "url": "https://daggerheartsrd.com/consumables/feast-of-xurla/"
+      "url": "https://daggerheartsrd.com/consumables/feast-of-xurla/",
+      "rarity": "legendary"
     },
     {
       "name": "Featherbone",
       "slug": "featherbone",
       "tier": null,
       "description": "You can use this bone to control your falling speed for a number of minutes equal to your level.",
-      "url": "https://daggerheartsrd.com/consumables/featherbone/"
+      "url": "https://daggerheartsrd.com/consumables/featherbone/",
+      "rarity": "common"
     },
     {
       "name": "Gill Salve",
       "slug": "gill-salve",
       "tier": null,
       "description": "You can apply this salve to your neck to breathe underwater for a number of minutes equal to your level.",
-      "url": "https://daggerheartsrd.com/consumables/gill-salve/"
+      "url": "https://daggerheartsrd.com/consumables/gill-salve/",
+      "rarity": "uncommon"
     },
     {
       "name": "Grindletooth Venom",
       "slug": "grindletooth-venom",
       "tier": null,
       "description": "You can apply this venom to a weapon that deals physical damage to add a d6 to your next damage roll with that weapon.",
-      "url": "https://daggerheartsrd.com/consumables/grindletooth-venom/"
+      "url": "https://daggerheartsrd.com/consumables/grindletooth-venom/",
+      "rarity": "common"
     },
     {
       "name": "Growing Potion",
       "slug": "growing-potion",
       "tier": null,
       "description": "You can drink this potion to double your size until you choose to drop this form or your next rest. While in this form, you have a +2 bonus to Strength and a +1 bonus to your Proficiency.",
-      "url": "https://daggerheartsrd.com/consumables/growing-potion/"
+      "url": "https://daggerheartsrd.com/consumables/growing-potion/",
+      "rarity": "rare"
     },
     {
       "name": "Health Potion",
       "slug": "health-potion",
       "tier": null,
       "description": "Clear 1d4+1 HP.",
-      "url": "https://daggerheartsrd.com/consumables/health-potion/"
+      "url": "https://daggerheartsrd.com/consumables/health-potion/",
+      "rarity": "common"
     },
     {
       "name": "Hornet's Secret Potion",
       "slug": "homets-secret-potion",
       "tier": null,
       "description": "After drinking this potion, the next successful attack you make critically succeeds.",
-      "url": "https://daggerheartsrd.com/consumables/homets-secret-potion/"
+      "url": "https://daggerheartsrd.com/consumables/homets-secret-potion/",
+      "rarity": "rare"
     },
     {
       "name": "Hopehold Flare",
       "slug": "hopehold-flare",
       "tier": null,
       "description": "When you use this flare, allies within Close range roll a d6 when they spend a Hope. On a result of 6, they gain the effect of that Hope without spending it. The flare lasts until the end of the scene.",
-      "url": "https://daggerheartsrd.com/consumables/hopehold-flare/"
+      "url": "https://daggerheartsrd.com/consumables/hopehold-flare/",
+      "rarity": "rare"
     },
     {
       "name": "Improved Arcane Shard",
       "slug": "improved-arcane-shard",
       "tier": null,
       "description": "You can make a Finesse Roll to throw this shard at a group of adversaries within Far range. Targets you succeed against take 2d20 magic damage.",
-      "url": "https://daggerheartsrd.com/consumables/improved-arcane-shard/"
+      "url": "https://daggerheartsrd.com/consumables/improved-arcane-shard/",
+      "rarity": "rare"
     },
     {
       "name": "Improved Grindletooth Venom",
       "slug": "improved-grindletooth-venom",
       "tier": null,
       "description": "You can apply this venom to a weapon that deals physical damage to add a d8 to your next damage roll with that weapon.",
-      "url": "https://daggerheartsrd.com/consumables/improved-grindletooth-venom/"
+      "url": "https://daggerheartsrd.com/consumables/improved-grindletooth-venom/",
+      "rarity": "uncommon"
     },
     {
       "name": "Jar Of Lost Voices",
       "slug": "jar-of-lost-voices",
       "tier": null,
       "description": "You can open this jar to release a deafening echo of voices for a number of minutes equal to your Instinct. Creatures within Far range unprepared for the sound take 6d8 magic damage.",
-      "url": "https://daggerheartsrd.com/consumables/jar-of-lost-voices/"
+      "url": "https://daggerheartsrd.com/consumables/jar-of-lost-voices/",
+      "rarity": "rare"
     },
     {
       "name": "Jumping Root",
       "slug": "jumping-root",
       "tier": null,
       "description": "Eat this root to leap up to Far range once without needing to roll.",
-      "url": "https://daggerheartsrd.com/consumables/jumping-root/"
+      "url": "https://daggerheartsrd.com/consumables/jumping-root/",
+      "rarity": "common"
     },
     {
       "name": "Knowledge Stone",
       "slug": "knowledge-stone",
       "tier": null,
       "description": "If you die while holding this stone, an ally can take a card from your loadout to place in their loadout or vault. After they take this knowledge, the stone crumbles.",
-      "url": "https://daggerheartsrd.com/consumables/knowledge-stone/"
+      "url": "https://daggerheartsrd.com/consumables/knowledge-stone/",
+      "rarity": "uncommon"
     },
     {
       "name": "Major Arcane Shard",
       "slug": "major-arcane-shard",
       "tier": null,
       "description": "You can make a Finesse Roll to throw this shard at a group of adversaries within Far range. Targets you succeed against take 4d20 magic damage.",
-      "url": "https://daggerheartsrd.com/consumables/major-arcane-shard/"
+      "url": "https://daggerheartsrd.com/consumables/major-arcane-shard/",
+      "rarity": "legendary"
     },
     {
       "name": "Major Attune Potion",
       "slug": "major-attune-potion",
       "tier": null,
       "description": "You gain a +1 bonus to your Instinct until your next rest.",
-      "url": "https://daggerheartsrd.com/consumables/major-attune-potion/"
+      "url": "https://daggerheartsrd.com/consumables/major-attune-potion/",
+      "rarity": "uncommon"
     },
     {
       "name": "Major Bolster Potion",
       "slug": "major-bolster-potion",
       "tier": null,
       "description": "You gain a +1 bonus to your Strength until your next rest.",
-      "url": "https://daggerheartsrd.com/consumables/major-bolster-potion/"
+      "url": "https://daggerheartsrd.com/consumables/major-bolster-potion/",
+      "rarity": "uncommon"
     },
     {
       "name": "Major Charm Potion",
       "slug": "major-charm-potion",
       "tier": null,
       "description": "You gain a +1 bonus to your Presence until your next rest.",
-      "url": "https://daggerheartsrd.com/consumables/major-charm-potion/"
+      "url": "https://daggerheartsrd.com/consumables/major-charm-potion/",
+      "rarity": "uncommon"
     },
     {
       "name": "Major Control Potion",
       "slug": "major-control-potion",
       "tier": null,
       "description": "You gain a +1 bonus to your Finesse until your next rest.",
-      "url": "https://daggerheartsrd.com/consumables/major-control-potion/"
+      "url": "https://daggerheartsrd.com/consumables/major-control-potion/",
+      "rarity": "uncommon"
     },
     {
       "name": "Major Enlighten Potion",
       "slug": "major-enlighten-potion",
       "tier": null,
       "description": "You gain a +1 bonus to your Knowledge until your next rest.",
-      "url": "https://daggerheartsrd.com/consumables/major-enlighten-potion/"
+      "url": "https://daggerheartsrd.com/consumables/major-enlighten-potion/",
+      "rarity": "uncommon"
     },
     {
       "name": "Major Health Potion",
       "slug": "major-health-potion",
       "tier": null,
       "description": "Clear 1d4+2 HP.",
-      "url": "https://daggerheartsrd.com/consumables/major-health-potion/"
+      "url": "https://daggerheartsrd.com/consumables/major-health-potion/",
+      "rarity": "uncommon"
     },
     {
       "name": "Major Stamina Potion",
       "slug": "major-stamina-potion",
       "tier": null,
       "description": "Clear 1d4+2 Stress.",
-      "url": "https://daggerheartsrd.com/consumables/major-stamina-potion/"
+      "url": "https://daggerheartsrd.com/consumables/major-stamina-potion/",
+      "rarity": "uncommon"
     },
     {
       "name": "Major Stride Potion",
       "slug": "major-stride-potion",
       "tier": null,
       "description": "You gain a +1 bonus to your Agility until your next rest.",
-      "url": "https://daggerheartsrd.com/consumables/major-stride-potion/"
+      "url": "https://daggerheartsrd.com/consumables/major-stride-potion/",
+      "rarity": "uncommon"
     },
     {
       "name": "Minor Health Potion",
       "slug": "minor-health-potion",
       "tier": null,
       "description": "Clear 1d4 HP.",
-      "url": "https://daggerheartsrd.com/consumables/minor-health-potion/"
+      "url": "https://daggerheartsrd.com/consumables/minor-health-potion/",
+      "rarity": "common"
     },
     {
       "name": "Minor Stamina Potion",
       "slug": "minor-stamina-potion",
       "tier": null,
       "description": "Clear 1d4 Stress.",
-      "url": "https://daggerheartsrd.com/consumables/minor-stamina-potion/"
+      "url": "https://daggerheartsrd.com/consumables/minor-stamina-potion/",
+      "rarity": "common"
     },
     {
       "name": "Mirror Of Marigold",
       "slug": "mirror-of-marigold",
       "tier": null,
       "description": "When you take damage, you can spend a Hope to negate that damage, after which the mirror shatters.",
-      "url": "https://daggerheartsrd.com/consumables/mirror-of-marigold/"
+      "url": "https://daggerheartsrd.com/consumables/mirror-of-marigold/",
+      "rarity": "rare"
     },
     {
       "name": "Morphing Clay",
       "slug": "morphing-clay",
       "tier": null,
       "description": "You can spend 4 Hope to use this clay, altering your face enough to make you unrecognizable until your next rest.",
-      "url": "https://daggerheartsrd.com/consumables/morphing-clay/"
+      "url": "https://daggerheartsrd.com/consumables/morphing-clay/",
+      "rarity": "uncommon"
     },
     {
       "name": "Mythic Dust",
       "slug": "mythic-dust",
       "tier": null,
       "description": "You can apply this dust to a weapon that deals magic damage to add a d12 to your next damage roll with that weapon.",
-      "url": "https://daggerheartsrd.com/consumables/mythic-dust/"
+      "url": "https://daggerheartsrd.com/consumables/mythic-dust/",
+      "rarity": "rare"
     },
     {
       "name": "Ogre Musk",
       "slug": "ogre-musk",
       "tier": null,
       "description": "You can use this musk to prevent anyone from tracking you by mundane or magical means until your next rest.",
-      "url": "https://daggerheartsrd.com/consumables/ogre-musk/"
+      "url": "https://daggerheartsrd.com/consumables/ogre-musk/",
+      "rarity": "uncommon"
     },
     {
       "name": "Potion Of Stability",
       "slug": "potion-of-stability",
       "tier": null,
       "description": "You can drink this potion to choose one additional downtime move.",
-      "url": "https://daggerheartsrd.com/consumables/potion-of-stability/"
+      "url": "https://daggerheartsrd.com/consumables/potion-of-stability/",
+      "rarity": "uncommon"
     },
     {
       "name": "Redthorn Saliva",
       "slug": "redthorn-saliva",
       "tier": null,
       "description": "You can apply this saliva to a weapon that deals physical damage to add a d12 to your next damage roll with that weapon.",
-      "url": "https://daggerheartsrd.com/consumables/redthorn-saliva/"
+      "url": "https://daggerheartsrd.com/consumables/redthorn-saliva/",
+      "rarity": "rare"
     },
     {
       "name": "Replication Parchment",
       "slug": "replication-parchment",
       "tier": null,
       "description": "By touching this piece of parchment to another, you can perfectly copy the second parchment's contents. Once used, this parchment becomes mundane paper.",
-      "url": "https://daggerheartsrd.com/consumables/replication-parchment/"
+      "url": "https://daggerheartsrd.com/consumables/replication-parchment/",
+      "rarity": "common"
     },
     {
       "name": "Shrinking Potion",
       "slug": "shrinking-potion",
       "tier": null,
       "description": "You can drink this potion to halve your size until you choose to drop this form or your next rest. While in this form, you have a +2 bonus to Agility and a -1 penalty to your Proficiency.",
-      "url": "https://daggerheartsrd.com/consumables/shrinking-potion/"
+      "url": "https://daggerheartsrd.com/consumables/shrinking-potion/",
+      "rarity": "rare"
     },
     {
       "name": "Sleeping Sap",
       "slug": "sleeping-sap",
       "tier": null,
       "description": "You can drink this potion to fall asleep for a full night's rest. You clear all Stress upon waking.",
-      "url": "https://daggerheartsrd.com/consumables/sleeping-sap/"
+      "url": "https://daggerheartsrd.com/consumables/sleeping-sap/",
+      "rarity": "uncommon"
     },
     {
       "name": "Snap Powder",
       "slug": "snap-powder",
       "tier": null,
       "description": "Mark a Stress and clear a HP.",
-      "url": "https://daggerheartsrd.com/consumables/snap-powder/"
+      "url": "https://daggerheartsrd.com/consumables/snap-powder/",
+      "rarity": "common"
     },
     {
       "name": "Stamina Potion",
       "slug": "stamina-potion",
       "tier": null,
       "description": "Clear 1d4+1 Stress.",
-      "url": "https://daggerheartsrd.com/consumables/stamina-potion/"
+      "url": "https://daggerheartsrd.com/consumables/stamina-potion/",
+      "rarity": "common"
     },
     {
       "name": "Stardrop",
       "slug": "stardrop",
       "tier": null,
       "description": "You can use this stardrop to summon a hailstorm of comets that deals 8d20 physical damage to all targets within Very Far range.",
-      "url": "https://daggerheartsrd.com/consumables/stardrop/"
+      "url": "https://daggerheartsrd.com/consumables/stardrop/",
+      "rarity": "legendary"
     },
     {
       "name": "Stride Potion",
       "slug": "stride-potion",
       "tier": null,
       "description": "You gain a +1 bonus to your next Agility Roll.",
-      "url": "https://daggerheartsrd.com/consumables/stride-potion/"
+      "url": "https://daggerheartsrd.com/consumables/stride-potion/",
+      "rarity": "common"
     },
     {
       "name": "Sun Tree Sap",
       "slug": "sun-tree-sap",
       "tier": null,
       "description": "Consume this sap to roll a d6. On a result of 5–6, clear 2 HP. On a result of 2–4, clear 3 Stress. On a result of 1, see through the veil of death and return unscathed, gaining one scar.",
-      "url": "https://daggerheartsrd.com/consumables/sun-tree-sap/"
+      "url": "https://daggerheartsrd.com/consumables/sun-tree-sap/",
+      "rarity": "rare"
     },
     {
       "name": "Sweet Moss",
       "slug": "sweet-moss",
       "tier": null,
       "description": "You can consume this moss during a rest to clear 1d10 HP or 1d10 Stress.",
-      "url": "https://daggerheartsrd.com/consumables/sweet-moss/"
+      "url": "https://daggerheartsrd.com/consumables/sweet-moss/",
+      "rarity": "common"
     },
     {
       "name": "Unstable Arcane Shard",
       "slug": "unstable-arcane-shard",
       "tier": null,
       "description": "You can make a Finesse Roll to throw this shard at a group of adversaries within Far range. Targets you succeed against take 1d20 magic damage.",
-      "url": "https://daggerheartsrd.com/consumables/unstable-arcane-shard/"
+      "url": "https://daggerheartsrd.com/consumables/unstable-arcane-shard/",
+      "rarity": "uncommon"
     },
     {
       "name": "Varik Leaves",
       "slug": "varik-leaves",
       "tier": null,
       "description": "You can eat these paired leaves to immediately gain 2 Hope.",
-      "url": "https://daggerheartsrd.com/consumables/varik-leaves/"
+      "url": "https://daggerheartsrd.com/consumables/varik-leaves/",
+      "rarity": "uncommon"
     },
     {
       "name": "Vial Of Darksmoke",
       "slug": "vial-of-darksmoke",
       "tier": null,
       "description": "When an adversary attacks you, use this vial and roll a number of d6 equal to your Agility. Add the highest result to your Evasion against the attack.",
-      "url": "https://daggerheartsrd.com/consumables/vial-of-darksmoke/"
+      "url": "https://daggerheartsrd.com/consumables/vial-of-darksmoke/",
+      "rarity": "uncommon"
     },
     {
       "name": "Vial Of Moondrip",
       "slug": "vial-of-moondrip",
       "tier": null,
       "description": "When you drink the contents of this vial, you can see in total darkness until your next rest.",
-      "url": "https://daggerheartsrd.com/consumables/vial-of-moondrip/"
+      "url": "https://daggerheartsrd.com/consumables/vial-of-moondrip/",
+      "rarity": "common"
     },
     {
       "name": "Wingsprout",
       "slug": "wingsprout",
       "tier": null,
       "description": "You gain magic wings that allow you to fly for a number of minutes equal to your level.",
-      "url": "https://daggerheartsrd.com/consumables/wingsprout/"
+      "url": "https://daggerheartsrd.com/consumables/wingsprout/",
+      "rarity": "rare"
     }
   ]
 }
