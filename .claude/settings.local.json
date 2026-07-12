@@ -1,7 +1,11 @@
 {
   "permissions": {
     "allow": [
-      "mcp__scheduled-tasks__list_scheduled_tasks"
+      "mcp__scheduled-tasks__list_scheduled_tasks",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "PowerShell(gh auth status; Write-Output \"---\"; Test-Path \"$env:APPDATA\\\\GitHub CLI\\\\hosts.yml\")",
+      "Bash(git push *)"
     ]
   }
 }
