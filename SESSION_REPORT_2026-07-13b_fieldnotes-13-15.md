@@ -59,3 +59,16 @@ armor, items, consumables, beastforms, conditions — grouping matches by catego
 - Pre-feature backup: `daggerheart_companion.backup-2026-07-13-pre-fieldnotes-13-15.html` (committed).
 - No background processes left running (static server + browser preview stopped and verified).
 - Untracked `_probe.js` is not from this work — left alone.
+
+## Post-session note — "app looks stale" diagnostic (no code change)
+Chance reported the app looked stale on his laptop. Traced it: the **source
+`daggerheart_companion.html` is current** (all #1–#15 present) and pushed. The only other full
+app copy is **`hosting/public/index.html`**, which is frozen at the **July-5 pilot build** (predates
+field note #1 — no Notes/Market/Search buttons) — the parked Firebase distribution snapshot, never
+updated with field-note work. His **bookmark was opening that stale copy** (not in any local Chromium
+bookmarks file → the deployed Firebase site `daggerheart-companion-d8550`, or equivalent). Fix: point
+the bookmark at the local file — `file:///C:/Users/chanc/OneDrive/Documents/Claude/Projects/Daggerheart/daggerheart_companion.html`
+— which always reflects edits (matches the single-file/offline design). **Chance repointed it himself.**
+**Durable takeaway for the next Claude:** the `hosting/` copy is stale *and* parked; the app is meant to
+run from the local file, so surface that if "stale" comes up again. Refreshing/redeploying Firebase was
+deliberately not done (parked distribution + would need Firebase auth and Chance's go-ahead).
