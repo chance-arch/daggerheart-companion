@@ -72,8 +72,8 @@ form, Epic Hybrid**. The four SRD "build-your-own" forms carry a `build` descrip
 2. **`S.bfBuilt` vs module-level `bfBuild`** — the *assembled* form is session state (survives re-render
    while transformed); the *in-progress picks* are transient UI state (module var, not persisted).
 3. **Epic Hybrid is buildable at any tier; only its ingredient pool scales with tier.** Its power is fixed
-   at the Mythic level and it's legal-by-construction. Flagged to Chance: if he'd rather gate the card's
-   availability by a minimum character tier, that's a small follow-up.
+   at the Mythic level and it's legal-by-construction. **Chance confirmed (2026-07-13): keep it ungated —
+   no minimum-tier gate on the card.** Follow-up closed.
 4. **Die step-up caps at d12** for Mythic/Epic evolving a d12 base (SRD examples don't go higher).
 5. **Epic Hybrid is app-only homebrew** — `daggerheart_beastforms.json` stays the 24 official SRD forms;
    the 25th lives only in the app's `BEASTFORMS`, consistent with the homebrew-precedence policy.
@@ -82,7 +82,7 @@ form, Epic Hybrid**. The four SRD "build-your-own" forms carry a `build` descrip
 - **Look/feel** of the builder panel + chips (logic verified; visual is the usual jsdom ceiling).
 - **Whether to enforce "your tier or lower" globally** (today only Epic Hybrid does; the rest of the app
   still lets any tier be assumed, matching prior behavior).
-- **Optional:** gate the Epic Hybrid card by minimum character tier (see decision 3).
+- ~~Gate the Epic Hybrid card by minimum character tier~~ — **closed 2026-07-13: Chance chose to keep it ungated.**
 - The original **"languages Theron knows"** question was set aside when Chance pivoted — not answered.
 
 ## Housekeeping
