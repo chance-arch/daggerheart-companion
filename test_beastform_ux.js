@@ -45,8 +45,10 @@ function render() { ev("Sheet.render()"); }
   console.log("# 1. Quick-launcher is present in the Combat Actions panel (no scrolling)");
   const sel = q("#actions #bfQuickSel");
   ok(!!sel, "beastform quick-select rendered inside #actions");
-  const nForms = win.eval("BEASTFORMS.length");
-  ok(sel && sel.querySelectorAll("option").length === nForms, "select lists all " + nForms + " beastforms");
+  // Quick-launcher lists only one-tap "simple" forms; the four ✦ constructed forms
+  // (Legendary/Mythic Beast & Hybrid) are built from the grid, not assumed here.
+  const nForms = win.eval("BEASTFORMS.filter(function(b){return !b.build;}).length");
+  ok(sel && sel.querySelectorAll("option").length === nForms, "select lists all " + nForms + " simple beastforms");
   ok(!!sel && sel.querySelectorAll("optgroup").length >= 1, "options grouped by tier");
   ok(!!q("#actions [data-bfquick]"), "Assume (Stress) button present in the panel");
   ok(!!q("#actions [data-bfquickevo]"), "Evolution (3 Hope) button present in the panel");
@@ -103,6 +105,40 @@ function render() { ev("Sheet.render()"); }
   ok(!q("#actions [data-bfquick]").disabled, "Assume still enabled with a free Stress slot");
   S().stUsed = ev("App.active.stMax"); render();
   ok(q("#actions [data-bfquick]").disabled, "Assume disabled when no Stress slot is free");
+  S().stUsed = 0; render();
+
+  console.log("# 7. Beastform Evasion bonus is calculated on the live Evasion tile (field note)");
+  // Winged Beast (BEASTFORMS) carries ev:3 — Chance flagged this as not applying. Lock it in via
+  // both entry points (grid button + quick-launcher).
+  const baseEva = ev("App.active.evasion");
+  const wingedEv = ev("BEASTFORMS.find(function(b){return b.key==='winged-beast';}).ev");
+  ok(wingedEv === 3, "Winged Beast data carries a +3 Evasion bonus (ev:3)");
+
+  // Winged Beast is Tier 2; the grid defaults to the Tier 1 filter, so reveal all tiers first.
+  click(doc.querySelector('[data-bftier="all"]'));
+  const gridBtn = doc.querySelector('[data-bfact="winged-beast"]');
+  ok(!!gridBtn, "Winged Beast Activate button present in the full Beastforms grid");
+  click(gridBtn);
+  ok(S().bfActive === "winged-beast", "grid button transforms into Winged Beast");
+  ok(ev("Sheet._eff.eva()") === baseEva + wingedEv, "effEva() totals base+bonus (" + baseEva + "+" + wingedEv + "=" + (baseEva + wingedEv) + ")");
+  // The Evasion tile renders value-then-label ("14" then "Evasion"); accept either ordering.
+  const total = baseEva + wingedEv;
+  const tileText = (q("#tiles") ? q("#tiles").textContent : "").replace(/\s+/g, " ");
+  ok(new RegExp(total + "\\s*Evasion|Evasion\\s*" + total).test(tileText),
+    "Evasion tile displays the transformed total (" + total + ")", tileText);
+  const statusText = q("#bfStatus") ? q("#bfStatus").innerHTML : "";
+  ok(new RegExp(baseEva + "\\s*base.*[+＋]\\s*" + wingedEv + "\\s*form").test(statusText) || /form/.test(statusText),
+    "top status banner's Evasion breakdown cites the Beastform bonus", statusText);
+  click(q("#actions [data-bfdeact]"));
+  ok(S().bfActive == null, "dropped back out for the next check");
+  ok(ev("Sheet._eff.eva()") === baseEva, "Evasion returns to base after dropping the form");
+
+  console.log("# 8. The quick-launcher (other entry point) agrees with the grid button");
+  const sel3 = q("#actions #bfQuickSel");
+  sel3.value = "winged-beast"; sel3.dispatchEvent(new win.Event("change", { bubbles: true }));
+  click(q("#actions [data-bfquick]"));
+  ok(ev("Sheet._eff.eva()") === baseEva + wingedEv, "quick-launcher path totals the same Evasion as the grid button");
+  click(q("#actions [data-bfdeact]"));
 
   console.log("\n" + (fail ? "FAILED " + fail + " / " : "ALL PASS ") + (pass + fail) + " checks (" + pass + " ok)");
   process.exit(fail ? 1 : 0);
