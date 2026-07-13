@@ -70,27 +70,31 @@ function resultRowAdd(nameSubstr){
   // consumables common = buy 1–2 handfuls, sell 1 handful
   ok(mRow && /1–2 handfuls/.test(mRow.textContent), "common consumable buys for 1–2 handfuls", mRow && mRow.textContent);
 
-  console.log("# 4. Shopping list accumulates a correct cross-denomination total");
-  // start clean
-  ev("try{localStorage.removeItem('dh_market_list_v1');}catch(e){}");
-  // add Dagger (T1: buy 1–5, sell 1) then Portal Seed (buy 100–300, sell 40)
-  search("dagger"); click(resultRowAdd("Dagger").querySelector("[data-mkadd]"));
-  search("portal seed"); click(resultRowAdd("Portal Seed").querySelector("[data-mkadd]"));
-  const listTxt = q("#mkList").textContent;
-  ok(/Total · 2 items/.test(listTxt), "list shows 2 items", listTxt);
+  console.log("# 4. Buying list accumulates a correct cross-denomination total (field note #13)");
+  // Buying: Dagger (T1: buy 1–5) then Portal Seed (buy 100–300)
+  search("dagger"); click(resultRowAdd("Dagger").querySelector("[data-mkbuy]"));
+  search("portal seed"); click(resultRowAdd("Portal Seed").querySelector("[data-mkbuy]"));
+  const buyTxt = q("#mkBuy").textContent;
+  ok(/Buy total · 2/.test(buyTxt), "buy list shows 2 items", buyTxt);
   // buy min = 1+100 = 101 → "1 chest, 1 handful"; max = 5+300 = 305 → "3 chests, 5 handfuls"
-  ok(/1 chest, 1 handful/.test(listTxt) && /3 chests, 5 handfuls/.test(listTxt), "buy total range folds handfuls→chests correctly", listTxt);
-  // sell = 1 + 40 = 41 → "4 bags, 1 handful"
-  ok(/4 bags, 1 handful/.test(listTxt), "sell-back total folds correctly (41 → 4 bags, 1 handful)", listTxt);
+  ok(/1 chest, 1 handful/.test(buyTxt) && /3 chests, 5 handfuls/.test(buyTxt), "buy total range folds handfuls→chests correctly", buyTxt);
 
-  console.log("# 5. Duplicate guard, remove, and clear");
-  search("dagger"); click(resultRowAdd("Dagger").querySelector("[data-mkadd]"));  // add Dagger again
-  ok(/Total · 2 items/.test(q("#mkList").textContent), "adding a duplicate does not grow the list");
-  const del = q("#mkList [data-mkdel]");
-  click(del);
-  ok(/Total · 1 item[^s]/.test(q("#mkList").textContent), "remove drops an item from the list");
-  click(q("#mkList [data-mkclear]"));
-  ok(/Empty/.test(q("#mkList").textContent), "Clear empties the list");
+  console.log("# 4b. Selling list totals independently, and a net is shown");
+  search("portal seed"); click(resultRowAdd("Portal Seed").querySelector("[data-mksell]"));
+  const sellTxt = q("#mkSell").textContent;
+  ok(/Sell total · 1/.test(sellTxt), "sell list shows 1 item", sellTxt);
+  // Portal Seed (legendary item) sells for 40 → "4 bags"
+  ok(/4 bags/.test(sellTxt), "sell-back total folds correctly (40 → 4 bags)", sellTxt);
+  const netTxt = q("#mkNet").textContent;
+  ok(/Net \(sell − buy\)/.test(netTxt) && /−/.test(netTxt), "net line shows a (negative) sell − buy figure", netTxt);
+
+  console.log("# 5. Duplicate guard (per list), remove, and clear-all");
+  search("dagger"); click(resultRowAdd("Dagger").querySelector("[data-mkbuy]"));  // Dagger already in Buy
+  ok(/Buy total · 2/.test(q("#mkBuy").textContent), "adding a duplicate to Buy does not grow it");
+  click(q("#mkBuy [data-mkdel]"));                                                // remove first buy item
+  ok(/Buy total · 1/.test(q("#mkBuy").textContent), "remove drops an item from the buy list");
+  click(q("#mkNet [data-mkclear]"));                                              // Clear all
+  ok(/Nothing to buy/.test(q("#mkBuy").textContent) && /Nothing to sell/.test(q("#mkSell").textContent), "Clear all empties both lists");
 
   console.log("# 6. Catalog completeness");
   ok(ev("(function(){var n=0;n+=EQUIP_W.length;n+=EQUIP_A.length;n+=EQUIP_ITEMS.length;return n;})()") === 346, "catalog spans all 346 purchasable records (192 weapons + 34 armor + 120 items/consumables)");

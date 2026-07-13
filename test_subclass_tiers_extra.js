@@ -78,20 +78,23 @@ console.log("\n== 2: Play-mode armor swap preserves subclass threshold bonus =="
   const ch = buildViaDOM("Guardian", 0, 5, "SwapTest"); // Stalwart L5: +1+2 thresholds
   const origArmor = ch.armor.name; // snapshot — ch is a live reference to App.active
   const EQUIP_A = E("EQUIP_A");
-  // real UI path: type in the armor-swap search picker, then click a result row
-  const srch = doc.querySelector('input.srch[data-pick="aswap"]');
-  if (!srch) { T("armor swap picker present in Play mode", false, "no .srch[data-pick=aswap]"); }
+  // real UI path (field note #14): armor is a carryable list — add via the picker, then wear it.
+  const srch = doc.querySelector('input.srch[data-pick="aadd"]');
+  if (!srch) { T("armor add picker present in Play mode", false, "no .srch[data-pick=aadd]"); }
   else {
     srch.value = "Full Plate";
     srch.dispatchEvent(new w.Event("input", { bubbles: true }));
-    const row = doc.querySelector('button.pickrow[data-pickadd="aswap"]');
+    const row = doc.querySelector('button.pickrow[data-pickadd="aadd"]');
     if (!row) { T("armor picker returns rows for 'Full Plate'", false, "no pickrow"); }
     else {
-      row.click();
+      row.click(); // adds Full Plate to the armor list (stored, not yet worn)
+      const boxes = Array.from(doc.querySelectorAll('input[data-armworn]'));
+      const box = boxes[boxes.length - 1]; // the just-added armor
+      box.checked = true; box.dispatchEvent(new w.Event("change", { bubbles: true })); // wear it
       const after = E("App.active");
       const na = EQUIP_A.find(a => a.n === after.armor.name);
-      T("armor actually swapped via UI (" + after.armor.name + ")", after.armor.name !== origArmor, after.armor.name);
-      T("swapped armor thresholds keep +3 Stalwart bonus", after.majorBase === na.maj + 5 + 3 && after.severeBase === na.sev + 5 + 3,
+      T("armor actually worn via UI (" + after.armor.name + ")", /Full Plate/.test(after.armor.name) && after.armor.name !== origArmor, after.armor.name);
+      T("worn armor thresholds keep +3 Stalwart bonus", after.majorBase === na.maj + 5 + 3 && after.severeBase === na.sev + 5 + 3,
         after.majorBase + "/" + after.severeBase + " vs " + (na.maj + 8) + "/" + (na.sev + 8));
     }
   }
