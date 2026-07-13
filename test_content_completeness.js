@@ -35,6 +35,7 @@ function specResolves(effs) {
     if (t === "roll") return true;
     if (t === "resource") return true;
     if (t === "summon") return true;
+    if (t === "heal") return e.target === "self"; // self-heal is executed by the interpreter (clears HP/Stress/Armor)
     if (t === "branch") return specResolves(e.effects) || specResolves(e.onFail);
     if (t === "forceReaction") return specResolves(e.onFail);
     return false;
@@ -89,8 +90,8 @@ function specCoverage(c) {
   ok(badLabel === 0, "every card labelled with a known bucket");
   ok(buckets.interactive + buckets.guided + buckets.reference === 189, "buckets partition all 189 cards");
   console.log("     counts: interactive=" + buckets.interactive + " guided=" + buckets.guided + " reference=" + buckets.reference);
-  ok(buckets.interactive === 98 && buckets.guided === 51 && buckets.reference === 40,
-    "counts are 98 / 51 / 40 as computed from source data");
+  ok(buckets.interactive === 101 && buckets.guided === 48 && buckets.reference === 40,
+    "counts are 101 / 48 / 40 as computed from source data (self-heal cards now execute)");
 
   console.log("# 5. Spot-check known cards land in the right bucket");
   const covOf = n => { const c = cards.find(x => x.name === n); return c ? specCoverage(c) : "(missing)"; };
