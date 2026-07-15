@@ -34,5 +34,52 @@ Daggerheart Companion App — running manual-review / decision list
     fill correctly (showed 2 of 6 at Level 4), and the "Quick Reference"
     header now stays with its box. Print sheet signed off.
 
+------------------------------------------------------------------------
+[ ] ITEM 3 — VISUAL-REVIEW PACKET: EVERYTHING SHIPPED SINCE THE PILOT
+    (added 2026-07-15 — one sitting, ~20 min, replaces hunting through
+    session reports; all logic is jsdom + browser verified, this is
+    LOOK/FEEL + one gameplay-behavior sign-off)
+
+    Open the app (your repointed bookmark / the local file) and walk top
+    to bottom:
+
+    1. SPLASH (new today). It now STAYS on the loading screen until you
+       tap/click it (or press Enter/Space/Esc). A "TAP ANYWHERE TO OPEN
+       THE GUIDE" hint fades in after ~2s. Check: does the hold feel
+       right, is the hint readable, does dismiss feel snappy?
+
+    2. HEADER PANELS (one at a time; they close each other):
+         📓 Notes — panel styling matches Import/Export boxes?
+         📊 Coverage — per-domain breakdown readable?
+         🪙 Market — search a few items; TWO lists now (🛒 Buying /
+            🏷️ Selling) + a Net line. Two-column layout OK on your
+            laptop width?
+         🔎 Search All — type e.g. "bear": grouped results across
+            cards/gear/beastforms/conditions look right?
+
+    3. PLAY MODE, Weapons & Armor card:
+         - Equip checkboxes on weapons (#9) — obvious what they do?
+         - Armor is now a LIST (#14): add a second armor, wear it
+           (auto-unwears the first), remove one. Rows readable?
+
+    4. PLAY MODE, Combat Actions + Beastforms (Druid, e.g. Theron):
+         - Quick-launcher select + Assume/Evolution buttons (#7).
+         - Bottom grid: tier filter now T1-T4 + All; build a Legendary
+           Hybrid and the homebrew Epic Hybrid (#11) — builder panel,
+           chips, and the assembled form's stat block all render OK?
+
+    5. GAMEPLAY SIGN-OFF (#12 — behavior, not looks): casting
+       Battle-Hardened / Lean on Me / Second Wind now AUTO-APPLIES the
+       healing (HP/Stress clear immediately, like auto-costs). Cast one
+       at the table view and decide: keep auto-apply, or want a
+       confirm step?
+
+    6. BUILDER (carried from ITEM 1 above — still open): the full
+       wizard pass described in ITEM 1. Unchanged ask.
+
+    Flag anything off to Claude with a screenshot; each item is a small
+    CSS/copy fix once identified.
+
 ========================================================================
 Log: created 2026-06-29 after the QA stabilization pass.
+     ITEM 3 added 2026-07-15 (unattended housekeeping run).
