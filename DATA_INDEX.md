@@ -2,22 +2,23 @@
 
 **Canonical catalog of the Daggerheart content library for this project.** Read this first in a new chat.
 
-- Generated: 2026-06-27 (regenerate with `build_data_index.py`)
+- Generated: 2026-07-15 (regenerate with `build_data_index.py`)
 - Source: Daggerheart SRD 1.0 via daggerheartsrd.com, under the DPCGL. SRD content (c) Critical Role, LLC.
-- Source tier: all datasets are Official SRD (precedence rank 4) — see `SOURCES_precedence.md`.
+- Source tier: all datasets are Official SRD (precedence rank 4) — see `SOURCES_precedence.md`. One exception: `daggerheart_equipment.json` also carries a homebrew price model + item rarity (`meta.priceModel`, rank 8, added for field note #10) — clearly tagged, auto-superseded if official prices publish.
 - Effect model: `Daggerheart_Effect_Model_Spec.md` (v1, locked). Design system: `Daggerheart_Design_System.md` + `design_tokens.*`.
 
 ## At a glance
 
 | Dataset | File | Records |
 |---|---|---|
-| Domain cards (mechanized) | `daggerheart_domain_cards_annotated.json` | 189 (174 auto, 15 narrative) |
+| Domain cards (mechanized) | `daggerheart_domain_cards_annotated.json` | 189 (all annotated; live interactivity gradient in the app's Coverage panel) |
 | Domain cards (text only) | `daggerheart_domain_cards.json` | 189 |
 | Conditions | `daggerheart_conditions.json` | 3 standard + 11 special |
 | Equipment | `daggerheart_equipment.json` | 155 primary + 37 secondary weapons, 34 armor, 60 items, 60 consumables = 346 |
 | Heritage | `daggerheart_heritage.json` | 18 ancestries + 9 communities |
 | Classes & subclasses | `daggerheart_classes.json` | 9 classes, 18 subclasses |
 | Beastforms (Druid) | `daggerheart_beastforms.json` | 24 (tiers 1-4) |
+| Leveling rules | `daggerheart_leveling.json` | 4 tiers, 4 level-up steps, 9 advancement options |
 | Adversaries (GM) | `daggerheart_adversaries.json` | 129 (tiers 1-4, full statblocks) |
 | Environments (GM) | `daggerheart_environments.json` | 19 |
 
@@ -44,7 +45,7 @@ Each JSON has a `.xlsx` twin for review. Every JSON carries a `meta` block (sour
 - Ownable art: `art_sigils_preview.html`, `art_emblems_preview.html`. App: `daggerheart_sheet.html` (character sheet).
 
 ## Backlog
-- Leveling/progression rules (automation). Character builder (in progress).
+- None at the data layer. Leveling automation and the character builder both shipped; active work is tracked in `PROJECT_HANDOFF.md` §4.
 
 ## Regenerate
 `python3 build_data_index.py`
