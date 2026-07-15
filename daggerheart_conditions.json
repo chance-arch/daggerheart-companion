@@ -2,6 +2,7 @@
   "meta": {
     "title": "Daggerheart Conditions Registry",
     "source": "Daggerheart SRD 1.0 (standard conditions via daggerheartsrd.com/rules/conditions; special conditions extracted verbatim from their defining cards in daggerheart_domain_cards.json)",
+    "sourceTier": "Official SRD (precedence rank 4)",
     "license": "Darrington Press Community Gaming License (DPCGL). SRD content (c) Critical Role, LLC.",
     "generated": "2026-06-27",
     "standardCount": 3,
