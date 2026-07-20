@@ -38,7 +38,8 @@
       "annotatedCount": 189,
       "updated": "2026-06-27",
       "newPrimitiveThisPass": "forceReaction — targets make a reaction roll vs a Difficulty, with onFail/onSuccess effect lists."
-    }
+    },
+    "audit": "2026-07-19: full-text audit of all 189 cards vs official SRD 1.0 PDF conversion (seansbox/daggerheart-srd) with Demiplane/daggerheart.su tie-breaks; 17 cards corrected (daggerheartsrd.com transcription errors). See SESSION_REPORT_2026-07-19_card-audit.md."
   },
   "cards": [
     {
@@ -491,7 +492,7 @@
       "level": 4,
       "type": "Spell",
       "recallCost": 2,
-      "text": "Make a Spellcast Roll against all targets within Melee range. Targets you succeed against are forced back to Far range and take 8d8+3 magic damage using your Spellcast trait.",
+      "text": "Make a Spellcast Roll against all targets within Melee range. Targets you succeed against are forced back to Far range and take d8+3 magic damage using your Spellcast trait.",
       "url": "https://daggerheartsrd.com/abilities/preservation-blast/",
       "mechanics": {
         "abilities": [
@@ -524,7 +525,7 @@
                   {
                     "type": "damage",
                     "dice": {
-                      "count": 8,
+                      "count": 1,
                       "sides": 8
                     },
                     "bonus": 3,
@@ -679,7 +680,7 @@
       "level": 6,
       "type": "Spell",
       "recallCost": 0,
-      "text": "Make a Spellcast Roll against a target within Far range. On a success, you can use your mind to move them anywhere within Far range of their original position. You can throw the lifted target as an attack by making an additional Spellcast Roll against the second target you're trying to attack. On a success, deal 12d4 physical damage to the second target using your Proficiency Die.",
+      "text": "Make a Spellcast Roll against a target within Far range. On a success, you can use your mind to move them anywhere within Far range of their original position. You can throw the lifted target as an attack by making an additional Spellcast Roll against the second target you're trying to attack. On a success, deal d12+4 physical damage to the second target using your Proficiency. This spell then ends.",
       "url": "https://daggerheartsrd.com/abilities/telekinesis/",
       "mechanics": {
         "abilities": [
@@ -734,9 +735,10 @@
                           {
                             "type": "damage",
                             "dice": {
-                              "count": 12,
-                              "sides": 4
+                              "count": 1,
+                              "sides": 12
                             },
+                            "bonus": 4,
                             "damageType": "physical",
                             "scaleBy": "proficiency",
                             "target": "second"
@@ -2440,7 +2442,7 @@
       "level": 5,
       "type": "Ability",
       "recallCost": 1,
-      "text": "When observing a creature, you can make an Instinct Roll against them. On a success, spend a Hope and ask the GM for one set of information about the target from the following options:\n\n- Their unmarked Hit Points and Stress.\n- Their Difficulty and damage thresholds.\n- Their attacks and standard attack damage dice.\n- Their features and Experiences.\n\nAdditionally on a success, you can mark a Stress to remove a Stress from the GM's Fear Pool.",
+      "text": "When observing a creature, you can make an Instinct Roll against them. On a success, spend a Hope and ask the GM for one set of information about the target from the following options:\n\n- Their unmarked Hit Points and Stress.\n- Their Difficulty and damage thresholds.\n- Their tactics and standard attack damage dice.\n- Their features and Experiences.\n\nAdditionally on a success, you can mark a Stress to remove a Fear from the GM's Fear Pool.",
       "url": "https://daggerheartsrd.com/abilities/know-thy-enemy/",
       "mechanics": {
         "abilities": [
@@ -2924,7 +2926,7 @@
       "level": 1,
       "type": "Grimoire",
       "recallCost": 2,
-      "text": "Power Push: Make a Spellcast Roll against a target within Melee range. On a success, they're knocked back to Far range and take d10+2 magic damage using your Proficiency.\n\nTova's Armor: Spend a Hope to give a target you can touch a +1 bonus to their Armor Score until their next rest or you cast Tova's Armor again.\n\nIce Spike: Make a Spellcast Roll (12) to summon a large ice spike within Far range. If you use it as a weapon, make the Spellcast Roll against the target's Difficulty instead. On a success, deal d6 physical damage using your Proficiency.",
+      "text": "Power Push: Make a Spellcast Roll against a target within Melee range. On a success, they're knocked back to Far range and take d10+2 magic damage using your Proficiency.\n\nTava's Armor: Spend a Hope to give a target you can touch a +1 bonus to their Armor Score until their next rest or you cast Tava's Armor again.\n\nIce Spike: Make a Spellcast Roll (12) to summon a large ice spike within Far range. If you use it as a weapon, make the Spellcast Roll against the target's Difficulty instead. On a success, deal d6 physical damage using your Proficiency.",
       "url": "https://daggerheartsrd.com/abilities/book-of-ava/",
       "mechanics": {
         "abilities": [
@@ -2970,7 +2972,7 @@
           },
           {
             "id": "tovas-armor",
-            "label": "Tova's Armor",
+            "label": "Tava's Armor",
             "trigger": {
               "kind": "action"
             },
@@ -2987,7 +2989,7 @@
               },
               {
                 "type": "note",
-                "text": "Lasts until the target's next rest or you cast Tova's Armor again."
+                "text": "Lasts until the target's next rest or you cast Tava's Armor again."
               }
             ]
           },
@@ -3233,7 +3235,7 @@
       "level": 2,
       "type": "Grimoire",
       "recallCost": 2,
-      "text": "Adjust Appearance: You magically shift your appearance and clothing to avoid recognition.\n\nParallecta: Spend 2 Hope to cast this spell on yourself or an ally within Close range. The next time the target makes an attack, they can roll an additional target within range that their attack roll would succeed against. You can only hold this spell on one creature at a time.\n\nIllusion: Make a Spellcast Roll (14). On a success, create a temporary visual illusion no larger than you within Close range that lasts for as long as you look at it. It holds up to scrutiny until an observer is within Melee range.",
+      "text": "Adjust Appearance: You magically shift your appearance and clothing to avoid recognition.\n\nParallela: Spend 2 Hope to cast this spell on yourself or an ally within Close range. The next time the target makes an attack, they can hit an additional target within range that their attack roll would succeed against. You can only hold this spell on one creature at a time.\n\nIllusion: Make a Spellcast Roll (14). On a success, create a temporary visual illusion no larger than you within Close range that lasts for as long as you look at it. It holds up to scrutiny until an observer is within Melee range.",
       "url": "https://daggerheartsrd.com/abilities/book-of-sitil/",
       "mechanics": {
         "abilities": [
@@ -3252,7 +3254,7 @@
           },
           {
             "id": "parallecta",
-            "label": "Parallecta",
+            "label": "Parallela",
             "trigger": {
               "kind": "action"
             },
@@ -3262,7 +3264,7 @@
             "effects": [
               {
                 "type": "note",
-                "text": "Cast on yourself or an ally within Close range. The next time the target makes an attack, they can roll an additional target within range their attack would succeed against. You can only hold this spell on one creature at a time."
+                "text": "Cast on yourself or an ally within Close range. The next time the target makes an attack, they can hit an additional target within range their attack would succeed against. You can only hold this spell on one creature at a time."
               }
             ]
           },
@@ -3402,7 +3404,7 @@
       "level": 3,
       "type": "Grimoire",
       "recallCost": 2,
-      "text": "Levitation: Make a Spellcast Roll to temporarily lift a target you can see up into the air and move them within Close range of their original position.\n\nRecant: Spend a Hope to force a target within Melee range to make a Reaction Roll (15). On a failure, they forget the last minute of your conversation.\n\nRune Circle: Mark a Stress to create a temporary magical circle on the ground where you stand. All adversaries within Melee range, who enter Melee range, take 2d12+4 magic damage and are knocked back to Very Close range.",
+      "text": "Levitation: Make a Spellcast Roll to temporarily lift a target you can see up into the air and move them within Close range of their original position.\n\nRecant: Spend a Hope to force a target within Melee range to make a Reaction Roll (15). On a failure, they forget the last minute of your conversation.\n\nRune Circle: Mark a Stress to create a temporary magical circle on the ground where you stand. All adversaries within Melee range, or who enter Melee range, take 2d12+4 magic damage and are knocked back to Very Close range.",
       "url": "https://daggerheartsrd.com/abilities/book-of-korvax/",
       "mechanics": {
         "abilities": [
@@ -3500,7 +3502,7 @@
       "level": 3,
       "type": "Grimoire",
       "recallCost": 2,
-      "text": "Mystic Tether: Make a Spellcast Roll against a target within Far range. On a success, they're temporarily Restrained and must mark a Stress. If you target a flying creature, this spell grounds and temporarily Restrains them.\n\nFireball: Make a Spellcast Roll against a target within Very Far range. On a success, hurl a sphere of fire toward them that explodes on impact. The target and all creatures within Very Close range of them must make a Reaction Roll (13). Targets who fail take 4d20+5 magic damage using your Proficiency. Targets who succeed take half damage.",
+      "text": "Mystic Tether: Make a Spellcast Roll against a target within Far range. On a success, they're temporarily Restrained and must mark a Stress. If you target a flying creature, this spell grounds and temporarily Restrains them.\n\nFireball: Make a Spellcast Roll against a target within Very Far range. On a success, hurl a sphere of fire toward them that explodes on impact. The target and all creatures within Very Close range of them must make a Reaction Roll (13). Targets who fail take d20+5 magic damage using your Proficiency. Targets who succeed take half damage.",
       "url": "https://daggerheartsrd.com/abilities/book-of-norai/",
       "mechanics": {
         "abilities": [
@@ -3574,7 +3576,7 @@
                       {
                         "type": "damage",
                         "dice": {
-                          "count": 4,
+                          "count": 1,
                           "sides": 20
                         },
                         "bonus": 5,
@@ -3797,7 +3799,7 @@
       "level": 5,
       "type": "Spell",
       "recallCost": 2,
-      "text": "Make a Spellcast Roll (15). Once per rest on a success, spend a Hope to create a temporary magical wall between two points within Far range. It can be up to 50 feet high and form at any angle. Creatures or objects in its path are shunted to a side of their choice. The wall stays up until your next rest or you cast Manifest Wall again.",
+      "text": "Make a Spellcast Roll (15). Once per rest on a success, spend a Hope to create a temporary magical wall between two points within Far range. It can be up to 50 feet high and form at any angle. Creatures or objects in its path are shunted to a side of your choice. The wall stays up until your next rest or you cast Manifest Wall again.",
       "url": "https://daggerheartsrd.com/abilities/manifest-wall/",
       "mechanics": {
         "abilities": [
@@ -3828,7 +3830,7 @@
                 "effects": [
                   {
                     "type": "note",
-                    "text": "Create a temporary magical wall between two points within Far range, up to 50 feet high at any angle. Creatures/objects in its path are shunted to a side of their choice. Stays up until your next rest or you cast Manifest Wall again."
+                    "text": "Create a temporary magical wall between two points within Far range, up to 50 feet high at any angle. Creatures/objects in its path are shunted to a side of your choice. Stays up until your next rest or you cast Manifest Wall again."
                   }
                 ]
               }
@@ -4532,7 +4534,7 @@
       "domain": "Grace",
       "level": 1,
       "type": "Spell",
-      "recallCost": 1,
+      "recallCost": 0,
       "text": "Make a Spellcast Roll against a target within Close range. On a success, they become temporarily Enraptured. While Enraptured, a target's attention is fixed on you, narrowing their field of view and drowning out any sound but your voice. Once per rest on a success, you can mark a Stress to force the Enraptured target to mark a Stress as well.",
       "url": "https://daggerheartsrd.com/abilities/enrapture/",
       "mechanics": {
@@ -5557,7 +5559,7 @@
       "level": 1,
       "type": "Spell",
       "recallCost": 1,
-      "text": "Spend a Hope to make a Spellcast Roll and conjure throwing blades that strike out at all targets within Very Close range. Targets you succeed against take 1d8+2 magic damage using your Proficiency.\n\nIf a target you hit is Vulnerable, they take an extra 1d8 damage.",
+      "text": "Spend a Hope to make a Spellcast Roll and conjure throwing blades that strike out at all targets within Very Close range. Targets you succeed against take d8+2 magic damage using your Proficiency.\n\nIf a target you hit is Vulnerable, they take an extra 1d8 damage.",
       "url": "https://daggerheartsrd.com/abilities/rain-of-blades/",
       "mechanics": {
         "abilities": [
@@ -6852,7 +6854,7 @@
       "level": 2,
       "type": "Spell",
       "recallCost": 1,
-      "text": "Tekaira Armored Beetles: Mark a Stress to conjure armored beetles that encircle you. When you next take damage, reduce the severity by one threshold. You can spend a Hope to keep the beetles conjured after taking damage.\n\nFire Flies: Make a Spellcast Roll against all adversaries within Close range. Spend a Hope to deal 2d8+3 magic damage to targets you succeed against.",
+      "text": "Tekaira Armored Beetles: Mark a Stress to conjure armored beetles that encircle you. When you next take damage, reduce the severity by one threshold. You can spend a Hope to keep the beetles conjured after taking damage.\n\nFire Flies: Make a Spellcast Roll against all adversaries within Close range. Spend a Hope to deal 2d8+3 magic damage to targets you succeeded against.",
       "url": "https://daggerheartsrd.com/abilities/conjure-swarm/",
       "mechanics": {
         "abilities": [
@@ -7019,7 +7021,7 @@
       "level": 3,
       "type": "Spell",
       "recallCost": 1,
-      "text": "Make a Spellcast Roll against a target within Far range. On a success, deal 6d4 magic damage using your Proficiency. Additionally, mark 2 or more Stress to make them permanently Corroded. While a target is Corroded, they gain a -1 penalty to their Difficulty for every 2 Stress you spent. This condition can stack.",
+      "text": "Make a Spellcast Roll against a target within Far range. On a success, deal d6+4 magic damage using your Proficiency. Additionally, mark 2 or more Stress to make them permanently Corroded. While a target is Corroded, they gain a -1 penalty to their Difficulty for every 2 Stress you spent. This condition can stack.",
       "url": "https://daggerheartsrd.com/abilities/corrosive-projectile/",
       "mechanics": {
         "abilities": [
@@ -7053,9 +7055,10 @@
                   {
                     "type": "damage",
                     "dice": {
-                      "count": 6,
-                      "sides": 4
+                      "count": 1,
+                      "sides": 6
                     },
+                    "bonus": 4,
                     "damageType": "magic",
                     "scaleBy": "proficiency",
                     "target": "single"
@@ -7492,7 +7495,7 @@
       "level": 6,
       "type": "Ability",
       "recallCost": 1,
-      "text": "As an additional downtime move you can choose, roll a d6 to see what you forage. Work with the GM to describe it and add it to your inventory as a consumable. Your party can carry up to five foraged consumables at a time.\n\n1. An unusual flower (Clear 2 Stress)\n2. A beautiful relic (Gain 2 Hope)\n3. An arcane rune (+2 to a Spellcast Roll)\n4. A healing vial (Clear 2 Hit Points)\n5. A luck charm (Reroll any die)\n6. Choose one of the options above.",
+      "text": "As an additional downtime move you can choose, roll a d6 to see what you forage. Work with the GM to describe it and add it to your inventory as a consumable. Your party can carry up to five foraged consumables at a time.\n\n1. A unique food (Clear 2 Stress)\n2. A beautiful relic (Gain 2 Hope)\n3. An arcane rune (+2 to a Spellcast Roll)\n4. A healing vial (Clear 2 Hit Points)\n5. A luck charm (Reroll any die)\n6. Choose one of the options above.",
       "url": "https://daggerheartsrd.com/abilities/forager/",
       "mechanics": {
         "automatable": false,
@@ -8075,7 +8078,7 @@
       "level": 1,
       "type": "Spell",
       "recallCost": 1,
-      "text": "Make a Spellcast Roll against a target within Far range. On a success, spend a Hope to send a bolt of shimmering light toward them, dealing 6d8+2 magic damage using your Proficiency. The target becomes temporarily Vulnerable and glows brightly until this condition is cleared.",
+      "text": "Make a Spellcast Roll against a target within Far range. On a success, spend a Hope to send a bolt of shimmering light toward them, dealing d8+2 magic damage using your Proficiency. The target becomes temporarily Vulnerable and glows brightly until this condition is cleared.",
       "url": "https://daggerheartsrd.com/abilities/bolt-beacon/",
       "mechanics": {
         "abilities": [
@@ -8107,7 +8110,7 @@
                   {
                     "type": "damage",
                     "dice": {
-                      "count": 6,
+                      "count": 1,
                       "sides": 8
                     },
                     "bonus": 2,
@@ -8187,7 +8190,7 @@
       "level": 1,
       "type": "Ability",
       "recallCost": 0,
-      "text": "Once per rest, after any ally attempts an action roll but before the consequences take place, you can offer assistance or words of support. When you do, your ally can reroll their dice.",
+      "text": "Once per rest, after an ally attempts an action roll but before the consequences take place, you can offer assistance or words of support. When you do, your ally can reroll their dice.",
       "url": "https://daggerheartsrd.com/abilities/reassurance/",
       "mechanics": {
         "abilities": [
@@ -9160,7 +9163,7 @@
       "level": 1,
       "type": "Ability",
       "recallCost": 0,
-      "text": "When you choose not to equip armor, you have a base Armor Score of 3 + your Strength and use the following as your base damage thresholds:\n\n- Tier 1: 9/19\n- Tier 2: 11/24\n- Tier 3: 13/31\n- Tier 4: 15/35",
+      "text": "When you choose not to equip armor, you have a base Armor Score of 3 + your Strength and use the following as your base damage thresholds:\n\n- Tier 1: 9/19\n- Tier 2: 11/24\n- Tier 3: 13/31\n- Tier 4: 15/38",
       "url": "https://daggerheartsrd.com/abilities/bare-bones/",
       "mechanics": {
         "abilities": [
@@ -9179,7 +9182,7 @@
               },
               {
                 "type": "note",
-                "text": "Base damage thresholds by tier: T1 9/19, T2 11/24, T3 13/31, T4 15/35."
+                "text": "Base damage thresholds by tier: T1 9/19, T2 11/24, T3 13/31, T4 15/38."
               }
             ]
           }
@@ -9578,7 +9581,7 @@
       "level": 5,
       "type": "Ability",
       "recallCost": 1,
-      "text": "Once per rest, when you critically succeed on an attack, you and allies who can see or hear you can clear a Hit Point or 1d4 Stress.",
+      "text": "Once per rest, when you critically succeed on an attack, you and all allies who can see or hear you can clear a Hit Point or 1d4 Stress.",
       "url": "https://daggerheartsrd.com/abilities/rousing-strike/",
       "mechanics": {
         "abilities": [

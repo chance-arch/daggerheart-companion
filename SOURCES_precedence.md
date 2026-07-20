@@ -27,3 +27,13 @@ All content built so far is **Official SRD 1.0 (rank 4)** via daggerheartsrd.com
 domain cards (`daggerheart_domain_cards*.json`), conditions (`daggerheart_conditions.json`),
 equipment (`daggerheart_equipment.json`). No errata, Core-only, playtest, or community content has been
 merged yet. When errata is incorporated later, it takes precedence and should be tagged as rank 1.
+
+**Transcription caveat (2026-07-19).** daggerheartsrd.com is a *fan transcription* of the SRD, and it
+carries transcription errors — most damagingly, damage notation garbled from the book's `dX+Y` form into
+fixed `XdY` dice (e.g. Corrosive Projectile "6d4" for **d6+4**). Field note #17 ran a full-text audit of
+all 189 domain cards against an independent conversion of the official SRD PDF
+(seansbox/daggerheart-srd), tie-breaking via Demiplane (rank 7) and daggerheart.su; 17 cards were
+corrected (see `SESSION_REPORT_2026-07-19_card-audit.md`, and `meta.audit` in the card JSONs).
+Lesson: **verifying data against its own scrape source proves nothing** — audits must use an
+independent transcription lineage. The other daggerheartsrd.com-derived datasets (conditions,
+equipment) have NOT had this audit yet.

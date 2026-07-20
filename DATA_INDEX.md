@@ -2,7 +2,7 @@
 
 **Canonical catalog of the Daggerheart content library for this project.** Read this first in a new chat.
 
-- Generated: 2026-07-15 (regenerate with `build_data_index.py`)
+- Generated: 2026-07-19 (regenerate with `build_data_index.py`)
 - Source: Daggerheart SRD 1.0 via daggerheartsrd.com, under the DPCGL. SRD content (c) Critical Role, LLC.
 - Source tier: all datasets are Official SRD (precedence rank 4) — see `SOURCES_precedence.md`. One exception: `daggerheart_equipment.json` also carries a homebrew price model + item rarity (`meta.priceModel`, rank 8, added for field note #10) — clearly tagged, auto-superseded if official prices publish.
 - Effect model: `Daggerheart_Effect_Model_Spec.md` (v1, locked). Design system: `Daggerheart_Design_System.md` + `design_tokens.*`.
