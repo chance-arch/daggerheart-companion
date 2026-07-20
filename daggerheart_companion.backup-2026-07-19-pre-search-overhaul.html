@@ -217,7 +217,7 @@ input[type=checkbox],input[type=radio]{width:auto}
 <div id="notesBox" style="display:none;margin-bottom:12px;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:#0f0d1a"><div class="h3" style="border:none;margin:0 0 6px;padding:0">📓 Campaign Notes <span id="notesStat" class="meta" style="text-transform:none;letter-spacing:0"></span></div><div class="meta" style="margin-bottom:8px;text-transform:none;letter-spacing:0">One shared page for the whole campaign — session recaps, NPC names, loose threads. Saves on this device, separate from your characters. Not printed on the sheet.</div><textarea id="notesTa" class="exportbox" spellcheck="true" style="min-height:150px;font-family:var(--ui);font-size:13px;line-height:1.5" placeholder="The party owes Marlow two handfuls of gold…"></textarea></div>
 <div id="covBox" style="display:none;margin-bottom:12px;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:#0f0d1a"><div class="h3" style="border:none;margin:0 0 6px;padding:0">📊 Content Coverage <span class="meta" style="text-transform:none;letter-spacing:0">what's fully playable vs. reference-only</span></div><div id="covBody" class="meta" style="text-transform:none;letter-spacing:0">Loading…</div></div>
 <div id="marketBox" style="display:none;margin-bottom:12px;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:#0f0d1a"><div class="h3" style="border:none;margin:0 0 6px;padding:0">🪙 Marketplace <span class="meta" style="text-transform:none;letter-spacing:0">homebrew buy &amp; sell values · not official Daggerheart prices</span></div><div class="meta" style="margin-bottom:8px;text-transform:none;letter-spacing:0">Homebrew estimates (10 handfuls = 1 bag, 10 bags = 1 chest). Weapons &amp; armor price by tier; items &amp; consumables by rarity. Buy ranges are the GM's haggling room; sell is the used value.</div><input class="srch" id="mkSearch" placeholder="Search weapons, armor, items, consumables…" style="width:100%"><div id="mkResults" style="margin-top:8px"></div><div class="grid cols2" style="margin-top:6px"><div><div class="h3" style="border:none;margin:13px 0 6px;padding:0;font-size:13px">🛒 Buying</div><div id="mkBuy"></div></div><div><div class="h3" style="border:none;margin:13px 0 6px;padding:0;font-size:13px">🏷️ Selling</div><div id="mkSell"></div></div></div><div id="mkNet" style="margin-top:6px"></div></div>
-<div id="findBox" style="display:none;margin-bottom:12px;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:#0f0d1a"><div class="h3" style="border:none;margin:0 0 6px;padding:0">🔎 Search Everything <span class="meta" style="text-transform:none;letter-spacing:0">one box across every catalog</span></div><div class="meta" style="margin-bottom:8px;text-transform:none;letter-spacing:0">Find anything by name or keyword — domain cards, weapons, armor, items, consumables, beastforms, and conditions — all at once. Click a result for its full entry; leave the box empty to browse.</div><input class="srch" id="findSearch" placeholder="Search everything…" style="width:100%"><div id="findResults" style="margin-top:8px;max-height:min(62vh,540px);overflow-y:auto;padding-right:2px"></div></div>
+<div id="findBox" style="display:none;margin-bottom:12px;padding:12px 14px;border:1px solid var(--line2);border-radius:11px;background:#0f0d1a"><div class="h3" style="border:none;margin:0 0 6px;padding:0">🔎 Search Everything <span class="meta" style="text-transform:none;letter-spacing:0">one box across every catalog</span></div><div class="meta" style="margin-bottom:8px;text-transform:none;letter-spacing:0">Find anything by name or keyword — domain cards, weapons, armor, items, consumables, beastforms, and conditions — all at once.</div><input class="srch" id="findSearch" placeholder="Search everything…" style="width:100%"><div id="findResults" style="margin-top:8px"></div></div>
 <div class="view" id="homeView"></div><div class="view" id="buildView" style="grid-template-columns:200px 1fr;gap:14px"><div class="rail" id="rail"></div><div class="panel" id="panel"></div></div><div class="view" id="playView">
 <div class="topbar"><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span class="pill">Daggerheart · Character Sheet</span><span class="pill" style="color:var(--mut);border-color:var(--line)">Concept A · prototype</span></div><div style="display:flex;gap:6px"><button class="btn" id="restBtn">🛌 Rest</button><button class="btn" id="sessBtn">↻ New Session</button></div></div>
 <div class="banner"><div class="avatar" id="avatarBox" title="Click to set a portrait" style="cursor:pointer">⚔</div><input type="file" id="avatarFile" accept="image/*" style="display:none"><div class="idblock"><h1 id="b-name"></h1><div class="sub" id="b-sub"></div><div class="meta" id="b-meta"></div></div><div class="lvl"><b id="b-lvl"></b><span>LVL · T<span id="b-tier"></span></span></div></div>
@@ -1285,75 +1285,42 @@ App.roster=Store.load();if(!App.roster.some(c=>c.id==="seed_test1"))App.roster.p
   ["expBtn","impBtn","cloudBtn","notesBtn","covBtn","findBtn"].forEach(function(k){var el=$(k);if(el)el.addEventListener("click",function(){var x=$("marketBox");if(x)x.style.display="none";});});
 })();
 
-/* ===== SEARCH EVERYTHING (field note #15; #16 reference-browser overhaul 2026-07-19) —
-   one box across every catalog: domain cards, weapons, armor, items, consumables,
-   beastforms, conditions. Full-reference behavior: results scroll, every row
-   click-expands to the record's complete entry, per-category "Show all" replaces the
-   old hard cap (expansion is per-category on demand, per the "never mount the whole
-   library" rule in the handoff §4a), and an empty box browses everything. ===== */
+/* ===== SEARCH EVERYTHING (field note #15) — one box across every catalog:
+   domain cards, weapons, armor, items, consumables, beastforms, conditions. ===== */
 (function(){
   function esc(s){return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
-  function para(s){return esc(s).replace(/\n\n/g,"<br><br>").replace(/\n/g,"<br>");}
-  function kv(k,v){return (v==null||v==="")?"":'<div style="margin:2px 0"><span style="color:var(--mut)">'+k+':</span> '+v+'</div>';}
   var IDX=null;
   function build(){
     if(IDX)return IDX;
     var out=[];
-    function push(cat,name,sub,extra,detail){out.push({i:out.length,cat:cat,name:name,sub:sub,detail:detail,hay:(name+" "+cat+" "+sub+" "+(extra||"")).toLowerCase()});}
-    (typeof CARDS!=="undefined"?CARDS:[]).forEach(function(c){
-      var cov=(typeof cardCoverage==="function")?cardCoverage(c):null;
-      push("Domain card",c.name,c.domain+" · L"+c.lvl,(c.text||""),
-        kv("Domain",esc(c.domain))+kv("Level",c.lvl)+kv("Recall cost",c.recall)+(cov?kv("In-app interactivity",esc(cov.charAt(0).toUpperCase()+cov.slice(1))):"")+'<div style="margin-top:6px">'+para(c.text||"")+'</div>');});
-    (typeof EQUIP_W!=="undefined"?EQUIP_W:[]).forEach(function(w){
-      push("Weapon",w.n,"T"+w.t+" · "+(w.cat==="P"?"Primary":"Secondary")+" · "+w.trait+" · "+w.range+" · d"+w.dd+(w.bonus?"+"+w.bonus:"")+" "+w.type,(w.feat||""),
-        kv("Tier",w.t)+kv("Category",w.cat==="P"?"Primary":"Secondary")+kv("Trait",esc(w.trait))+kv("Range",esc(w.range))+kv("Damage","d"+w.dd+(w.bonus?"+"+w.bonus:"")+" "+esc(w.type||""))+kv("Burden",esc(w.burden||""))+kv("Feature",para(w.feat)));});
-    (typeof EQUIP_A!=="undefined"?EQUIP_A:[]).forEach(function(a){
-      push("Armor",a.n,"T"+a.t+" · Thr "+a.maj+"/"+a.sev+" · Score "+a.score,(a.feat||""),
-        kv("Tier",a.t)+kv("Damage thresholds",a.maj+" / "+a.sev)+kv("Armor Score",a.score)+(a.eva?kv("Evasion modifier",(a.eva>0?"+":"")+a.eva):"")+(a.agi?kv("Agility modifier",(a.agi>0?"+":"")+a.agi):"")+kv("Feature",para(a.feat)));});
-    (typeof EQUIP_ITEMS!=="undefined"?EQUIP_ITEMS:[]).forEach(function(it){
-      var rar=(typeof ITEM_RARITY!=="undefined"&&ITEM_RARITY[it.n])?ITEM_RARITY[it.n]:null;
-      push(it.cat==="Consumable"?"Consumable":"Item",it.n,it.cat+(it.t?" · T"+it.t:""),(it.d||""),
-        kv("Category",esc(it.cat))+(it.t?kv("Tier",it.t):"")+(rar?kv("Rarity",esc(rar)):"")+'<div style="margin-top:6px">'+para(it.d||"")+'</div>');});
-    (typeof BEASTFORMS!=="undefined"?BEASTFORMS:[]).forEach(function(b){
-      var feats=(b.feats||[]).map(function(f){return kv(esc(f[0]),para(f[1]));}).join("");
-      push("Beastform","T"+b.tier+" "+b.name,(b.trait?b.trait+" · ":"")+(b.ex||""),(b.adv||[]).join(" ")+" "+(b.feats||[]).map(function(f){return f[0]+" "+f[1];}).join(" "),
-        kv("Tier",b.tier)+kv("Examples",esc(b.ex||""))+(b.trait?kv("Trait","+"+b.tb+" "+esc(b.trait)):"")+kv("Evasion","+"+b.ev)+(b.die?kv("Attack","d"+b.die+(b.bonus?"+"+b.bonus:"")+" ("+esc(b.range||"")+")"):"")+((b.adv||[]).length?kv("Advantage on",esc((b.adv||[]).join(", "))):"")+(b.build?kv("Type","Constructed form — assembled in the Beastforms panel"):"")+feats);});
-    (typeof STD_CONDITIONS!=="undefined"?STD_CONDITIONS:[]).forEach(function(c){
-      push("Condition",c.name,"",(c.desc||""),'<div style="margin-top:2px">'+para(c.desc||"")+'</div>');});
+    function push(cat,name,sub,extra){out.push({cat:cat,name:name,sub:sub,hay:(name+" "+cat+" "+sub+" "+(extra||"")).toLowerCase()});}
+    (typeof CARDS!=="undefined"?CARDS:[]).forEach(function(c){push("Domain card",c.name,c.domain+" · L"+c.lvl,(c.text||""));});
+    (typeof EQUIP_W!=="undefined"?EQUIP_W:[]).forEach(function(w){push("Weapon",w.n,"T"+w.t+" · "+(w.cat==="P"?"Primary":"Secondary")+" · "+w.trait+" · "+w.range+" · d"+w.dd+(w.bonus?"+"+w.bonus:"")+" "+w.type,(w.feat||""));});
+    (typeof EQUIP_A!=="undefined"?EQUIP_A:[]).forEach(function(a){push("Armor",a.n,"T"+a.t+" · Thr "+a.maj+"/"+a.sev+" · Score "+a.score,(a.feat||""));});
+    (typeof EQUIP_ITEMS!=="undefined"?EQUIP_ITEMS:[]).forEach(function(it){push(it.cat==="Consumable"?"Consumable":"Item",it.n,it.cat+(it.t?" · T"+it.t:""),(it.d||""));});
+    (typeof BEASTFORMS!=="undefined"?BEASTFORMS:[]).forEach(function(b){push("Beastform","T"+b.tier+" "+b.name,(b.trait?b.trait+" · ":"")+(b.ex||""),(b.adv||[]).join(" ")+" "+(b.feats||[]).map(function(f){return f[0]+" "+f[1];}).join(" "));});
+    (typeof STD_CONDITIONS!=="undefined"?STD_CONDITIONS:[]).forEach(function(c){push("Condition",c.name,"",(c.desc||""));});
     IDX=out;return out;
   }
   var CATS=["Domain card","Weapon","Armor","Item","Consumable","Beastform","Condition"],CAP=6;
-  var open={cats:{},rows:{}},lastTerm=null;
-  function rowHTML(o){
-    var isOpen=!!open.rows[o.i];
-    return '<div class="row" data-findrow="'+o.i+'" style="gap:8px;padding:5px 0;cursor:pointer;align-items:flex-start"><div style="flex:1;min-width:0"><span class="name">'+(isOpen?"▾ ":"▸ ")+esc(o.name)+'</span>'+(o.sub?' <span class="meta" style="text-transform:none;letter-spacing:0">'+esc(o.sub)+'</span>':'')+
-      (isOpen?'<div class="meta" data-finddetail="1" style="text-transform:none;letter-spacing:0;margin:6px 0 2px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;cursor:auto;line-height:1.45">'+o.detail+'</div>':'')+'</div></div>';
-  }
   function resultsHTML(term){
     term=(term||"").trim().toLowerCase();
-    if(term!==lastTerm){open={cats:{},rows:{}};lastTerm=term;}
     var all=build();
-    var m=term?all.filter(function(o){return o.hay.indexOf(term)>=0;}):all;
+    if(!term)return '<div class="meta" style="padding:5px;text-transform:none;letter-spacing:0">Type to search all '+all.length+' entries — cards, weapons, armor, items, consumables, beastforms, conditions.</div>';
+    var m=all.filter(function(o){return o.hay.indexOf(term)>=0;});
     if(!m.length)return '<div class="meta" style="padding:5px">No matches anywhere.</div>';
     var by={};m.forEach(function(o){(by[o.cat]=by[o.cat]||[]).push(o);});
     var ncat=Object.keys(by).length;
-    var h='<div class="meta" style="margin-bottom:6px;text-transform:none;letter-spacing:0">'+(term?(m.length+' match'+(m.length===1?"":"es")+' across '+ncat+' categor'+(ncat===1?"y":"ies")+'.'):('Browsing everything — '+m.length+' entries across '+ncat+' categories. Type to filter.'))+' <span style="opacity:.8">Click any result for its full entry.</span></div>';
+    var h='<div class="meta" style="margin-bottom:6px;text-transform:none;letter-spacing:0">'+m.length+' match'+(m.length===1?"":"es")+' across '+ncat+' categor'+(ncat===1?"y":"ies")+'.</div>';
     CATS.forEach(function(cat){var g=by[cat];if(!g||!g.length)return;
       h+='<div class="h3" style="border:none;margin:10px 0 4px;padding:0;font-size:12px">'+cat+' <span class="meta" style="text-transform:none;letter-spacing:0">'+g.length+'</span></div>';
-      var shown=open.cats[cat]?g:g.slice(0,CAP);
-      shown.forEach(function(o){h+=rowHTML(o);});
-      if(g.length>CAP)h+='<button class="btn sm" data-findcat="'+esc(cat)+'" style="margin:3px 0 2px">'+(open.cats[cat]?("Show first "+CAP):("Show all "+g.length))+'</button>';
+      g.slice(0,CAP).forEach(function(o){h+='<div class="row" style="gap:8px;padding:5px 0"><div style="flex:1;min-width:0"><span class="name">'+esc(o.name)+'</span>'+(o.sub?' <span class="meta" style="text-transform:none;letter-spacing:0">'+esc(o.sub)+'</span>':'')+'</div></div>';});
+      if(g.length>CAP)h+='<div class="meta" style="padding:2px 0">+'+(g.length-CAP)+' more '+cat+' — narrow your search.</div>';
     });
     return h;
   }
-  function refresh(){var el=$("findResults");if(el){var st=el.scrollTop;var s=$("findSearch");el.innerHTML=resultsHTML(s?s.value:"");el.scrollTop=st;}}
+  function refresh(){var el=$("findResults");if(el){var s=$("findSearch");el.innerHTML=resultsHTML(s?s.value:"");}}
   document.addEventListener("input",function(e){if(e.target&&e.target.id==="findSearch")refresh();});
-  document.addEventListener("click",function(e){
-    if(e.target.closest&&e.target.closest("[data-finddetail]"))return;
-    var t=e.target.closest?e.target.closest("[data-findrow],[data-findcat]"):null;if(!t)return;
-    if(t.dataset.findrow!=null){var k=+t.dataset.findrow;open.rows[k]=!open.rows[k];refresh();}
-    else if(t.dataset.findcat!=null){var c=t.dataset.findcat;open.cats[c]=!open.cats[c];refresh();}
-  });
   var fb=$("findBtn");
   if(fb)fb.addEventListener("click",function(){var x=$("findBox");if(!x)return;var show=(x.style.display==="none"||!x.style.display);if(show)refresh();x.style.display=show?"block":"none";["expBox","impBox","cloudBox","notesBox","covBox","marketBox"].forEach(function(k){var el=$(k);if(el)el.style.display="none";});if(show){var s=$("findSearch");if(s)s.focus();}});
   ["expBtn","impBtn","cloudBtn","notesBtn","covBtn","marketBtn"].forEach(function(k){var el=$(k);if(el)el.addEventListener("click",function(){var x=$("findBox");if(x)x.style.display="none";});});
