@@ -90,7 +90,31 @@ no migration code.
 - **Not yet audited:** conditions and equipment datasets share the daggerheartsrd.com lineage and have
   not had this treatment. Candidate follow-up field note.
 
-## 6. Also this session (separate commits)
+## 6. Multi-source verification pass (same day, Chance's ask)
+
+Chance asked that the audit be verified against multiple sources in case any single one carries a typo.
+Added a third independent machine-readable lineage —
+[daggersearch/daggerheart-data](https://github.com/daggersearch/daggerheart-data) `core/domain-cards.json`
+— and ran a **three-way comparison of all 189 cards** (metadata votes, mechanical-token multisets
+[dice/numbers/ranges/resources], and fuzzy full-text with word-level diffs):
+
+- **All 17 corrections from §2 independently confirmed** by daggersearch (including Enrapture recall 0).
+- **18th error found: Book of Vagras** — Reveal reads "If there is anything magically hidden within
+  Close range **the roll would succeed against**, it is revealed." Both our scrape *and* seansbox had
+  dropped the clause, so the two-way audit couldn't see it. daggersearch + daggerheart.su + Demiplane
+  (which cites Core p. 149) agree, 3 lineages to 2. Fixed in both JSONs, the CARDS embed (text +
+  mechanics note), and the xlsx twin; `refreshCardCopies()` delivers it to saved rosters. This is a
+  rules-meaningful change: Reveal is gated by the Spellcast Roll result, not an automatic
+  reveal-everything.
+- Residual three-way diffs after the fix are **formatting-only**: Forager (daggersearch renders the d6
+  table without numerals), Wild Fortress (spells out "major/severe damage threshold of 15/30" — same
+  numbers), Divination (curly vs straight quotes). No token or rules differences remain anywhere.
+- Full jsdom suite re-run: 12 files green.
+
+Method note now recorded in `SOURCES_precedence.md`: one comparison source isn't enough — the Vagras
+clause was dropped by two independent transcriptions and only surfaced with a third.
+
+## 7. Also this session (separate commits)
 
 - Field note **#16** logged (OPEN): Search Everything "+N more" should be expandable / show-all.
 - Retrieved the cloud sync code from Chrome's local storage for Chance (not stored in the repo).

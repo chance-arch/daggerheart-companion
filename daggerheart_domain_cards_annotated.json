@@ -39,7 +39,7 @@
       "updated": "2026-06-27",
       "newPrimitiveThisPass": "forceReaction — targets make a reaction roll vs a Difficulty, with onFail/onSuccess effect lists."
     },
-    "audit": "2026-07-19: full-text audit of all 189 cards vs official SRD 1.0 PDF conversion (seansbox/daggerheart-srd) with Demiplane/daggerheart.su tie-breaks; 17 cards corrected (daggerheartsrd.com transcription errors). See SESSION_REPORT_2026-07-19_card-audit.md."
+    "audit": "2026-07-19: full-text audit of all 189 cards, three independent lineages (seansbox/daggerheart-srd official-PDF conversion, daggersearch/daggerheart-data, our daggerheartsrd.com scrape) with Demiplane/daggerheart.su tie-breaks; 18 cards corrected. See SESSION_REPORT_2026-07-19_card-audit.md."
   },
   "cards": [
     {
@@ -3305,7 +3305,7 @@
       "level": 2,
       "type": "Grimoire",
       "recallCost": 2,
-      "text": "Runic Lock: Make a Spellcast Roll (15) on an object you're touching that can close (such as a lock, chest, or box). Once per rest on a success, you can lock the object so it can only be opened by creatures of your choice. Someone with access to magic and an hour of time to study the spell can break it.\n\nArcane Door: When you have no adversaries within Melee range, make a Spellcast Roll (13). On a success, spend a Hope to create a portal from where you are to a point within Far range you can see. It closes once a creature has passed through it.\n\nReveal: Make a Spellcast Roll. If there is anything magically hidden within Close range, it is revealed.",
+      "text": "Runic Lock: Make a Spellcast Roll (15) on an object you're touching that can close (such as a lock, chest, or box). Once per rest on a success, you can lock the object so it can only be opened by creatures of your choice. Someone with access to magic and an hour of time to study the spell can break it.\n\nArcane Door: When you have no adversaries within Melee range, make a Spellcast Roll (13). On a success, spend a Hope to create a portal from where you are to a point within Far range you can see. It closes once a creature has passed through it.\n\nReveal: Make a Spellcast Roll. If there is anything magically hidden within Close range the roll would succeed against, it is revealed.",
       "url": "https://daggerheartsrd.com/abilities/book-of-vagras/",
       "mechanics": {
         "abilities": [
@@ -3390,7 +3390,7 @@
               },
               {
                 "type": "note",
-                "text": "Make a Spellcast Roll; if there is anything magically hidden within Close range, it is revealed. (No listed Difficulty.)"
+                "text": "Make a Spellcast Roll; if there is anything magically hidden within Close range the roll would succeed against, it is revealed. (No listed Difficulty.)"
               }
             ]
           }

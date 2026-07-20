@@ -31,9 +31,10 @@ merged yet. When errata is incorporated later, it takes precedence and should be
 **Transcription caveat (2026-07-19).** daggerheartsrd.com is a *fan transcription* of the SRD, and it
 carries transcription errors — most damagingly, damage notation garbled from the book's `dX+Y` form into
 fixed `XdY` dice (e.g. Corrosive Projectile "6d4" for **d6+4**). Field note #17 ran a full-text audit of
-all 189 domain cards against an independent conversion of the official SRD PDF
-(seansbox/daggerheart-srd), tie-breaking via Demiplane (rank 7) and daggerheart.su; 17 cards were
-corrected (see `SESSION_REPORT_2026-07-19_card-audit.md`, and `meta.audit` in the card JSONs).
-Lesson: **verifying data against its own scrape source proves nothing** — audits must use an
-independent transcription lineage. The other daggerheartsrd.com-derived datasets (conditions,
-equipment) have NOT had this audit yet.
+all 189 domain cards against **three independent lineages** — seansbox/daggerheart-srd (official-PDF
+conversion), daggersearch/daggerheart-data, and our scrape — tie-breaking via Demiplane (rank 7) and
+daggerheart.su; **18 cards were corrected** (see `SESSION_REPORT_2026-07-19_card-audit.md`, and
+`meta.audit` in the card JSONs). Two lessons: **verifying data against its own scrape source proves
+nothing**, and **a single comparison source isn't enough either** — the 18th error (Book of Vagras)
+was dropped by *two* lineages and only caught by the third. The other daggerheartsrd.com-derived
+datasets (conditions, equipment) have NOT had this audit yet.
